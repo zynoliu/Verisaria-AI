@@ -10,7 +10,7 @@ See docs/design/protocol-design.md.
 """
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Callable
 
 from verisaria import protocol
 from verisaria.runtime.session import GameSession
@@ -50,6 +50,23 @@ class EngineSession:
         self._buffer.clear()
         return protocol.TickResult(events=events, snapshot=self.snapshot(), text=text)
 
+    def submit_streaming(
+        self,
+        command: protocol.Command,
+        on_event: Callable[[protocol.Event], None],
+    ) -> protocol.WorldSnapshot:
+        """Like ``submit`` but pushes each ``Event`` to ``on_event`` **live** as it
+        fires — a TUI runs this in a worker thread so a long LLM tick streams in
+        instead of freezing. Returns the final snapshot; the prior buffered sink is
+        restored afterward."""
+        prev = self._game._event_sink
+        self._game._event_sink = on_event
+        try:
+            self._dispatch(command)
+        finally:
+            self._game._event_sink = prev
+        return self.snapshot()
+
     def _dispatch(self, command: protocol.Command) -> str:
         g = self._game
         if isinstance(command, protocol.SubmitInput):
@@ -88,6 +105,7 @@ class EngineSession:
         if player is not None:
             player_view = protocol.PlayerView(
                 hp=getattr(player, "hp", 0),
+                max_hp=getattr(player, "max_hp", 0),
                 stamina=getattr(player, "stamina", 0),
                 traits=list(getattr(player, "traits", []) or []),
             )

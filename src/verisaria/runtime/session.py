@@ -1008,6 +1008,30 @@ class GameSession:
                 observer_id, self.player_id, result.deltas, tick
             )
             self._remember_appraisal_belief(observer_id, result.belief)
+            self._emit_relationship_shifts(observer_id, result.deltas, tick)
+
+    def _emit_relationship_shifts(
+        self, observer_id: str, deltas: dict, tick: int
+    ) -> None:
+        """Surface Channel-A consequences as structured events (so a frontend can
+        show 'X 怀疑 +0.2' inline). The descriptor carries the NPC's stance AFTER
+        the shift; only player-perceivable (it's how the NPC feels toward the player)."""
+        if self._event_sink is None or not deltas:
+            return
+        dims: dict = {}
+        for snap in self.relationship_store.relationships_toward(self.player_id):
+            if snap.npc_id == observer_id:
+                dims = snap.dimensions
+                break
+        name = observer_id.replace("npc.", "")
+        for dim, delta in deltas.items():
+            if not delta or abs(delta) < 0.01:
+                continue
+            self._emit(protocol.RelationshipShifted(
+                tick=tick, npc_id=observer_id, name=name,
+                descriptor=protocol.relationship_descriptor(dim, dims.get(dim, 0.0)),
+                delta=float(delta),
+            ))
 
     def _run_llm_jobs(self, jobs: list, fn) -> list:
         """Run independent LLM-bound jobs, concurrently for real network

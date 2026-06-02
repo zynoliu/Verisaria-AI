@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rpg-demo"
+name = "verisaria"
 version = "0.1.0"
-description = "LLM-driven RPG world runtime"
+description = "Verisaria — an LLM-driven RPG world engine"
 requires-python = ">=3.12"
 dependencies = [
     "pydantic>=2.0",
@@ -15,6 +15,13 @@ dependencies = [
 dev = [
     "pytest>=8.0",
 ]
+# The TUI frontend's own dependency; the engine itself stays zero-extra-dep.
+tui = [
+    "textual>=0.80",
+]
+
+[project.scripts]
+verisaria = "verisaria.frontends.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

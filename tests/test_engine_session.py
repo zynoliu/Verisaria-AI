@@ -63,3 +63,25 @@ def test_world_var_change_reflected_in_snapshot_and_events(tmp_path):
     snap = es.snapshot()
     wv = [w for w in snap.world_vars if w.var_id == "refugees_admitted"]
     assert wv and wv[0].value is True
+
+
+def test_submit_streaming_delivers_events_live(tmp_path):
+    """A TUI needs events AS THEY FIRE (not buffered to the end). submit_streaming
+    pushes each Event to on_event live and returns the final snapshot; the normal
+    buffered sink is restored afterward."""
+    es = _es(tmp_path)
+    es.game.intent_parser.parse = lambda raw_text, **kw: ParsedIntent(
+        intent_id="i", source="natural_language", raw_text=raw_text,
+        intent_type=ActionType.SPEECH, actor_id="player_001",
+        target_id="npc.captain_brann", content="你好，队长。", modifiers={},
+        commitment=CommitmentLevel.COMMITTED, confidence=0.9,
+        performed_content=raw_text, timestamp=0,
+    )
+    live: list = []
+    snap = es.submit_streaming(P.SubmitInput("对队长布兰说：你好。"), on_event=live.append)
+
+    assert any(isinstance(e, P.PlayerSpoke) for e in live)
+    assert any(isinstance(e, P.TickAdvanced) for e in live)
+    assert snap.tick > 0
+    # the live sink was temporary — engine restored to its prior sink afterward
+    assert es.game._event_sink is not live.append

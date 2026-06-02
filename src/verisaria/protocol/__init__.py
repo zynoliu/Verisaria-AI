@@ -199,7 +199,8 @@ class PressureEvent(Event):
 class RelationshipShifted(Event):   # Channel A
     npc_id: str
     name: str
-    descriptor: RelationshipDescriptor
+    descriptor: RelationshipDescriptor   # the NPC's stance AFTER the shift
+    delta: float = 0.0                   # the change this tick (the "consequence")
 
 
 @dataclass(frozen=True)
@@ -257,6 +258,7 @@ class LocationView:
 @dataclass(frozen=True)
 class PlayerView:
     hp: int = 0
+    max_hp: int = 0
     stamina: int = 0
     traits: list[str] = field(default_factory=list)
 

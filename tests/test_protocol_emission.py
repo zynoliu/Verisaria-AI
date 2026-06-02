@@ -70,3 +70,23 @@ def test_no_sink_is_a_noop(tmp_path):
     s = GameSession(PACK, save_dir=str(tmp_path))
     s.intent_parser.parse = _speech("npc.captain_brann", "嗨")
     assert isinstance(s.run_tick("对布兰说：嗨"), str)
+
+
+def test_relationship_shift_emits_event(tmp_path):
+    """Channel A consequence inline: when an appraisal's deltas are applied, the
+    engine emits RelationshipShifted (npc + dimension + delta + new descriptor)."""
+    from types import SimpleNamespace
+
+    s, events = GameSession(PACK, save_dir=str(tmp_path)), []
+    s._event_sink = events.append
+    # Bypass the LLM appraisal: feed an already-computed result straight to apply.
+    job = ("npc.captain_brann", "evt_1")
+    result = SimpleNamespace(deltas={"suspicion": 0.3}, belief="这外来者可疑")
+    s._apply_appraisal_results([job], [result], tick=2)
+
+    shifts = [e for e in events if isinstance(e, P.RelationshipShifted)]
+    assert shifts, "a relationship shift should surface as an event"
+    sh = shifts[0]
+    assert sh.npc_id == "npc.captain_brann" and sh.descriptor.dimension == "suspicion"
+    assert abs(sh.delta - 0.3) < 1e-9
+    assert sh.descriptor.band in ("slight", "moderate", "strong")  # carries new stance
