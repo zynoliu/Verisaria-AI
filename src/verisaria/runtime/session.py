@@ -438,6 +438,14 @@ class GameSession:
             events, self.world.state, self.player_id, viewer_location=viewer_location,
             skip_speech_actors=skip_speech,
         )
+        # For the structured Narration EVENT, strip ALL speech — granular Player/Npc
+        # Spoke events already carry the dialogue, so this leaves only movement /
+        # look / ambient prose (a TUI renders it without double-printing speech).
+        _speakers = {e.actor_id for e in events if e.event_type == EventType.SPEECH}
+        ambient_narration = self.response_generator.generate(
+            events, self.world.state, self.player_id, viewer_location=viewer_location,
+            skip_speech_actors=(_speakers or None),
+        )
 
         # Handle combat actions via Combat Engine
         if combat_actions:
@@ -494,8 +502,10 @@ class GameSession:
         if pressure_narrative:
             narrative += f"\n\n{pressure_narrative}"
 
-        if narrative and narrative.strip():
-            self._emit(protocol.Narration(tick=self.world.state.tick, text=narrative))
+        if (ambient_narration and ambient_narration.strip()
+                and ambient_narration not in ("什么也没发生。", "时间悄然流逝……")):
+            self._emit(protocol.Narration(
+                tick=self.world.state.tick, text=ambient_narration))
         return narrative
 
     def _handle_clarification_response(self, response: str) -> str:
@@ -815,8 +825,16 @@ class GameSession:
         if hint and not self._is_meta_hint(hint):
             narrative = f"{narrative}\n{hint}" if narrative else hint
 
+        # Structured event: the arbiter path's prose IS the only output (no granular
+        # speech event), so a TUI/Godot frontend needs it as a Narration event.
+        if narrative and narrative.strip():
+            self._emit(protocol.Narration(
+                tick=self.world.state.tick, text=narrative))
+
         # Advance tick (arbiter path bypasses the normal queue resolution)
         self.world.tick_advance()
+        self._emit(protocol.TickAdvanced(
+            tick=self.world.state.tick, new_tick=self.world.state.tick))
 
         return narrative
 
@@ -1190,6 +1208,10 @@ class GameSession:
             )
             self.world.event_log.append(event)
             pressure_events.append(event)
+            self._emit(protocol.PressureEvent(
+                tick=tick, event_type=seed["event_type"],
+                source=seed["driver_id"], summary=seed["event_type"],
+            ))
 
         # Feed pressure events through observation/subjectivity
         self._process_events_for_subjectivity(pressure_events)
@@ -1326,6 +1348,14 @@ class GameSession:
         target_authority = (entity.attributes or {}).get("authority")
         if not target_authority:
             return None
+        # A5 — you can only persuade the authority who is PRESENT. A plea to someone
+        # elsewhere doesn't reach them, so it doesn't route to world-change; it falls
+        # through to ordinary speech. (A remote shout the engine adjudicates as
+        # *heard* — via acoustic leak across connections, or a witness relaying a
+        # report — is the future extension; see docs/design/tui-design / TODO.)
+        player = self.world.state.get_entity(self.player_id)
+        if player is None or entity.location_id != player.location_id:
+            return None
         content = action.params.get("content") or ""
         # A *question/discussion* about the topic ("难民入营这事卡在哪儿？") is not a
         # command to change it — don't route it to the world-change adjudication.
@@ -1413,7 +1443,15 @@ class GameSession:
         granted = any(c.field == f"world.{var_id}" for c in outcome.accepted_state_changes)
         line = line or ("……好吧，就照你说的办。" if granted else "不行，恕难从命。")
 
+        # Surface the authority's reply as a structured event — a TUI/Godot frontend
+        # consumes events, not the returned string. (The CLI's live stream already
+        # showed it; this is purely additive and doesn't double-print there.)
+        self._emit(protocol.NpcSpoke(
+            tick=self.world.state.tick, npc_id=authority_npc, name=name, line=line))
+
         self.world.tick_advance()
+        self._emit(protocol.TickAdvanced(
+            tick=self.world.state.tick, new_tick=self.world.state.tick))
         # If streamed live, the line was already shown — don't repeat it.
         if self._streamed_npc == authority_npc:
             return ""

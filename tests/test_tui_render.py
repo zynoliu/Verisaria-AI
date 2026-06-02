@@ -26,6 +26,11 @@ def test_control_events_not_logged():
     assert R.render_event(P.SpeechToken(tick=9, npc_id="x", token="a")) is None
 
 
+def test_narration_rendered_as_prose():
+    out = R.render_event(P.Narration(tick=9, text="你环顾四周。"))
+    assert out is not None and "你环顾四周。" in out and "italic" in out
+
+
 def test_markup_in_content_is_escaped():
     out = R.render_event(P.NpcSpoke(tick=1, npc_id="n", name="n", line="危险[red]注入[/]"))
     assert "\\[red]" in out  # the content's bracket is escaped, not interpreted

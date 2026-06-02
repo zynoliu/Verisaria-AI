@@ -36,7 +36,11 @@ def test_speech_tick_emits_player_spoke_and_tick_advanced(tmp_path):
     assert isinstance(out, str)  # legacy return preserved
     assert any(isinstance(e, P.PlayerSpoke) and e.line == "你好，队长。" for e in events)
     assert any(isinstance(e, P.TickAdvanced) for e in events)
-    assert any(isinstance(e, P.Narration) for e in events)
+    # The dialogue rides PlayerSpoke/NpcSpoke; any Narration event is speech-stripped
+    # (movement/look/ambient only) so it never double-prints the spoken lines.
+    for e in events:
+        if isinstance(e, P.Narration):
+            assert "你好，队长。" not in e.text
 
 
 def test_movement_tick_emits_player_moved(tmp_path):
@@ -90,3 +94,33 @@ def test_relationship_shift_emits_event(tmp_path):
     assert sh.npc_id == "npc.captain_brann" and sh.descriptor.dimension == "suspicion"
     assert abs(sh.delta - 0.3) < 1e-9
     assert sh.descriptor.band in ("slight", "moderate", "strong")  # carries new stance
+
+
+def test_world_change_request_emits_authority_reply(tmp_path):
+    """The Channel-C path (persuade the authority) bypasses _dispatch_player_action,
+    so it must emit its own events — else a TUI shows nothing when you plead to the
+    captain. Assert the authority's reply (NpcSpoke) + the flip + tick all surface."""
+    s = GameSession(PACK, save_dir=str(tmp_path))
+    events: list = []
+    s._event_sink = events.append
+    s.intent_parser.parse = lambda raw_text, **kw: ParsedIntent(
+        intent_id="i", source="natural_language", raw_text=raw_text,
+        intent_type=ActionType.SPEECH, actor_id="player_001",
+        target_id="npc.captain_brann", content="开城门，放难民进来。", modifiers={},
+        commitment=CommitmentLevel.COMMITTED, confidence=0.9,
+        performed_content=raw_text, timestamp=0,
+    )
+    s.llm_provider.register_fixture(
+        task_type="arbiter_decide", prompt="__arb__",
+        expected_output={
+            "arbiter_id": "a", "source_action_id": "x", "outcome": "success",
+            "reason": "队长同意", "evidence_refs": [],
+            "state_changes_proposed": [{"field": "world.refugees_admitted", "delta": True, "reason": "ok"}],
+            "confidence": 0.9, "narration_hint": "",
+        },
+    )
+    s.run_tick("队长，开城门放难民进来。")
+
+    assert any(isinstance(e, P.NpcSpoke) and e.npc_id == "npc.captain_brann" for e in events)
+    assert any(isinstance(e, P.WorldVarChanged) for e in events)   # granted → flipped
+    assert any(isinstance(e, P.TickAdvanced) for e in events)

@@ -34,6 +34,8 @@ def render_event(ev: P.Event) -> str | None:
     if isinstance(ev, P.NpcSpoke):
         return f"{tick}[{PARCHMENT}]{_esc(ev.name)}：{_esc(ev.line)}[/]"
     if isinstance(ev, P.Narration):
+        # Movement / look / ambient prose (the engine strips speech from this event,
+        # since granular Player/Npc Spoke events already carry the dialogue).
         return f"{tick}[{PARCHMENT} italic]{_esc(ev.text)}[/]"
     if isinstance(ev, P.PlayerMoved):
         return f"{tick}[dim]你 → {_esc(ev.to_loc)}[/]"

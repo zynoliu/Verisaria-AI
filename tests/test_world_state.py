@@ -270,3 +270,16 @@ def test_arbiter_proposed_world_change_is_applied(tmp_path):
     assert s.get_world_var(VAR) is False
     s._handle_arbiter_action(_decree_action())
     assert s.get_world_var(VAR) is True
+
+
+def test_world_change_requires_authority_co_located(tmp_path):
+    """Decision A: persuading the authority requires being WITH them. From another
+    location the plea is just speech into the air — even a would-comply arbiter must
+    NOT flip the world, because the request never routed to the C-loop."""
+    s = GameSession(PACK, save_dir=str(tmp_path))
+    s.world.state.get_entity("player_001").location_id = "refugee_camp"  # brann @ gatehouse
+    s.intent_parser.parse = lambda raw_text, **kw: _speech_to("npc.captain_brann", raw_text)
+    _register_arbiter(s, comply=True)  # would flip IF it routed
+    assert s.get_world_var(VAR) is False
+    s.run_tick("队长，开城门放难民进来。")
+    assert s.get_world_var(VAR) is False  # not present → not routed → not flipped
