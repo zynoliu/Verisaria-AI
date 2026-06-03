@@ -130,3 +130,29 @@ suspicion 0.2，…）。约 25 行，独立提交。
 (a) 跑通后，用 `tidebreak` / `skyglass` 真机各跑一轮：先前 FAIL 的旗标能否经"多轮累积 →
 条件满足 → success"翻转，且过程读起来像谈判、不像填表。若仲裁出现"忘了先前事实/每次重新
 审判"的随意感，说明检索或 prompt 约束不到位——那是本方案真正的风险点，优先调它。
+
+### 第一轮真机验证结果（2026-06-03，skyglass）
+
+报告：`reports/skyglass_ledger_manual_playtest/`。**命门半过**：
+
+- ✅ **一致性这关过了**（最担心的风险点）。arbiter 不是"忘了重判"，而是"记得 + 一致地
+  拒绝"——日志可见它把先前 ledger 事实带进后续裁定、据此判断条件未满足。不是随机。
+- ⚠️ **没跑出完整 `partial_success → 满足条件 → success` 闭环**（RESULT=INCOMPLETE_OR_FAIL）。
+  根因不是 ledger 丢失，而是 **fulfillment 没有底真**：玩家说"我已拿到联签"，arbiter 只当
+  口头声称、不翻旗。这正是 (a)-only 的预期上限。
+
+**重新定位（关键）**：arbiter 本就看得见每个 world var 的当前值，所以"有底真的 fulfillment"
+= 那个中间步骤本身是一个真翻了的 world var。**缺的那半主要是内容**：把调查链的中间前置
+（取得联签、拿到证据…）声明成 world var，fulfillment 即有旗标背书；账本继续管软让步。
+这**不越红线**——不是作者写 success_conditions / 分支图，只是多声明几个旗标，依赖关系由
+LLM 从虚构 + 账本 + 可见旗标值自己推。
+
+**本轮已修的引擎侧**（commit 7d0c43e）：
+- 非流式 world-change 回复现在会 voice arbiter directive（之前泛化成"查档/编号"）。
+- arbiter prompt 增加跨变量引用 + "已满足的前置（旗标已为真 / 另一变量下已记录的让步）即视为
+  条件满足，别因'只是口头'而忽略已被结构化记录的既成事实"；要求 established_fact 写成可闭环条件。
+
+**待办**：
+- 内容侧：给 skyglass/tidebreak 的调查链补中间前置 world var，再让测试 Agent 重跑验证闭环。
+- CLI parser 在真机下返回"我没理解"（挡住所有自然语言游玩）——已加 `verisaria.intent` 诊断日志
+  （commit 78dbec5），下一轮 `--log` 跑能看到真实失败原因（budget/connection/json/schema），据此定位。
