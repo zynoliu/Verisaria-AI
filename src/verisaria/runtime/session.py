@@ -7,6 +7,7 @@ that any frontend — the CLI REPL, a TUI, a future Godot client — drives.
 from __future__ import annotations
 
 import json
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -64,6 +65,13 @@ class ClarificationContext:
 # ---------------------------------------------------------------------------
 # Game Session
 # ---------------------------------------------------------------------------
+
+# Channel-C observability: traces every world-change adjudication (arbiter verdict,
+# any established fact remembered, whether the terminal flag flipped). Silent unless
+# a handler is attached (CLI/TUI --log); never a player-facing event, so the ledger
+# stays invisible plumbing. See docs/design/emergent-fact-ledger.md.
+_clog = logging.getLogger("verisaria.channel_c")
+
 
 class GameSession:
     """Orchestrate all engine modules into a single playable session."""
@@ -1486,6 +1494,7 @@ class GameSession:
         compliance the world fact flips. The NPC's reply is then *voiced in
         character* (the arbiter's reasoning is never shown to the player)."""
         self._streamed_npc = None
+        flag_before = self.world.state.world_vars.get(var_id)
         self.world.mutable_world_vars = self._world_vars_for_arbiter()
         outcome = self.arbiter.arbitrate(action, self.world)
 
@@ -1522,6 +1531,24 @@ class GameSession:
                 )
 
         self._apply_state_changes(outcome)
+
+        flag_after = self.world.state.world_vars.get(var_id)
+        if _clog.isEnabledFor(logging.INFO):
+            verdict = outcome.arbiter_output.outcome
+            fact = (outcome.arbiter_output.established_fact or "").strip()
+            ledger_now = [f.text for f in self.fact_ledger.relevant(var_id)]
+            _clog.info(
+                "[t%s] world-change %s by %s → %s | flag %s→%s%s | reason=%r | ledger(%s)=%s",
+                self.world.state.tick, var_id, authority_npc, verdict,
+                flag_before, flag_after,
+                ("" if flag_before == flag_after else "  ⟳FLIP"),
+                (outcome.arbiter_output.reason or "")[:80],
+                var_id,
+                ledger_now,
+            )
+            if verdict == "partial_success":
+                _clog.info("[t%s]   established_fact=%r", self.world.state.tick,
+                           fact or "(none — arbiter stated no condition)")
 
         name = self.world.state.display_name(authority_npc)
         request = action.params.get("content") or action.raw_text or ""

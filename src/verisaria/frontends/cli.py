@@ -9,11 +9,24 @@ Commands:
 from __future__ import annotations
 
 import argparse
+import logging
 import sys
 
 from verisaria.runtime.session import GameSession
 from verisaria.engine.persistence import PersistenceLayer
 from verisaria.engine.campaign_loader import CampaignLoader
+
+
+def _configure_log(path: str) -> None:
+    """Trace engine internals (notably Channel-C world-change adjudications: arbiter
+    verdict, any established fact, flag flips) to ``path``. Off unless --log is given.
+    Mirrors the TUI's run log; attaches to the shared 'verisaria' logger."""
+    handler = logging.FileHandler(path, mode="w", encoding="utf-8")
+    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+    logger = logging.getLogger("verisaria")
+    logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
+    logger.info("=== Verisaria CLI run log ===")
 
 
 # ---------------------------------------------------------------------------
@@ -22,6 +35,8 @@ from verisaria.engine.campaign_loader import CampaignLoader
 
 def cmd_run(args: argparse.Namespace) -> int:
     """Start a new game session."""
+    if getattr(args, "log", None):
+        _configure_log(args.log)
     session = GameSession(args.content_pack, save_dir=args.save_dir, llm_backend=args.llm)
     session.repl()
     return 0
@@ -29,6 +44,8 @@ def cmd_run(args: argparse.Namespace) -> int:
 
 def cmd_load(args: argparse.Namespace) -> int:
     """Load a saved game."""
+    if getattr(args, "log", None):
+        _configure_log(args.log)
     # We need a content pack to bootstrap; try to infer from save
     persistence = PersistenceLayer(args.save_dir)
     save_data = persistence.load(args.save_id)
@@ -103,6 +120,8 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("content_pack", help="Path to content pack JSON or directory")
     run_parser.add_argument("--save-dir", default="saves", help="Save directory")
     run_parser.add_argument("--llm", default="fake", choices=["fake", "ollama", "openai", "minimax"], help="LLM backend")
+    run_parser.add_argument("--log", nargs="?", const="verisaria-cli.log", default=None,
+                            metavar="FILE", help="Write an engine run log (default: verisaria-cli.log)")
 
     # load
     load_parser = subparsers.add_parser("load", help="Load a saved game")
@@ -110,6 +129,8 @@ def build_parser() -> argparse.ArgumentParser:
     load_parser.add_argument("--content-pack", help="Content pack path (optional)")
     load_parser.add_argument("--save-dir", default="saves", help="Save directory")
     load_parser.add_argument("--llm", default="fake", choices=["fake", "ollama", "openai", "minimax"], help="LLM backend")
+    load_parser.add_argument("--log", nargs="?", const="verisaria-cli.log", default=None,
+                             metavar="FILE", help="Write an engine run log (default: verisaria-cli.log)")
 
     # validate
     validate_parser = subparsers.add_parser("validate", help="Validate a content pack")
