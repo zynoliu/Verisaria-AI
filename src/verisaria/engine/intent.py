@@ -341,6 +341,16 @@ class IntentParser:
         if not skip_ambiguity_check:
             intent = self._auto_resolve_single_candidate(intent, world, active_conversation)
 
+        # A clearly-named third party mentioned inside speech ("当着梅档案官的面…") is
+        # NOT ambiguous — once the addressee is resolved, drop ambiguities that
+        # uniquely name a known entity so they don't hijack the turn (the escort
+        # friction). Pronouns/deictics stay ambiguous.
+        if intent.ambiguities and intent.target_id and world is not None:
+            intent.ambiguities = [
+                a for a in intent.ambiguities
+                if not self._uniquely_names_entity(a, world)
+            ]
+
         # Check for ambiguities in the parsed intent
         if intent.ambiguities and not skip_ambiguity_check:
             return self._build_clarification(request_id, raw_text, intent, world, active_conversation)
@@ -357,6 +367,21 @@ class IntentParser:
             )
 
         return intent
+
+    @staticmethod
+    def _uniquely_names_entity(ref: str, world: WorldState) -> bool:
+        """Whether ``ref`` clearly names exactly one known entity (a proper name like
+        '梅档案官'), as opposed to a pronoun/deictic (他/她/你/这/那), which stays
+        genuinely ambiguous."""
+        r = (ref or "").strip()
+        if not r or any(p in r for p in ("他", "她", "它", "你", "我", "这", "那", "TA")):
+            return False
+        matches = {
+            eid for eid, e in world.entities.items()
+            if (getattr(e, "name", "") or "") and
+            ((e.name == r) or (r in e.name) or (e.name in r))
+        }
+        return len(matches) == 1
 
     @staticmethod
     def _resolve_target_ref(

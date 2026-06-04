@@ -49,3 +49,20 @@ def test_orchestrator_retries_parse_failures():
     orch = LLMOrchestrator(primary_provider=prov)
     result = orch.call(LLMCallRequest(task_type="parse_player_intent", prompt="x"))
     assert result.success and prov.calls == 2   # retried once, then succeeded
+
+
+def test_named_third_party_not_flagged_ambiguous():
+    """A clearly-named third party inside speech ('当着哨兵伏斯的面') must not steal the
+    turn from the addressed NPC; a pronoun stays ambiguous."""
+    from verisaria.engine.intent import IntentParser
+    from verisaria.engine.llm import LLMOrchestrator, FakeLLMProvider
+    from verisaria.runtime.session import GameSession
+
+    g = GameSession("fixtures/content_packs/frostgate_watchpost.json",
+                    save_dir="/tmp/vx_intent", llm_backend="fake")
+    parser = IntentParser(llm_orchestrator=LLMOrchestrator(primary_provider=FakeLLMProvider()))
+    w = g.world.state
+    assert parser._uniquely_names_entity("哨兵伏斯", w) is True    # names sentry_voss
+    assert parser._uniquely_names_entity("队长布兰", w) is True    # names captain_brann
+    assert parser._uniquely_names_entity("他", w) is False        # pronoun stays ambiguous
+    assert parser._uniquely_names_entity("某个谁", w) is False     # names nobody

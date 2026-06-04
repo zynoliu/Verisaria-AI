@@ -1618,14 +1618,32 @@ class GameSession:
         "一同去", "同我去",
     )
 
+    @staticmethod
+    def _longest_overlap(name: str, content: str) -> int:
+        """Length of the longest contiguous chunk of ``name`` that appears in
+        ``content`` — so an abbreviation ('档案署') matches a full name ('低温档案署')."""
+        best = 0
+        for i in range(len(name)):
+            for j in range(i + best + 1, len(name) + 1):
+                if name[i:j] in content:
+                    best = j - i
+                else:
+                    break
+        return best
+
     def _resolve_destination_in_text(self, content: str) -> str | None:
-        """A location whose display name (or id) appears verbatim in the content.
-        (Fuzzy/partial matching is a slice-2 refinement.)"""
+        """The location a request names — tolerant of abbreviations. An exact id
+        mention wins; otherwise the location whose name shares the longest chunk
+        (≥2 chars) with the content."""
+        best_loc, best_len = None, 0
         for loc_id, loc in self.world.state.locations.items():
-            name = getattr(loc, "name", "") or ""
-            if (name and name in content) or loc_id in content:
+            if loc_id in content:
                 return loc_id
-        return None
+            name = getattr(loc, "name", "") or ""
+            overlap = self._longest_overlap(name, content) if name else 0
+            if overlap > best_len:
+                best_len, best_loc = overlap, loc_id
+        return best_loc if best_len >= 2 else None
 
     def _escort_request(self, action) -> tuple[str, str] | None:
         """If this is a SPEECH to a PRESENT NPC asking them to come along to a named

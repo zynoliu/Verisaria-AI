@@ -62,6 +62,17 @@ def test_escort_refusal_moves_no_one(tmp_path):
     assert g.world.state.get_entity(g.player_id).location_id == before
 
 
+def test_escort_destination_matches_abbreviation(tmp_path):
+    """Slice 2: an abbreviated destination resolves (the report's '档案署' vs
+    '低温档案署'). Frostgate has no abbreviations, so simulate one."""
+    g = _session(tmp_path)
+    g.world.state.locations["archive_stack"] = type(
+        g.world.state.locations["barracks"])(location_id="archive_stack", name="低温档案署")
+    assert g._resolve_destination_in_text("跟我去档案署作证") == "archive_stack"
+    assert g._resolve_destination_in_text("跟我去兵营") == "barracks"      # full name still works
+    assert g._resolve_destination_in_text("我们随便走走") is None          # no location named
+
+
 def test_escort_routes_through_run_tick(tmp_path):
     from verisaria.engine.schemas import ParsedIntent, CommitmentLevel
     g = _session(tmp_path)
