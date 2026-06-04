@@ -247,17 +247,21 @@ class CoherenceChecker:
             )
             return issues
 
-        # Must be reachable via connections (skip if no connections defined)
+        # Must be reachable via the connection graph — TRANSITIVELY, not just a direct
+        # neighbour. The player says "go to X"; if a path exists we let them, instead
+        # of forcing a manual hop-by-hop slog (the playtest pain). Travel-time / en-route
+        # events over multiple ticks is a future refinement.
         current_loc = world.locations.get(actor.location_id)
         if current_loc is not None and current_loc.connections:
-            reachable = {c.to_location for c in current_loc.connections}
-            if resolved_id not in reachable and resolved_id != actor.location_id:
+            if resolved_id != actor.location_id and not self._reachable(
+                world, actor.location_id, resolved_id
+            ):
                 issues.append(
                     CoherenceIssue(
                         issue_type="movement_unreachable",
                         severity="error",
                         message=(
-                            f"Location '{to_location}' is not directly connected "
+                            f"Location '{to_location}' is not reachable "
                             f"from '{actor.location_id}'"
                         ),
                         field="target_id",
@@ -265,6 +269,22 @@ class CoherenceChecker:
                 )
 
         return issues
+
+    @staticmethod
+    def _reachable(world: WorldState, start: str, goal: str) -> bool:
+        """Whether ``goal`` is reachable from ``start`` over location connections (BFS)."""
+        seen = {start}
+        frontier = [start]
+        while frontier:
+            loc = world.locations.get(frontier.pop())
+            for c in (loc.connections if loc else []) or []:
+                nxt = c.to_location
+                if nxt == goal:
+                    return True
+                if nxt not in seen:
+                    seen.add(nxt)
+                    frontier.append(nxt)
+        return False
 
     # -- Combat checks --
 

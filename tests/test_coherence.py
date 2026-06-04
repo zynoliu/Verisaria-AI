@@ -184,6 +184,25 @@ class TestMovementChecks:
         errors = [i for i in issues if i.severity == "error"]
         assert any(i.issue_type == "movement_unreachable" for i in errors)
 
+    def test_multi_hop_movement_is_allowed(self):
+        """A destination two hops away (a→b→c) is reachable now — no manual slog."""
+        ws = WorldState()
+        ws.entities["player_001"] = EntityState(
+            entity_id="player_001", entity_type="player", location_id="a", hp=100)
+        ws.locations["a"] = LocationState(
+            location_id="a", connections=[Connection(to_location="b", distance="adjacent")])
+        ws.locations["b"] = LocationState(
+            location_id="b", connections=[Connection(to_location="c", distance="adjacent")])
+        ws.locations["c"] = LocationState(location_id="c")
+        ws.locations["d"] = LocationState(location_id="d")  # disconnected island
+        checker = CoherenceChecker()
+
+        issues = checker.check(make_intent(target_id="c", intent_type="movement"), ws)
+        assert not any(i.issue_type == "movement_unreachable" for i in issues)  # 2-hop ok
+
+        issues = checker.check(make_intent(target_id="d", intent_type="movement"), ws)
+        assert any(i.issue_type == "movement_unreachable" for i in issues)      # island rejected
+
     def test_unknown_location(self, checker: CoherenceChecker, world: WorldState):
         intent = make_intent(target_id="loc_void", intent_type="movement")
         issues = checker.check(intent, world)
