@@ -76,6 +76,10 @@ class WorldState:
     # VARIABLE rate per tick (keyed off the pacing verdict), not tick×constant —
     # see engine/worldclock.py. Default 08:00; a pack's opening_time overrides.
     clock_minutes: int = 8 * 60
+    # Current weather condition + the hour-bucket it was last advanced to (so a
+    # quiet skip catches the sky up over the elapsed hours). See engine/weather.py.
+    weather: str = ""
+    weather_hour: int = 0
     entities: dict[str, EntityState] = field(default_factory=dict)
     locations: dict[str, LocationState] = field(default_factory=dict)
     # Pack-declared mutable world facts the player's choices can change (PLAY-3

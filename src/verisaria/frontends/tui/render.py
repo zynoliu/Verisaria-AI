@@ -270,8 +270,9 @@ def render_status(snapshot: P.WorldSnapshot) -> str:
     tod = snapshot.time_of_day or ""
     clock = f"[dim]{_esc(snapshot.clock)}[/]" if snapshot.clock else ""
     when = f"{_esc(tod)} {clock}".strip() if tod else "[dim]·时段*[/]"
+    sky = _esc(snapshot.weather) if snapshot.weather else "[dim]·天气*[/]"
     return (
         f"[{RED}]♥[/] HP {hp}   ⚡ 体力 {stamina}   "
         f"Tick {snapshot.tick}   位置 {snapshot.location.name or snapshot.location.id}   "
-        f"节奏 {snapshot.pacing}   {when}   [dim]·天气*[/]"
+        f"节奏 {snapshot.pacing}   {when}   {sky}"
     )

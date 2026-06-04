@@ -301,6 +301,10 @@ class WorldPremise(BaseModel):
     # named phase ("黄昏"/"清晨"/…). Parsed by engine/worldclock.parse_opening_time;
     # absent → the default 08:00. See docs/design/worldclock-and-weather.md.
     opening_time: str | None = None
+    # Optional climate (温带/寒带/热带/干旱/海洋) gating which weather a pack can show,
+    # and an optional opening condition. Absent → temperate / a calm opening.
+    climate: str | None = None
+    opening_weather: str | None = None
 
 
 class AccessScope(BaseModel):

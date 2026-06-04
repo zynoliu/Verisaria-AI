@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
+import random
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -48,6 +49,7 @@ from verisaria.engine.formatter import OutputFormatter
 from verisaria.engine.pack_editor import PackEditor
 from verisaria.engine.world import WorldCore
 from verisaria.engine import worldclock
+from verisaria.engine import weather as weather_mod
 from verisaria import protocol
 
 
@@ -99,6 +101,15 @@ class GameSession:
         opening = getattr(premise, "opening_time", None) if premise else None
         if opening is not None:
             self.world_state.clock_minutes = worldclock.parse_opening_time(opening)
+
+        # Opening weather: climate-gated (engine/weather.py); a loaded save restores
+        # its own sky. Seed the hour-bucket from the opening clock so the first
+        # advance doesn't replay the whole day.
+        self._climate = getattr(premise, "climate", None) if premise else None
+        if not self.world_state.weather:
+            self.world_state.weather = weather_mod.initial_weather(
+                self._climate, getattr(premise, "opening_weather", None) if premise else None)
+            self.world_state.weather_hour = self.world_state.clock_minutes // 60
 
         # Core world
         self.world = WorldCore(initial_state=self.world_state)
@@ -1322,10 +1333,34 @@ class GameSession:
         minutes = worldclock.minutes_for_step(speed)
         for _ in range(steps):
             self.world.tick_advance(minutes)
+        self._advance_weather()
         # Keep the scheduler's own counter mirrored to world time (it stays the
         # source of truth for arbiter/combat single-step paths too).
         self.tick_scheduler.tick = self.world.state.tick
         return steps
+
+    # How many hourly weather steps to actually simulate on one advance — a long
+    # skip still lands on a believable sky without looping over days of history.
+    _MAX_WEATHER_STEPS = 24
+
+    def _advance_weather(self) -> None:
+        """Catch the sky up to the current world hour: one climate-gated random-walk
+        step per elapsed hour, each seeded deterministically (pack id + hour) so a
+        save replays identically. Emits a WorldVarChanged-free, ambient change —
+        the status bar reads it from the snapshot."""
+        state = self.world.state
+        target_hour = state.clock_minutes // 60
+        gap = target_hour - state.weather_hour
+        if gap <= 0:
+            return
+        base = weather_mod.stable_seed(getattr(self.pack, "content_pack_id", "") or "")
+        start_hour = max(state.weather_hour, target_hour - self._MAX_WEATHER_STEPS)
+        cond = state.weather or weather_mod.initial_weather(self._climate, None)
+        for hour in range(start_hour, target_hour):
+            cond = weather_mod.step_weather(
+                cond, self._climate, random.Random(base + hour))
+        state.weather = cond
+        state.weather_hour = target_hour
 
     def _check_campaign_drivers(self) -> str | None:
         """Check campaign drivers and generate pressure events if triggered.

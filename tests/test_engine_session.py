@@ -135,6 +135,7 @@ def test_snapshot_surfaces_world_clock(tmp_path):
     snap = _es(tmp_path).snapshot()
     assert snap.clock == "第1天 08:00"
     assert "晨" in snap.time_of_day
+    assert snap.weather and any(ord(ch) > 0x2600 for ch in snap.weather)  # a sky with a glyph
 
 
 def test_snapshot_surfaces_dynamic_var_and_pending_process(tmp_path):

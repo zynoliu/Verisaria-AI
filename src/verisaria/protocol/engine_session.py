@@ -14,6 +14,7 @@ from typing import Any, Callable
 
 from verisaria import protocol
 from verisaria.engine import worldclock
+from verisaria.engine import weather as weather_mod
 from verisaria.runtime.session import GameSession
 
 
@@ -249,4 +250,5 @@ class EngineSession:
             central_tension=central_tension,
             time_of_day=worldclock.time_of_day(clock_minutes).label,
             clock=worldclock.clock_label(clock_minutes),
+            weather=weather_mod.weather_label(state.weather) if getattr(state, "weather", "") else "",
         )

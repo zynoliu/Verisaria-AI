@@ -25,6 +25,8 @@ def _world_state_to_dict(state: WorldState) -> dict[str, Any]:
     return {
         "tick": state.tick,
         "clock_minutes": state.clock_minutes,
+        "weather": state.weather,
+        "weather_hour": state.weather_hour,
         "entities": {
             eid: dataclasses.asdict(ent)
             for eid, ent in state.entities.items()
@@ -50,6 +52,8 @@ def _world_state_to_dict(state: WorldState) -> dict[str, Any]:
 def _world_state_from_dict(data: dict[str, Any]) -> WorldState:
     state = WorldState(tick=data.get("tick", 0))
     state.clock_minutes = data.get("clock_minutes", 8 * 60)
+    state.weather = data.get("weather", "")
+    state.weather_hour = data.get("weather_hour", 0)
     state.world_vars = dict(data.get("world_vars", {}))
     for eid, edata in data.get("entities", {}).items():
         state.entities[eid] = EntityState(**edata)
