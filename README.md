@@ -54,15 +54,17 @@ verisaria run fixtures/content_packs/frostgate_watchpost.json --llm minimax
 pytest -q                 # 全套（fake 后端，确定性）
 ```
 
-## 现状（v0.3.0）
+## 现状（v0.4.0）
 
-- **动态世界模型**（[设计](docs/design/dynamic-world-model.md)）：GM 把涌现的软条件提升为有底真的
-  世界变量（P1），并能启动随时间成熟的线下流程（P2b）——大型调查/谈判长链能**涌现地闭环**，
-  零作者剧情图。六轮真机验证通过（`PASS_P1_P2B_PROCESS_CLOSURE`），全程反作弊成立。
+- **动态世界模型**（[设计](docs/design/dynamic-world-model.md)）：GM 把涌现的软条件提升为有底真的世界
+  变量（P1）、启动随时间成熟的线下流程（P2b）、按意愿把现有 NPC 带到场（P2c 护送），大型调查/谈判长链
+  能**涌现地端到端闭环**，零作者剧情图。真机实锤完整链路 `护送 ⟳MOVED → 证人作证 ⟳FLIP → 终态 ⟳FLIP`。
+  收敛靠 (a) 前置见底 +(b) 铺垫充分即放行 +(c) 权威不出尔反尔（honor 自己立场里已满足的放行条件）；
+  请求按模糊关键词路由进仲裁；全程反作弊成立（创建≠满足，吹牛不翻旗）。
 - **涌现事实账本**（Channel C）：`partial_success` 让步持久化、后续仲裁复用；终态旗标只在 success 翻。
 - **TUI v3**：地图 + 处境/焦点面板（含「你对该 NPC 的了解」与 Ctrl+G DEBUG 上帝视角）、打字机流式、
   附近 NPC/关系、世界状态、响应式折叠、Footer/Ctrl+Q。
 - 现阶段中文优先（单语）；双语为远期里程碑。
-- 已知后续：自然移动/多跳寻路、P2c 现场/召集动作。
+- 已知（接受为涌现难度，决策 A）：作者写出的循环前置（A 需 B、B 需 A）引擎不破环——玩家改走能通的路。
 
 更多设计见 [docs/design/](docs/design/)。

@@ -130,6 +130,24 @@ skyglass 全员"离岗即受损"（内容层），缺一个低阻力可护送对
 - **(b) 充分性**：已确立事实 + 已为真前置覆盖了请求**实质**、只剩程序手续时 → 判 success，不再派生新前置。
 反作弊不变（success 仍需真实裁定，吹牛照样失败）。命门=真机重跑看长链能否收敛闭环。
 
-**待办（②，仍开）**：证人亲述路由缺口——`set_by=某NPC` 的前置，玩家引导该 NPC 当面陈述应裁成那条 var 的
-world-change，现在只当说服对白；(a)+(b) 改后先看真机是否仍复现。
-③（schema 降级 + 误导日志）已修（v0.3.2）。
+- **(c) 不出尔反尔（v0.4.0）**：把 pack 的 world_book 注入仲裁、按目标过滤，world-change prompt 渲染
+  **「目标的人设与立场」**（权威 traits + 他自己 world_book 里的放行条件）；规则 (c)=权威自己立场已明示
+  放行条件、且条件已满足（前置 var 已 True）时**必须 success**，不许再加他立场里没有的新前置。这修掉了
+  终态被"派生第三方背书/上级备案"无限拖住的最后一公里。
+反作弊不变（success 仍需真实裁定，吹牛照样失败）。
+
+**②证人路由**：已修——前置 `set_by` 写成证人本人（prompt nudge）+ 模糊关键词路由 + pack 预声明证人 var
+（如 `anya_testimony_given`），证人当面作证现在真翻其 var、进 ledger。
+**③**（schema 降级 + 误导日志）已修（v0.3.2）。
+
+## 9. 盖章：长链端到端闭环（`v0.4.0`，2026-06-04 真机实锤）
+
+`escort_proving_ground` 干净夹具真机跑通完整链路（`reports/prereq_convergence_test_fourth_run/`）：
+```
+escort npc.miller_anya → gatehouse : success ⟳MOVED
+→ anya_testimony_given by npc.miller_anya → success ⟳FLIP   （②证人作证翻 var）
+→ sluice_opened by npc.warden_kang → success ⟳FLIP          （终态：闸官 honor 自己"亲历者作证就开闸"的立场，(c) 生效）
+```
+终态链**派生 0 个动态前置**（不再套娃/漂移）；voiced 台词与 verdict 一致；反作弊 PASS（伪造作证不翻，
+(c) 只在 var 真为 True 时放行）；0 FALLBACK、0 tick 超时。**动态世界模型 + 路由 + (a)(b)(c) 这条线彻底
+盖章。** skyglass 的 mae↔oro 循环死锁是另一类（决策 A，接受为涌现难度，不在此线）。
