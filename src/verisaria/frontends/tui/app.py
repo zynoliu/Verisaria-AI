@@ -57,7 +57,12 @@ class VerisariaApp(App):
         Binding("ctrl+q", "quit", "退出"),
         Binding("ctrl+c", "quit", "退出", show=False),
         Binding("ctrl+g", "toggle_god", "上帝视角"),
+        Binding("ctrl+f", "cycle_filter", "过滤"),
+        Binding("pageup", "log_page_up", "上翻", show=False),
+        Binding("pagedown", "log_page_down", "下翻", show=False),
     ]
+
+    _HISTORY_CAP = 3000  # logged lines retained for re-rendering on filter change
 
     def __init__(self, engine: EngineSession) -> None:
         super().__init__()
@@ -70,6 +75,8 @@ class VerisariaApp(App):
         self._last_snap: P.WorldSnapshot | None = None
         self._npc_lines: dict[str, list[str]] = {}  # witnessed lines per NPC (A5)
         self._last_npc_spoke: str | None = None     # who you're focused on
+        self._history: list[tuple[str, str]] = []   # (category, markup) for re-render
+        self._filter_idx = 0                        # index into R.FILTER_MODES
 
     def compose(self) -> ComposeResult:
         yield Static(id="status")
@@ -121,7 +128,7 @@ class VerisariaApp(App):
         inp = self.query_one("#input", Input)
         inp.disabled = True
         inp.placeholder = "（领会中…）"
-        self._log(f"[{R.AMBER}]> {text}[/]")
+        self._log(f"[{R.AMBER}]> {text}[/]", "dialogue")
         log.info("CMD input: %r", text)
         self._run_tick(text)
 
@@ -163,7 +170,7 @@ class VerisariaApp(App):
             self._last_npc_spoke = ev.npc_id
         markup = R.render_event(ev)
         if markup:
-            self._log(markup)
+            self._log(markup, R.event_category(ev))
 
     def _stream_append(self, npc_id: str, token: str) -> None:
         buf = self._stream_buf.get(npc_id, "") + token
@@ -177,8 +184,31 @@ class VerisariaApp(App):
         if self._stream_buf.pop(npc_id, None) is not None:
             self.query_one("#liveline", Static).update("")
 
-    def _log(self, markup: str) -> None:
-        self.query_one("#events", RichLog).write(_m(markup))
+    def _log(self, markup: str, category: str = "system") -> None:
+        """Record a line in history (for re-render on filter change) and write it
+        to the event log if it passes the active filter."""
+        self._history.append((category, markup))
+        del self._history[: -self._HISTORY_CAP]  # bound a long session's memory
+        mode = R.FILTER_MODES[self._filter_idx][0]
+        if R.passes_filter(category, mode):
+            self.query_one("#events", RichLog).write(_m(markup))
+
+    # -- event-log filter (Ctrl+F cycles) + keyboard scroll (PgUp/PgDn) --
+    def action_cycle_filter(self) -> None:
+        self._filter_idx = (self._filter_idx + 1) % len(R.FILTER_MODES)
+        mode, label = R.FILTER_MODES[self._filter_idx]
+        rl = self.query_one("#events", RichLog)
+        rl.clear()
+        for cat, markup in self._history:
+            if R.passes_filter(cat, mode):
+                rl.write(_m(markup))
+        rl.border_title = "事件流" if mode == "all" else f"事件流 · {label}"
+
+    def action_log_page_up(self) -> None:
+        self.query_one("#events", RichLog).scroll_page_up()
+
+    def action_log_page_down(self) -> None:
+        self.query_one("#events", RichLog).scroll_page_down()
 
     def _refresh_panels(self, snap: P.WorldSnapshot) -> None:
         # co-located names, so a streamed reply's live line can be prefixed correctly

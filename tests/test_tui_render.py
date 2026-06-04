@@ -112,6 +112,30 @@ def test_render_world_shows_pending_process_and_groups_emergent():
     assert out.index("开闸") < out.index("涌现前置") < out.index("工会停洗指令")
 
 
+def test_event_category_classifies_stream():
+    assert R.event_category(P.NpcSpoke(tick=1, npc_id="n", name="n", line="x")) == "dialogue"
+    assert R.event_category(P.PlayerSpoke(tick=1, line="x")) == "dialogue"
+    assert R.event_category(P.Narration(tick=1, text="x")) == "dialogue"
+    assert R.event_category(P.WorldVarChanged(tick=1, var_id="v", label="l", value=True)) == "consequence"
+    assert R.event_category(P.PressureEvent(tick=1, event_type="e", source="s", summary="x")) == "consequence"
+    assert R.event_category(P.NpcMoved(tick=1, npc_id="n", from_loc="a", to_loc="b")) == "movement"
+    assert R.event_category(P.Notice(tick=1, text="x")) == "system"
+    assert R.event_category(P.Error(tick=1, message="x")) == "system"
+
+
+def test_passes_filter_lenses_and_system_always_visible():
+    # "all" lets everything through
+    for cat in ("dialogue", "consequence", "movement", "system"):
+        assert R.passes_filter(cat, "all")
+    # a lens shows only its own category…
+    assert R.passes_filter("dialogue", "dialogue")
+    assert not R.passes_filter("consequence", "dialogue")
+    assert not R.passes_filter("movement", "dialogue")
+    # …but system lines (errors/notices) are never hidden behind a filter
+    assert R.passes_filter("system", "dialogue")
+    assert R.passes_filter("system", "consequence")
+
+
 def test_summarize_event_plain_text():
     assert "你好" in R.summarize_event(P.PlayerSpoke(tick=1, line="你好"))
     s = R.summarize_event(P.NpcSpoke(tick=1, npc_id="npc.brann", name="brann", line="哼"))

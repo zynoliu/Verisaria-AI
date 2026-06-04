@@ -97,7 +97,7 @@ def test_tui_typewriter_accumulates_then_commits(tmp_path):
             orig_update = live.update
             live.update = lambda r="": (live_updates.append(str(r)), orig_update(r))[1]
             orig_log = app._log
-            app._log = lambda m: (logged.append(str(m)), orig_log(m))[1]
+            app._log = lambda m, c="system": (logged.append(str(m)), orig_log(m, c))[1]
 
             for tok in ["你", "说", "得", "在理"]:
                 app._on_event(P.SpeechToken(tick=1, npc_id="npc.captain_brann", token=tok))
@@ -212,6 +212,87 @@ def test_tui_god_view_toggles_left_column(tmp_path):
     assert state["god_off"] is False and state["map_back"] is True
     # the god-view queried real state for the co-located NPCs (watch + refugees etc.)
     assert any(nid.startswith("npc.") for nid in seen_ids)
+
+
+def test_tui_filter_cycles_and_rerenders_log(tmp_path):
+    """Ctrl+F cycles the event-log filter: history is retained so re-rendering
+    under a lens keeps the right lines and drops the rest; an error/system line
+    stays visible under every lens; the panel title reflects the active filter."""
+    from textual.widgets import RichLog
+    from verisaria.frontends.tui import render as R
+
+    es = EngineSession.start(PACK, save_dir=str(tmp_path), llm_backend="fake")
+    app = VerisariaApp(es)
+    out: dict = {}
+
+    def _shown(app):
+        # the text currently written to the RichLog (joined across its line strips)
+        rl = app.query_one("#events", RichLog)
+        return "\n".join(line.text for line in rl.lines)
+
+    async def scenario():
+        async with app.run_test() as pilot:
+            await pilot.pause()
+            app._on_event(P.PlayerSpoke(tick=1, line="队长，开门"))
+            app._on_event(P.NpcSpoke(tick=1, npc_id="npc.captain_brann", name="布兰", line="不行。"))
+            app._on_event(P.WorldVarChanged(tick=1, var_id="gate_open", label="城门开启", value=True))
+            app._on_event(P.Error(tick=1, message="引擎打嗝"))
+            await pilot.pause()
+            out["all"] = _shown(app)
+
+            await pilot.press("ctrl+f")            # → 对话
+            await pilot.pause()
+            out["dialogue_mode"] = R.FILTER_MODES[app._filter_idx][0]
+            out["dialogue"] = _shown(app)
+            out["title_dialogue"] = app.query_one("#events").border_title
+
+            await pilot.press("ctrl+f")            # → 后果
+            await pilot.pause()
+            out["consequence"] = _shown(app)
+
+            await pilot.press("ctrl+f")            # → 全部 (wrap)
+            await pilot.pause()
+            out["wrapped"] = R.FILTER_MODES[app._filter_idx][0]
+
+    asyncio.run(scenario())
+
+    # all: everything present
+    assert "队长，开门" in out["all"] and "城门开启" in out["all"] and "引擎打嗝" in out["all"]
+    # 对话: dialogue + system(error) kept; the consequence flip dropped
+    assert out["dialogue_mode"] == "dialogue"
+    assert "不行。" in out["dialogue"] and "引擎打嗝" in out["dialogue"]
+    assert "城门开启" not in out["dialogue"]
+    assert out["title_dialogue"] == "事件流 · 对话"
+    # 后果: the flip + system(error) kept; dialogue dropped
+    assert "城门开启" in out["consequence"] and "引擎打嗝" in out["consequence"]
+    assert "不行。" not in out["consequence"]
+    # cycling wraps back to 全部
+    assert out["wrapped"] == "all"
+
+
+def test_tui_pageup_scrolls_event_log_even_while_input_focused(tmp_path):
+    """PgUp/PgDn scroll the event log without leaving the (always-focused) input —
+    so the player can review history mid-session. Verifies the key reaches the
+    handler rather than being swallowed by the Input widget."""
+    from textual.widgets import RichLog, Input
+
+    es = EngineSession.start(PACK, save_dir=str(tmp_path), llm_backend="fake")
+    app = VerisariaApp(es)
+    calls: list[str] = []
+
+    async def scenario():
+        async with app.run_test() as pilot:
+            await pilot.pause()
+            rl = app.query_one("#events", RichLog)
+            rl.scroll_page_up = lambda *a, **k: calls.append("up")
+            rl.scroll_page_down = lambda *a, **k: calls.append("down")
+            assert app.focused is app.query_one("#input", Input)  # input holds focus
+            await pilot.press("pageup")
+            await pilot.press("pagedown")
+            await pilot.pause()
+
+    asyncio.run(scenario())
+    assert calls == ["up", "down"]
 
 
 def test_tui_run_log_captures_command_events_and_timing(tmp_path):

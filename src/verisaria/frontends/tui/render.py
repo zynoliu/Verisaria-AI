@@ -70,6 +70,40 @@ def render_event(ev: P.Event) -> str | None:
     return None
 
 
+# Event-log filtering (cycle with Ctrl+F). Categories group the stream into the
+# lenses a player actually wants mid-play: the conversation, or the consequences
+# of their choices. "system" lines (notices / clarifications / errors / the
+# welcome banner) always stay visible — hiding an error behind a filter is a trap.
+FILTER_MODES: list[tuple[str, str]] = [
+    ("all", "全部"),
+    ("dialogue", "对话"),
+    ("consequence", "后果"),
+]
+
+
+def event_category(ev: P.Event) -> str:
+    """Which filter lens an event belongs to (see FILTER_MODES)."""
+    if isinstance(ev, (P.PlayerSpoke, P.NpcSpoke, P.Narration)):
+        return "dialogue"
+    if isinstance(ev, (P.WorldVarChanged, P.RelationshipShifted,
+                       P.StanceConfirmed, P.PressureEvent)):
+        return "consequence"
+    if isinstance(ev, (P.PlayerMoved, P.NpcMoved)):
+        return "movement"
+    return "system"  # Notice / ClarificationNeeded / Error / Progress
+
+
+def passes_filter(category: str, mode: str) -> bool:
+    """Whether a logged line of ``category`` shows under filter ``mode``.
+    "all" shows everything; a specific lens shows its own category plus the
+    always-visible "system" lines (errors/notices must never be hidden)."""
+    if mode == "all":
+        return True
+    if category == "system":
+        return True
+    return category == mode
+
+
 def summarize_event(ev: P.Event) -> str:
     """A compact, plain-text one-liner for the run log (no markup)."""
     name = type(ev).__name__
