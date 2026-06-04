@@ -54,11 +54,15 @@ verisaria run fixtures/content_packs/frostgate_watchpost.json --llm minimax
 pytest -q                 # 全套（fake 后端，确定性）
 ```
 
-## 现状（v0.2.0）
+## 现状（v0.3.0）
 
-- **TUI v3 完成**：地图 + 处境/焦点面板（含「你对该 NPC 的了解」与 Ctrl+G DEBUG 上帝视角）、
-  打字机流式、附近 NPC/关系、世界状态、响应式折叠、Footer/Ctrl+Q。
-- **涌现事实账本**机制已落地；第一轮真机验证一致性良好，完整闭环待内容侧补中间前置变量。
+- **动态世界模型**（[设计](docs/design/dynamic-world-model.md)）：GM 把涌现的软条件提升为有底真的
+  世界变量（P1），并能启动随时间成熟的线下流程（P2b）——大型调查/谈判长链能**涌现地闭环**，
+  零作者剧情图。六轮真机验证通过（`PASS_P1_P2B_PROCESS_CLOSURE`），全程反作弊成立。
+- **涌现事实账本**（Channel C）：`partial_success` 让步持久化、后续仲裁复用；终态旗标只在 success 翻。
+- **TUI v3**：地图 + 处境/焦点面板（含「你对该 NPC 的了解」与 Ctrl+G DEBUG 上帝视角）、打字机流式、
+  附近 NPC/关系、世界状态、响应式折叠、Footer/Ctrl+Q。
 - 现阶段中文优先（单语）；双语为远期里程碑。
+- 已知后续：自然移动/多跳寻路、P2c 现场/召集动作。
 
 更多设计见 [docs/design/](docs/design/)。
