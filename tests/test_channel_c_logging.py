@@ -126,12 +126,17 @@ def test_authority_reply_directive_grounds_npc_against_fabrication(tmp_path):
 
 
 def test_set_by_matches_npc_id_or_authority_role(tmp_path):
-    """A world var's set_by may name an NPC by id OR by its authority role."""
+    """A world var's set_by may name an NPC by id OR by its authority role, and the
+    id is matched tolerant of a missing npc. prefix (the GM sometimes drops it)."""
     g = GameSession(PACK, save_dir=str(tmp_path), llm_backend="fake")
-    # frostgate's captain has authority for the gate var; match by id either way
     assert g._authority_npc_for(["npc.captain_brann"]) == "npc.captain_brann"
-    # an unknown role resolves to nobody
+    assert g._authority_npc_for(["captain_brann"]) == "npc.captain_brann"  # missing prefix
     assert g._authority_npc_for(["no_such_role"]) is None
+    # the matcher itself: prefixed / bare id / authority role all match
+    assert g._set_by_matches("npc.clinician_oro", "memory_authority", ["clinician_oro"])
+    assert g._set_by_matches("npc.clinician_oro", "memory_authority", ["npc.clinician_oro"])
+    assert g._set_by_matches("npc.clinician_oro", "memory_authority", ["memory_authority"])
+    assert not g._set_by_matches("npc.clinician_oro", "memory_authority", ["someone_else"])
 
 
 def test_channel_c_logs_proposed_prereq_that_was_dropped(tmp_path):

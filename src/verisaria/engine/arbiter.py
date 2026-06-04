@@ -193,8 +193,9 @@ class LLMArbiter:
                 "  · 只有声明成世界变量，当事人才有结构化路径去达成它（之后该变量翻 true 才算满足）。\n"
                 "  · var_id 必须是 **ascii 蛇形命名**（如 union_pause_order_received、"
                 "archive_review_completed、oro_white_bay_statement_recorded），不要用中文；\n"
-                "  · set_by **只能写确实存在、当事人够得着的 NPC**（用上面列出/在场的 NPC 的真实 id 或"
-                "其 authority 角色），不要凭空编造一个不存在的人，否则当事人无人可找；\n"
+                "  · set_by **只能写确实存在、当事人够得着的 NPC**（用上面列出/在场的 NPC 的真实 id，"
+                "**完整形式含 `npc.` 前缀**，如 `npc.clinician_oro`；或其 authority 角色），不要凭空"
+                "编造一个不存在的人，否则当事人无人可找；\n"
                 "  · request_keywords 多给几个【当事人会自然说出口】的短语，便于路由。\n"
                 "  · 每出现一个这样的新前置就声明一个（除非它其实等同于上面已列出的某个变量）。\n"
             )

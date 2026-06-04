@@ -1363,18 +1363,28 @@ class GameSession:
         ))
         return True
 
+    @staticmethod
+    def _set_by_matches(npc_id: str, authority, set_by: list) -> bool:
+        """Whether an NPC satisfies a var's ``set_by``. A set_by entry may name the
+        NPC's ``authority`` role (e.g. ``"memory_authority"``) OR its entity id — and
+        the id is matched tolerant of the ``npc.`` prefix, since the GM sometimes
+        drops it (``"clinician_oro"`` vs ``"npc.clinician_oro"``)."""
+        if not set_by:
+            return False
+        bare = npc_id.replace("npc.", "")
+        candidates = {npc_id, bare, f"npc.{bare}"}
+        if authority:
+            candidates.add(authority)
+        return any(c in set_by for c in candidates)
+
     def _authority_npc_for(self, set_by: list) -> str | None:
-        """The NPC authorized to set a world var. A ``set_by`` entry matches either
-        the NPC's ``authority`` attribute (a role, e.g. ``"memory_authority"``) OR
-        the NPC's entity_id directly (e.g. ``"npc.clinician_oro"``) — content authors
-        may use whichever; both resolve to the same NPC."""
+        """The NPC authorized to set a world var (see ``_set_by_matches``)."""
         if not set_by:
             return None
-        roles = set(set_by)
         for eid, e in self.world.state.entities.items():
-            if e.entity_type != "npc":
-                continue
-            if eid in roles or (e.attributes or {}).get("authority") in roles:
+            if e.entity_type == "npc" and self._set_by_matches(
+                eid, (e.attributes or {}).get("authority"), set_by
+            ):
                 return eid
         return None
 
@@ -1495,7 +1505,7 @@ class GameSession:
             if spec.get("mutable", True) is False:
                 continue
             set_by = spec.get("set_by") or []
-            if target_authority not in set_by and target not in set_by:
+            if not self._set_by_matches(target, target_authority, set_by):
                 continue
             if any(k in content for k in (spec.get("request_keywords") or [])):
                 return (var_id, target)
