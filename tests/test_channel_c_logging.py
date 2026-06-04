@@ -206,6 +206,26 @@ def test_follow_up_routes_for_pack_var_mid_negotiation(tmp_path):
     assert g._world_change_request(action) == (VAR, AUTH)  # mid-negotiation → routes
 
 
+def test_world_change_routes_on_fuzzy_keyword(tmp_path):
+    """Natural phrasing that shares a ≥3-char chunk with a keyword (but isn't verbatim)
+    still routes — the exact-substring gate silently stranded real requests (#3)."""
+    from types import SimpleNamespace
+    from verisaria.engine.schemas import ActionType
+
+    g = GameSession(PACK, save_dir=str(tmp_path), llm_backend="fake")
+    cap = g.world.state.get_entity(AUTH)
+    g.world.state.get_entity(g.player_id).location_id = cap.location_id
+
+    def req(c):
+        return g._world_change_request(SimpleNamespace(
+            action_type=ActionType.SPEECH, target_id=AUTH,
+            params={"content": c}, raw_text=c))
+
+    # "难民入营" overlaps the keyword "放难民入营" without being verbatim → routes
+    assert req("请你准许这些难民入营吧") == (VAR, AUTH)
+    assert req("今天雪真大啊。") is None        # chitchat shares nothing → no route
+
+
 def test_world_change_trigger_accepts_set_by_npc_id(tmp_path):
     """The TRIGGER layer (_world_change_request), not just the read layer, must
     accept a set_by named by npc id — even for an NPC with no `authority` role."""

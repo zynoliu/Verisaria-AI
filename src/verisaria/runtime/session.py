@@ -1526,6 +1526,7 @@ class GameSession:
         # command to change it — don't route it to the world-change adjudication.
         if self._looks_like_question(content):
             return None
+        fuzzy: tuple[str, str] | None = None
         fallback: tuple[str, str] | None = None
         for var_id, spec in self._world_var_specs.items():
             if spec.get("mutable", True) is False:
@@ -1533,16 +1534,24 @@ class GameSession:
             set_by = spec.get("set_by") or []
             if not self._set_by_matches(target, target_authority, set_by):
                 continue
-            if any(k in content for k in (spec.get("request_keywords") or [])):
+            keywords = spec.get("request_keywords") or []
+            if any(k in content for k in keywords):
                 return (var_id, target)
-            # Route a substantive (non-question) follow-up to this authority even on a
-            # keyword miss when the var is already mid-negotiation — dynamic (GM-invented,
-            # untunable keywords) OR carrying established ledger facts (a procedural
-            # commitment in progress). The arbiter then judges relevance and can produce
-            # process_started/success, instead of the follow-up decaying into chatter.
+            # Natural phrasing rarely contains a keyword VERBATIM ("暂停白舱对证人记忆的
+            # 清洗" vs the keyword "暂停白舱接收"; "为这份禁令联签" vs "为禁令联签"), so an
+            # exact-substring gate silently strands real requests as chatter. A ≥3-char
+            # shared chunk with a keyword (or the var's label) still routes it — the
+            # arbiter then judges relevance.
+            if fuzzy is None and (
+                any(self._longest_overlap(k, content) >= 3 for k in keywords)
+                or self._longest_overlap(spec.get("label", "") or "", content) >= 3
+            ):
+                fuzzy = (var_id, target)
+            # Last resort: a substantive follow-up to a var already mid-negotiation
+            # (dynamic / carrying ledger facts) routes even without any overlap.
             if fallback is None and (spec.get("dynamic") or self.fact_ledger.relevant(var_id)):
                 fallback = (var_id, target)
-        return fallback
+        return fuzzy or fallback
 
     # Map an arbiter outcome to how the authority NPC should voice it (the
     # arbiter's analytical reason stays internal — never shown to the player).
