@@ -1,0 +1,76 @@
+"""P2c slice 1: escort — a co-located NPC, if willing (arbiter-adjudicated, like a
+world-change), accompanies the player to a named place, so witness / on-site
+prerequisites become reachable. See docs/design/dynamic-world-model.md."""
+from __future__ import annotations
+
+from types import SimpleNamespace
+
+from verisaria.runtime.session import GameSession
+from verisaria.engine.validator import ValidatedOutcome
+from verisaria.engine.schemas import ArbiterOutput, ActionType
+
+PACK = "fixtures/content_packs/frostgate_watchpost.json"  # voss is at the gatehouse with the player
+
+
+def _session(tmp_path) -> GameSession:
+    return GameSession(PACK, save_dir=str(tmp_path), llm_backend="fake")
+
+
+def _speech(content, target="npc.sentry_voss"):
+    return SimpleNamespace(action_type=ActionType.SPEECH, target_id=target,
+                           params={"content": content}, raw_text=content)
+
+
+def _stub_arbiter(g, outcome):
+    ao = ArbiterOutput(arbiter_id="t", source_action_id="a", outcome=outcome,
+                       reason="r", confidence=0.8)
+    g.arbiter.arbitrate = lambda action, world: ValidatedOutcome(
+        accepted=True, arbiter_output=ao, accepted_state_changes=[], rejected_state_changes=[])
+
+
+def test_escort_request_detected(tmp_path):
+    g = _session(tmp_path)
+    assert g._escort_request(_speech("跟我去兵营")) == ("npc.sentry_voss", "barracks")
+
+
+def test_escort_request_needs_keyword_and_destination(tmp_path):
+    g = _session(tmp_path)
+    assert g._escort_request(_speech("你信教会那套吗？")) is None   # no escort phrasing
+    assert g._escort_request(_speech("跟我走吧")) is None           # no named destination
+
+
+def test_escort_request_needs_colocation(tmp_path):
+    g = _session(tmp_path)
+    # hale (军需官) is at the barracks, not co-located with the player at the gatehouse
+    assert g._escort_request(_speech("跟我去难民营", target="npc.quartermaster_hale")) is None
+
+
+def test_escort_success_moves_npc_and_player(tmp_path):
+    g = _session(tmp_path)
+    _stub_arbiter(g, "success")
+    g._handle_escort_request(_speech("跟我去兵营"), "npc.sentry_voss", "barracks")
+    assert g.world.state.get_entity("npc.sentry_voss").location_id == "barracks"
+    assert g.world.state.get_entity(g.player_id).location_id == "barracks"   # they go together
+
+
+def test_escort_refusal_moves_no_one(tmp_path):
+    g = _session(tmp_path)
+    _stub_arbiter(g, "failure")
+    before = g.world.state.get_entity("npc.sentry_voss").location_id
+    g._handle_escort_request(_speech("跟我去兵营"), "npc.sentry_voss", "barracks")
+    assert g.world.state.get_entity("npc.sentry_voss").location_id == before
+    assert g.world.state.get_entity(g.player_id).location_id == before
+
+
+def test_escort_routes_through_run_tick(tmp_path):
+    from verisaria.engine.schemas import ParsedIntent, CommitmentLevel
+    g = _session(tmp_path)
+    _stub_arbiter(g, "success")
+    g.intent_parser.parse = lambda raw_text, **kw: ParsedIntent(
+        intent_id="i", source="natural_language", raw_text=raw_text,
+        intent_type=ActionType.SPEECH, actor_id="player_001",
+        target_id="npc.sentry_voss", content=raw_text,
+        commitment=CommitmentLevel.COMMITTED, confidence=0.9,
+        performed_content=raw_text, timestamp=0)
+    g.run_tick("跟我去兵营")
+    assert g.world.state.get_entity("npc.sentry_voss").location_id == "barracks"

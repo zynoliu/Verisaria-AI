@@ -359,6 +359,13 @@ class GameSession:
             if wc is not None:
                 return self._handle_world_change_request(action, *wc)
 
+            # P2c: a request to a co-located NPC to accompany the player somewhere
+            # ("跟我去X") — the arbiter judges willingness; on success the NPC (and
+            # player) relocate, so witness / on-site prerequisites become reachable.
+            esc = self._escort_request(action)
+            if esc is not None:
+                return self._handle_escort_request(action, *esc)
+
             # Rules Engine
             resolution = self.rules_engine.resolve(action, self.world.state)
 
@@ -1602,6 +1609,120 @@ class GameSession:
                 spec.pop("pending_until", None)
                 self.set_world_var(var_id, True)
                 _clog.info("[t%s] pending process matured → %s ⟳FLIP True", now, var_id)
+
+    # Phrasings that ask a co-located NPC to come along somewhere (P2c). Summoning
+    # someone who is NOT present ("你过来") is the remote-plea case — deferred.
+    _ESCORT_KEYWORDS = (
+        "跟我去", "跟我走", "跟我来", "随我去", "随我走", "随我来", "陪我去", "陪我到",
+        "带你去", "带你到", "护送你", "我们去", "我们一起去", "一起去", "一块去", "一块儿去",
+        "一同去", "同我去",
+    )
+
+    def _resolve_destination_in_text(self, content: str) -> str | None:
+        """A location whose display name (or id) appears verbatim in the content.
+        (Fuzzy/partial matching is a slice-2 refinement.)"""
+        for loc_id, loc in self.world.state.locations.items():
+            name = getattr(loc, "name", "") or ""
+            if (name and name in content) or loc_id in content:
+                return loc_id
+        return None
+
+    def _escort_request(self, action) -> tuple[str, str] | None:
+        """If this is a SPEECH to a PRESENT NPC asking them to come along to a named
+        place, return (npc_id, destination_location_id); else None. (P2c)"""
+        if action.action_type != ActionType.SPEECH:
+            return None
+        target = action.target_id
+        if not target or not target.startswith("npc."):
+            return None
+        entity = self.world.state.get_entity(target)
+        if entity is None:
+            return None
+        content = action.params.get("content") or ""
+        if not any(k in content for k in self._ESCORT_KEYWORDS):
+            return None
+        player = self.world.state.get_entity(self.player_id)
+        if player is None or entity.location_id != player.location_id:
+            return None  # you can only walk off with someone who is here
+        dest = self._resolve_destination_in_text(content)
+        if dest is None or dest == player.location_id:
+            return None  # no clear elsewhere to go
+        return (target, dest)
+
+    def _voiced_reply(self, npc_id: str, directive: str, fallback: str) -> str:
+        """In-character reply to a directive — streamed live when possible, else a
+        single call, else the fallback. Sets ``_streamed_npc`` when streamed."""
+        entity = self.world.state.get_entity(npc_id)
+        session = self.conversation_manager.get_active_session(npc_id)
+        name = self.world.state.display_name(npc_id)
+        line = None
+        if (self._stream_sink is not None or self._event_sink is not None) and getattr(
+            self.llm_provider, "supports_streaming", False
+        ):
+            if self._stream_sink is not None:
+                self._stream_sink(f"\n{name}：")
+            line = self.npc_dialogue_generator.generate_line_stream(
+                npc_id=npc_id, entity=entity, world=self.world.state,
+                memory_store=self.memory_store, conversation_session=session,
+                on_delta=self._stream_delta_sink(npc_id), directive=directive,
+            )
+            if self._stream_sink is not None:
+                self._stream_sink("\n")
+            if line:
+                self._streamed_npc = npc_id
+        if not line:
+            line = self.npc_dialogue_generator.generate_line(
+                npc_id=npc_id, entity=entity, world=self.world.state,
+                memory_store=self.memory_store, conversation_session=session,
+                directive=directive,
+            )
+        return line or fallback
+
+    def _handle_escort_request(self, action, npc_id: str, dest_id: str) -> str:
+        """Adjudicate whether a co-located NPC will accompany the player to dest_id;
+        on agreement, move them both there (so witness / on-site prerequisites become
+        reachable). Structurally identical to a world-change. (P2c)"""
+        self._streamed_npc = None
+        outcome = self.arbiter.arbitrate(action, self.world)
+        agreed = outcome.arbiter_output.outcome == "success"
+
+        name = self.world.state.display_name(npc_id)
+        dest_label = self.world.state.location_label(dest_id)
+        npc = self.world.state.get_entity(npc_id)
+        player = self.world.state.get_entity(self.player_id)
+        from_loc = npc.location_id if npc else None
+        moved = False
+        if agreed and npc is not None and player is not None and dest_id != from_loc:
+            npc.location_id = dest_id
+            player.location_id = dest_id
+            moved = True
+            self._emit(protocol.NpcMoved(
+                tick=self.world.state.tick, npc_id=npc_id,
+                from_loc=self.world.state.location_label(from_loc), to_loc=dest_label))
+            self._emit(protocol.PlayerMoved(
+                tick=self.world.state.tick,
+                from_loc=self.world.state.location_label(from_loc), to_loc=dest_label))
+
+        _clog.info("[t%s] escort %s → %s : %s%s", self.world.state.tick, npc_id, dest_id,
+                   outcome.arbiter_output.outcome, "  ⟳MOVED" if moved else "")
+
+        request = action.params.get("content") or action.raw_text or ""
+        stance = (f"你决定跟着对方一起去「{dest_label}」"
+                  if agreed else f"你不愿意跟着去「{dest_label}」")
+        directive = (
+            f"刚才有人对你说：「{request}」。{stance}。"
+            "用一句符合你身份的话回应对方（第一人称，不要分析、不要数字）。"
+        )
+        line = self._voiced_reply(npc_id, directive, "好，我跟你走。" if agreed else "我不去。")
+        self._emit(protocol.NpcSpoke(
+            tick=self.world.state.tick, npc_id=npc_id, name=name, line=line))
+
+        self.world.tick_advance()
+        self._emit(protocol.TickAdvanced(
+            tick=self.world.state.tick, new_tick=self.world.state.tick))
+        if self._streamed_npc == npc_id:
+            return ""
+        return f"{name}：{line}"
 
     def _handle_world_change_request(self, action, var_id: str, authority_npc: str) -> str:
         """Adjudicate (via the arbiter) whether the authorized NPC complies with
