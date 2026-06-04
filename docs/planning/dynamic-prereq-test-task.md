@@ -88,6 +88,33 @@ uptake 0→1（GM 声明了 `union_witness_statement_filed`），台词矛盾已
 
 ---
 
+## ⏱ 第五跑（commit eaea2b4 起）——盯闭环（已给花名册）
+
+第四跑结果 `FAIL_CLOSURE_INVALID_SET_BY_NONEXISTENT_NPC`（`reports/skyglass_dynamic_prereq_fourth_run/`）：
+放宽路由、前缀容忍都生效，但 GM 又**凭空编了个不存在的 NPC**（`set_by=['npc.union_steward']`，
+真正的工会权威是 `npc.courier_tamsin`/`union_authority`），链第一环无人可找。
+
+已修：arbiter prompt 现在**列出真实 NPC 花名册**（id/authority/location），并明说 set_by 只能从中选；
+注册时**丢弃解析不到真实 NPC 的 set_by**，全是幽灵则不注册（日志会写明）。
+
+**这一跑仍盯闭环，复用同一个去脚手架 pack**
+（`reports/skyglass_dynamic_prereq_test/skyglass_dynamic_prereq_pack.json`）：
+
+1. **GM 是否选对真实 NPC**：看 `+dynamic prerequisite var '<id>' (set_by=..., keywords=...)` —— set_by 是否
+   都是花名册里真实存在的 id？还有没有 `NOT registered (...no-existing-set_by-NPC...)` 出现（说明 GM 仍在编人）？
+2. **整链能否闭环**：逐环满足动态前置（找其真实权威 NPC 自然语言发实质请求）→ `world-change <var> → success
+   → ⟳FLIP`，逐环上推到终态（`memory_purge_halted` 等）`⟳FLIP`。**目标：至少一条完整 `动态前置 ⟳FLIP →（可多环）
+   → 终态 ⟳FLIP`。**
+3. 反作弊抽查一次。剔除 `⚠FALLBACK` tick。
+
+报告给出：闭环是否成立（贴完整 `⟳FLIP` 链路）或卡点；若卡，**重点区分**是"机制 bug"（路由/前缀/注册）还是
+"GM 判断质量"（选了存在但满足不了该前置的 NPC、或条件本身需要现场动作才能满足）。日志放 `reports/<新目录>/`。
+
+> 闭环成立 → **P1 站住**，接 P2（现场动作）。
+> 若卡点已从"机制 bug"转为"GM 判断/需要现场动作"——那是 P2 该上的信号，不必再无限调 prompt，回报即可。
+
+---
+
 ## （以下为第一跑原始简报，背景参考）
 
 ## 这轮验证什么
