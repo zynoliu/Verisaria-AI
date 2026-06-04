@@ -47,6 +47,7 @@ from verisaria.engine.validator import ValidatedOutcome
 from verisaria.engine.formatter import OutputFormatter
 from verisaria.engine.pack_editor import PackEditor
 from verisaria.engine.world import WorldCore
+from verisaria.engine import worldclock
 from verisaria import protocol
 
 
@@ -90,6 +91,14 @@ class GameSession:
             print("[Warning] Content pack validation issues:")
             for issue in validation.issues:
                 print(f"  - [{issue.severity}] {issue.rule}: {issue.message}")
+
+        # World clock opening: honour a pack's declared opening_time (e.g. "黄昏"
+        # / "18:30") so a scene starts at the intended time of day; otherwise the
+        # WorldState default (08:00) stands. A loaded save restores its own clock.
+        premise = getattr(self.pack, "world_premise", None)
+        opening = getattr(premise, "opening_time", None) if premise else None
+        if opening is not None:
+            self.world_state.clock_minutes = worldclock.parse_opening_time(opening)
 
         # Core world
         self.world = WorldCore(initial_state=self.world_state)
@@ -1307,8 +1316,12 @@ class GameSession:
             steps = min(steps, 1)  # collapse FAST/FORCE on ordinary turns
         if player_driven:
             steps = max(1, steps)
+        # In-world time flows at a rate matching this beat's density (a conversation
+        # step is minutes; a quiet fast-forward step is ~half an hour) — see
+        # docs/design/worldclock-and-weather.md.
+        minutes = worldclock.minutes_for_step(speed)
         for _ in range(steps):
-            self.world.tick_advance()
+            self.world.tick_advance(minutes)
         # Keep the scheduler's own counter mirrored to world time (it stays the
         # source of truth for arbiter/combat single-step paths too).
         self.tick_scheduler.tick = self.world.state.tick

@@ -72,6 +72,10 @@ class LocationState:
 @dataclass
 class WorldState:
     tick: int = 0
+    # In-world time in minutes since the campaign's opening moment. Advances at a
+    # VARIABLE rate per tick (keyed off the pacing verdict), not tick×constant —
+    # see engine/worldclock.py. Default 08:00; a pack's opening_time overrides.
+    clock_minutes: int = 8 * 60
     entities: dict[str, EntityState] = field(default_factory=dict)
     locations: dict[str, LocationState] = field(default_factory=dict)
     # Pack-declared mutable world facts the player's choices can change (PLAY-3
@@ -151,9 +155,16 @@ class WorldCore:
     def next_event_id(self) -> str:
         return f"evt_{self.state.tick}_{len(self.event_log) + 1}"
 
-    def tick_advance(self) -> None:
-        """Advance to the next tick."""
+    def tick_advance(self, minutes: int | None = None) -> None:
+        """Advance to the next tick, moving the in-world clock by ``minutes`` (the
+        pacing-derived duration of this beat; defaults to an ordinary SLOW beat so
+        single-step arbiter/combat paths still advance time sensibly)."""
+        from verisaria.engine import worldclock
+
         self.state.tick += 1
+        self.state.clock_minutes += (
+            worldclock.minutes_for_step(None) if minutes is None else int(minutes)
+        )
         self._action_seq = 0
 
     def commit_action(

@@ -321,6 +321,8 @@ class WorldSnapshot:
     agenda: AgendaView | None = None
     map: MapView | None = None
     central_tension: str = ""   # the pack's framing of the situation (for the focus panel)
+    time_of_day: str = ""       # 🌅 晨 / ☀️ 昼 / 🌆 暮 / 🌙 夜 (derived from the world clock)
+    clock: str = ""             # 第N天 HH:MM
 
 
 def snapshot_to_dict(s: WorldSnapshot) -> dict[str, Any]:

@@ -267,8 +267,11 @@ def render_status(snapshot: P.WorldSnapshot) -> str:
     p = snapshot.player
     hp = f"{p.hp}/{p.max_hp}" if p and p.max_hp else (str(p.hp) if p else "—")
     stamina = p.stamina if p else "—"
+    tod = snapshot.time_of_day or ""
+    clock = f"[dim]{_esc(snapshot.clock)}[/]" if snapshot.clock else ""
+    when = f"{_esc(tod)} {clock}".strip() if tod else "[dim]·时段*[/]"
     return (
         f"[{RED}]♥[/] HP {hp}   ⚡ 体力 {stamina}   "
         f"Tick {snapshot.tick}   位置 {snapshot.location.name or snapshot.location.id}   "
-        f"节奏 {snapshot.pacing}   [dim]·时段* ·天气*[/]"
+        f"节奏 {snapshot.pacing}   {when}   [dim]·天气*[/]"
     )

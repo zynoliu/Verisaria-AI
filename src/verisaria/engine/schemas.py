@@ -297,6 +297,10 @@ class WorldPremise(BaseModel):
     era: str
     tone: str
     central_tension: str
+    # Optional opening time of day for the world clock — "HH:MM", a bare hour, or a
+    # named phase ("黄昏"/"清晨"/…). Parsed by engine/worldclock.parse_opening_time;
+    # absent → the default 08:00. See docs/design/worldclock-and-weather.md.
+    opening_time: str | None = None
 
 
 class AccessScope(BaseModel):

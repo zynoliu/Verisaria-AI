@@ -129,6 +129,14 @@ def test_substantive_turn_emits_no_notice(tmp_path):
     assert not any(isinstance(e, P.Notice) for e in seen)
 
 
+def test_snapshot_surfaces_world_clock(tmp_path):
+    """The snapshot carries a player-perceivable time-of-day + clock label derived
+    from the world clock (default opening 08:00 → 第1天 08:00, 晨)."""
+    snap = _es(tmp_path).snapshot()
+    assert snap.clock == "第1天 08:00"
+    assert "晨" in snap.time_of_day
+
+
 def test_snapshot_surfaces_dynamic_var_and_pending_process(tmp_path):
     """The world snapshot distinguishes a GM-spawned dynamic var and exposes a
     maturing offscreen process (pending_in), so the TUI can show ⏳."""

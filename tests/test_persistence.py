@@ -143,6 +143,13 @@ class TestRestore:
         assert restored.state.entities["player_001"].location_id == "tavern"
         assert len(restored.event_log) == 2
 
+    def test_restore_world_clock(self, persistence: PersistenceLayer, populated_world: WorldCore) -> None:
+        # the in-world clock (variable-rate time) survives a save/load round-trip
+        populated_world.state.clock_minutes = 1440 + 18 * 60 + 30  # day 2, 18:30
+        save_data = persistence.save(world_core=populated_world, tick=5)
+        restored = persistence.restore_world_core(save_data)
+        assert restored.state.clock_minutes == 1440 + 18 * 60 + 30
+
     def test_restore_event_log_content(self, persistence: PersistenceLayer, populated_world: WorldCore) -> None:
         save_data = persistence.save(world_core=populated_world, tick=5)
         restored = persistence.restore_world_core(save_data)

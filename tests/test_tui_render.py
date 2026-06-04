@@ -56,6 +56,17 @@ def test_status_line_has_core_fields():
     assert "100/100" in s and "Tick 7" in s and "gatehouse" in s and "体力 80" in s
 
 
+def test_status_line_shows_time_of_day_and_clock():
+    snap = P.WorldSnapshot(
+        tick=3, pacing="normal", location=P.LocationView(id="x"),
+        player=P.PlayerView(hp=10, max_hp=10, stamina=5),
+        time_of_day="🌅 晨", clock="第1天 06:30",
+    )
+    s = R.render_status(snap)
+    assert "🌅 晨" in s and "第1天 06:30" in s
+    assert "时段*" not in s  # the placeholder is gone once we have a real clock
+
+
 def test_render_nearby_shows_dominant_dim_and_phrase():
     snap = P.WorldSnapshot(
         tick=5, pacing="normal", location=P.LocationView(id="gatehouse"),

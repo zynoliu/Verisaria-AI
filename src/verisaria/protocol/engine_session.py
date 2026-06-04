@@ -13,6 +13,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from verisaria import protocol
+from verisaria.engine import worldclock
 from verisaria.runtime.session import GameSession
 
 
@@ -234,6 +235,7 @@ class EngineSession:
         premise = getattr(g.pack, "world_premise", None)
         central_tension = getattr(premise, "central_tension", "") or ""
 
+        clock_minutes = getattr(state, "clock_minutes", 0)
         return protocol.WorldSnapshot(
             tick=state.tick,
             pacing=getattr(g, "_current_pacing", "normal"),
@@ -245,4 +247,6 @@ class EngineSession:
             agenda=agenda_view,
             map=map_view,
             central_tension=central_tension,
+            time_of_day=worldclock.time_of_day(clock_minutes).label,
+            clock=worldclock.clock_label(clock_minutes),
         )
