@@ -165,6 +165,24 @@ def test_channel_c_logs_proposed_prereq_that_was_dropped(tmp_path):
     assert any("NOT registered" in m for m in records)
 
 
+def test_follow_up_routes_for_pack_var_mid_negotiation(tmp_path):
+    """A keyword-less follow-up to an authority whose var already carries ledger
+    facts (a commitment in progress) still routes to Channel-C — so it can become
+    process_started/success instead of decaying into chatter."""
+    from verisaria.engine.schemas import Action, ActionType
+
+    g = GameSession(PACK, save_dir=str(tmp_path), llm_backend="fake")
+    captain = g.world.state.get_entity(AUTH)
+    captain.location_id = g.world.state.get_entity(g.player_id).location_id  # co-locate
+    # a content with NO request_keyword for refugees_admitted
+    action = Action(action_id="a", actor_id=g.player_id, action_type=ActionType.SPEECH,
+                    target_id=AUTH, tick=1, params={"content": "那这事现在到哪一步了，你倒是给个准话。"})
+    assert g._world_change_request(action) is None        # no keyword, no ledger → no route
+
+    g.fact_ledger.add("队长已同意启动安置流程", regarding=VAR, npc_id=AUTH, tick=0)
+    assert g._world_change_request(action) == (VAR, AUTH)  # mid-negotiation → routes
+
+
 def test_world_change_trigger_accepts_set_by_npc_id(tmp_path):
     """The TRIGGER layer (_world_change_request), not just the read layer, must
     accept a set_by named by npc id — even for an NPC with no `authority` role."""

@@ -1510,7 +1510,7 @@ class GameSession:
         # command to change it — don't route it to the world-change adjudication.
         if self._looks_like_question(content):
             return None
-        dynamic_fallback: tuple[str, str] | None = None
+        fallback: tuple[str, str] | None = None
         for var_id, spec in self._world_var_specs.items():
             if spec.get("mutable", True) is False:
                 continue
@@ -1519,13 +1519,14 @@ class GameSession:
                 continue
             if any(k in content for k in (spec.get("request_keywords") or [])):
                 return (var_id, target)
-            # Dynamic (GM-invented) vars have untunable keywords, so a keyword miss
-            # would silently strand them. If the player addresses such a var's
-            # authority NPC with a substantive (non-question) request, route it and
-            # let the arbiter judge relevance, rather than failing into mere chatter.
-            if spec.get("dynamic") and dynamic_fallback is None:
-                dynamic_fallback = (var_id, target)
-        return dynamic_fallback
+            # Route a substantive (non-question) follow-up to this authority even on a
+            # keyword miss when the var is already mid-negotiation — dynamic (GM-invented,
+            # untunable keywords) OR carrying established ledger facts (a procedural
+            # commitment in progress). The arbiter then judges relevance and can produce
+            # process_started/success, instead of the follow-up decaying into chatter.
+            if fallback is None and (spec.get("dynamic") or self.fact_ledger.relevant(var_id)):
+                fallback = (var_id, target)
+        return fallback
 
     # Map an arbiter outcome to how the authority NPC should voice it (the
     # arbiter's analytical reason stays internal — never shown to the player).
