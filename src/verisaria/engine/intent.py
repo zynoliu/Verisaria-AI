@@ -341,7 +341,11 @@ class IntentParser:
                     request_id=request_id,
                     original_input=raw_text,
                     clarifying_question="去不了那里。你想去哪个地方？",
-                    options=[*sorted(world.locations.keys()), "取消动作"],
+                    # Display NAMES, not raw ids (audit #4). A chosen name resolves
+                    # back through _match_location (which now matches names), so the
+                    # round-trip stays deterministic.
+                    options=[*[world.location_label(lid)
+                               for lid in sorted(world.locations.keys())], "取消动作"],
                     ambiguity_type="movement_destination",
                 )
 
@@ -674,18 +678,29 @@ Return ONLY a JSON object matching the ParsedIntent schema."""
 
     @classmethod
     def _match_location(cls, ref: str, world: WorldState) -> str | None:
-        """Map a location reference to a real location id, or None."""
+        """Map a location reference to a real location id, or None. Matches the
+        pack-declared DISPLAY NAME as well as the id — the player types "听证台",
+        not the internal "pump_gate" (playability audit #3)."""
         r = ref.strip()
         rl = r.lower()
+
+        def _name(lid: str) -> str:
+            loc = world.locations.get(lid)
+            return (getattr(loc, "name", "") or "").lower()
+
         # CN alias
         if r in cls._CN_LOCATION_MAP and cls._CN_LOCATION_MAP[r] in world.locations:
             return cls._CN_LOCATION_MAP[r]
-        # Exact id
+        # Exact id or display name
         for lid in world.locations:
-            if lid.lower() == rl:
+            if lid.lower() == rl or _name(lid) == rl:
                 return lid
-        # Unambiguous substring (mirrors coherence._resolve_target_id)
-        matches = [lid for lid in world.locations if rl in lid.lower() or lid.lower() in rl]
+        # Unambiguous substring against id OR display name (mirrors coherence)
+        matches = [
+            lid for lid in world.locations
+            if rl in lid.lower() or lid.lower() in rl
+            or (_name(lid) and (rl in _name(lid) or _name(lid) in rl))
+        ]
         if len(matches) == 1:
             return matches[0]
         return None

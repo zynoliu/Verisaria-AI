@@ -362,7 +362,8 @@ class NPCDialogueGenerator:
         if entity is None or world is None:
             return ""
         loc = getattr(entity, "location_id", None)
-        entities = getattr(getattr(world, "state", world), "entities", None)
+        state = getattr(world, "state", world)
+        entities = getattr(state, "entities", None)
         if not loc or not entities:
             return ""
         try:
@@ -373,7 +374,10 @@ class NPCDialogueGenerator:
             ]
         except Exception:
             return ""
-        parts = [f"你此刻在「{loc}」。"]
+        # Display name, never the raw id — else the NPC says "pump_gate 周围有眼睛"
+        # (playability audit #4).
+        loc_label = state.location_label(loc) if hasattr(state, "location_label") else loc
+        parts = [f"你此刻在「{loc_label}」。"]
         if others:
             names = "、".join(self._present_name(o) for o in others[:8])
             parts.append(f"在你身边的有：{names}。")

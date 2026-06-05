@@ -129,6 +129,24 @@ def test_substantive_turn_emits_no_notice(tmp_path):
     assert not any(isinstance(e, P.Notice) for e in seen)
 
 
+def test_pack_opening_drives_present_at_open(tmp_path, monkeypatch):
+    """Playability audit #7: a pack's player_agenda_template.current_drives is
+    loaded into the agenda at open, so the player starts with their stated goal
+    instead of drives=[]."""
+    from verisaria.engine.campaign_loader import CampaignLoader
+    real = CampaignLoader.load_or_fallback
+
+    def _wrapped(path):
+        pack, state, validation = real(path)
+        pack.player_agenda_template = {"current_drives": [
+            {"id": "drive_x", "label": "查清真相", "strength": 0.6, "source": "player_declared"}]}
+        return pack, state, validation
+
+    monkeypatch.setattr(CampaignLoader, "load_or_fallback", staticmethod(_wrapped))
+    snap = _es(tmp_path).snapshot()
+    assert "查清真相" in snap.agenda.drives
+
+
 def test_no_disembodied_npc_speech_on_move_tick(tmp_path):
     """Playability audit #2: on a tick the player moves, an NPC at the location
     just left must NOT emit NpcSpoke — mid-transit the player hears no one (P1.4),

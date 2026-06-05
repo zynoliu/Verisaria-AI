@@ -116,6 +116,19 @@ class TestNPCDialogueGenerator:
         # A5: we never fed canonical world truth, so it must not appear
         assert "恶魔确实存在" not in prompt
 
+    def test_environment_section_uses_location_display_name(self):
+        # audit #4: the prompt must name the place by its display name, not the raw
+        # id, else the NPC parrots "pump_gate 周围有眼睛"
+        from verisaria.engine.world import LocationState
+        gen = NPCDialogueGenerator(LLMOrchestrator(primary_provider=FakeLLMProvider()))
+        entity = EntityState(entity_id="npc.mara", entity_type="npc", location_id="pump_gate")
+        world = WorldState(
+            entities={"npc.mara": entity},
+            locations={"pump_gate": LocationState(location_id="pump_gate", name="征船听证台")},
+        )
+        env = gen._environment_section(entity, world)
+        assert "征船听证台" in env and "pump_gate" not in env
+
     def test_prompt_grounds_in_time_of_day_and_weather(self):
         # slice 3b: the dialogue prompt carries the current time + sky so an NPC can
         # react to the dark / the snow instead of being mute to the atmosphere.

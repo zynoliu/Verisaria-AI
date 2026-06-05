@@ -488,3 +488,17 @@ class TestIntentParser:
         )
         assert isinstance(result, ClarificationRequest)
         assert result.ambiguity_type == "parse_failed"
+
+
+def test_match_location_resolves_display_name_not_just_id():
+    """Playability audit #3: the player types a place's DISPLAY NAME (征船听证台 /
+    听证台), never its internal id (pump_gate) — _match_location must resolve both,
+    so a movement isn't bounced to a raw-id menu."""
+    world = WorldState(locations={
+        "pump_gate": LocationState(location_id="pump_gate", name="征船听证台"),
+        "pump_house": LocationState(location_id="pump_house", name="三号净水泵房"),
+    })
+    assert IntentParser._match_location("征船听证台", world) == "pump_gate"  # exact name
+    assert IntentParser._match_location("听证台", world) == "pump_gate"      # name substring
+    assert IntentParser._match_location("pump_gate", world) == "pump_gate"   # id still works
+    assert IntentParser._match_location("pump", world) is None              # ambiguous → no false hit

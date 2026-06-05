@@ -12,7 +12,11 @@ FIXTURE_PATH = "fixtures/content_packs/valid_frontier_town.json"
 
 @pytest.fixture
 def session() -> GameSession:
-    return GameSession(FIXTURE_PATH)
+    s = GameSession(FIXTURE_PATH)
+    # These tests predate pack opening-drive loading (audit #7) and assume an empty
+    # agenda; clear any pack-declared opening drives to isolate the behaviour tested.
+    s.agenda_service._confirmed_drives.clear()
+    return s
 
 
 class TestAgendaCommand:

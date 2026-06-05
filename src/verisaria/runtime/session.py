@@ -41,7 +41,7 @@ from verisaria.engine.scheduler import TickScheduler
 from verisaria.engine.subjectivity import SubjectivityService
 from verisaria.engine.intent import ClarificationRequest
 from verisaria.engine.schemas import (
-    Action, ActionType, Event, EventType, Memory, MemoryLayer, PacingSpeed,
+    Action, ActionType, Drive, Event, EventType, Memory, MemoryLayer, PacingSpeed,
 )
 from verisaria.engine.world_book_filter import WorldBookFilter
 from verisaria.engine.validator import ValidatedOutcome
@@ -228,6 +228,7 @@ class GameSession:
             stance_topics=self._stance_topics_from_pack(),
             stance_labels=self._stance_labels_from_pack(),
         )
+        self._load_pack_initial_drives()
 
         # Campaign Drivers
         self.campaign_driver_manager = CampaignDriverManager.from_dicts(
@@ -1376,6 +1377,29 @@ class GameSession:
                 cond, self._climate, random.Random(base + hour))
         state.weather = cond
         state.weather_hour = target_hour
+
+    def _load_pack_initial_drives(self) -> None:
+        """Seed the agenda with the pack's opening drives
+        (player_agenda_template.current_drives) so a new game starts with the
+        player's stated goal instead of an empty agenda (playability audit #7).
+        A loaded save replaces these via agenda_service.load_state."""
+        template = getattr(self.pack, "player_agenda_template", None) or {}
+        for d in template.get("current_drives", []) or []:
+            label = d.get("label", "")
+            if not label:
+                continue
+            try:
+                drive = Drive(
+                    id=d.get("id") or f"drive_pack_{len(self.agenda_service._confirmed_drives)}",
+                    label=label,
+                    strength=float(d.get("strength", 0.5)),
+                    source=d.get("source", "player_declared"),
+                    confirmed=True,
+                    confirmed_at_tick=0,
+                )
+            except Exception:
+                continue
+            self.agenda_service._confirmed_drives.append(drive)
 
     def _emit_environment_transition(self, phase_before: str, weather_before: str) -> None:
         """Narrate a time-of-day or weather crossing this tick ("天黑了。" / "天气

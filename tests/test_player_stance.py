@@ -40,6 +40,7 @@ def _speech(raw_text: str) -> ParsedIntent:
 def test_repeated_intent_becomes_confirmed_goal(tmp_path):
     session = GameSession(PACK, save_dir=str(tmp_path))
     session.intent_parser.parse = lambda raw_text, **kw: _speech(raw_text)
+    session.agenda_service._confirmed_drives.clear()  # isolate from the pack's opening drive
 
     start = session.agenda_service.get_agenda(session.world.state.tick)
     assert start.current_drives == []
@@ -57,6 +58,7 @@ def test_single_intent_does_not_confirm_a_goal(tmp_path):
     requires sustained repetition (MIN_SIGNAL_COUNT)."""
     session = GameSession(PACK, save_dir=str(tmp_path))
     session.intent_parser.parse = lambda raw_text, **kw: _speech(raw_text)
+    session.agenda_service._confirmed_drives.clear()  # isolate from the pack's opening drive
 
     session.run_tick("我想帮助难民。")
     drives = session.agenda_service.get_agenda(session.world.state.tick).current_drives
