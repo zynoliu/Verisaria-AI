@@ -502,3 +502,16 @@ def test_match_location_resolves_display_name_not_just_id():
     assert IntentParser._match_location("听证台", world) == "pump_gate"      # name substring
     assert IntentParser._match_location("pump_gate", world) == "pump_gate"   # id still works
     assert IntentParser._match_location("pump", world) is None              # ambiguous → no false hit
+
+
+def test_scan_raw_for_location_finds_embedded_name():
+    """Audit F3: a location named verbatim in a longer sentence the LLM didn't
+    extract cleanly is found, so movement isn't bounced to a menu."""
+    world = WorldState(locations={
+        "pump_gate": LocationState(location_id="pump_gate", name="征船听证台"),
+        "pump_house": LocationState(location_id="pump_house", name="三号净水泵房"),
+    })
+    assert IntentParser._scan_raw_for_location("我返回征船听证台找林槐", world) == "pump_gate"
+    assert IntentParser._scan_raw_for_location("随便走走", world) is None          # no name present
+    # two names present → ambiguous → no scan match (stays a clarification)
+    assert IntentParser._scan_raw_for_location("从征船听证台去三号净水泵房", world) is None

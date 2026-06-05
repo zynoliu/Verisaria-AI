@@ -336,6 +336,17 @@ class IntentParser:
             and world is not None
         ):
             dest = (intent.modifiers or {}).get("to_location")
+            if dest not in world.locations:
+                # Last-ditch: a location whose display name sits verbatim in the raw
+                # input the LLM didn't extract cleanly ("我返回征船听证台找林槐" →
+                # pump_gate). Go there instead of bouncing to a menu (audit F3).
+                scanned = self._scan_raw_for_location(raw_text, world)
+                if scanned is not None:
+                    mods = dict(intent.modifiers or {})
+                    mods["to_location"] = scanned
+                    intent.modifiers = mods
+                    intent.ambiguities = []
+                    dest = scanned
             if dest not in world.locations or intent.ambiguities:
                 return ClarificationRequest(
                     request_id=request_id,
@@ -704,6 +715,19 @@ Return ONLY a JSON object matching the ParsedIntent schema."""
         if len(matches) == 1:
             return matches[0]
         return None
+
+    @staticmethod
+    def _scan_raw_for_location(raw_text: str, world: WorldState) -> str | None:
+        """A location whose display name appears verbatim in the raw input — a
+        last resort for when the LLM didn't extract it into to_location. Returns a
+        match only when exactly one location name is present, to stay unambiguous
+        (audit F3)."""
+        rl = raw_text or ""
+        hits = [
+            lid for lid, loc in world.locations.items()
+            if (getattr(loc, "name", "") or "") and loc.name in rl
+        ]
+        return hits[0] if len(hits) == 1 else None
 
     # Personal pronouns that refer to a single nearby actor.
     _PERSON_PRONOUNS: tuple[str, ...] = ("她", "他", "你", "ta", "TA", "Ta")
