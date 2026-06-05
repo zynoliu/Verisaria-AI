@@ -305,6 +305,9 @@ class WorldPremise(BaseModel):
     # and an optional opening condition. Absent → temperate / a calm opening.
     climate: str | None = None
     opening_weather: str | None = None
+    # Opt-in: let time of day drive NPC movement (by day leave home, by dusk/night
+    # head home). Off by default → P1.8 home anchoring is unchanged. slice 3.
+    npc_daily_rhythm: bool = False
 
 
 class AccessScope(BaseModel):

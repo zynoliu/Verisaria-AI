@@ -10,9 +10,39 @@ import random
 from dataclasses import dataclass, field
 from typing import Any
 
+from verisaria.engine import worldclock
 from verisaria.engine.memory import MemoryStore
 from verisaria.engine.schemas import Action, ActionType
 from verisaria.engine.world import WorldState
+
+
+# ---------------------------------------------------------------------------
+# Daily rhythm (opt-in via pack: world_premise.npc_daily_rhythm)
+#
+# Time-of-day biases the home anchor: by day NPCs leave home to mill about; by
+# dusk/night they head home and settle. Pure helpers so the schedule rule is unit-
+# testable and decoupled from the RNG draw (the multiplier shifts the threshold,
+# never the number of random() calls, so replay determinism is preserved).
+# See docs/design/worldclock-and-weather.md (slice 3).
+# ---------------------------------------------------------------------------
+
+_WIND_DOWN_PHASES = frozenset({"暮", "夜"})  # dusk + night → head home / settle in
+
+
+def schedule_move_multiplier(phase: str, away_from_home: bool) -> float:
+    """Multiplier on an NPC's home-anchored move chance, given the time of day."""
+    if phase in _WIND_DOWN_PHASES:
+        return 1.8 if away_from_home else 0.25   # away → hurry home; home → settle in
+    return 1.0 if away_from_home else 2.5         # daytime → leave home, stay out
+
+
+def prefers_home_now(phase: str) -> bool:
+    """Whether an NPC on the move should aim for home (true at dusk/night)."""
+    return phase in _WIND_DOWN_PHASES
+
+
+def _phase_of(world: WorldState) -> str:
+    return worldclock.time_of_day(getattr(world, "clock_minutes", 8 * 60)).phase
 
 
 # ---------------------------------------------------------------------------
@@ -238,6 +268,9 @@ class NPCActionGenerator:
         # of issuing a live (blocking) call, so N NPCs' dialogue costs ~1 call of
         # latency. The loop itself is unchanged, so rng/seq stay deterministic.
         self._line_cache: dict[str, str | None] | None = None
+        # Opt-in daily rhythm (set from world_premise.npc_daily_rhythm). Off by
+        # default → behaviour is byte-identical to P1.8 home anchoring.
+        self.daily_rhythm = False
 
     @staticmethod
     def _pair_key(a: str, b: str) -> str:
@@ -516,6 +549,13 @@ class NPCActionGenerator:
         home = getattr(entity, "home_location", None)
         away_from_home = home is not None and entity.location_id != home
 
+        # Daily rhythm (opt-in): the time of day scales the home-anchored move
+        # chance — by day leave home, by dusk/night head back and settle. A no-op
+        # (×1) when the rhythm is off or the NPC has no home, so P1.8 is preserved.
+        rhythm = 1.0
+        if self.daily_rhythm and home is not None:
+            rhythm = schedule_move_multiplier(_phase_of(world), away_from_home)
+
         # 3. Nearby entities?
         nearby = [
             eid for eid, e in world.entities.items()
@@ -525,7 +565,7 @@ class NPCActionGenerator:
         if nearby:
             roll = self._rng.random()
             move_chance = 0.2 if home is None else (0.5 if away_from_home else 0.04)
-            if roll < move_chance:
+            if roll < move_chance * rhythm:
                 return self._make_movement(action_id, entity_id, entity, world, tick)
             # Re-roll the remaining behaviours over the leftover probability mass.
             r = self._rng.random()
@@ -542,7 +582,7 @@ class NPCActionGenerator:
         # 4. Alone
         roll = self._rng.random()
         move_chance = 0.3 if home is None else (0.6 if away_from_home else 0.08)
-        if roll < move_chance:
+        if roll < move_chance * rhythm:
             return self._make_movement(action_id, entity_id, entity, world, tick)
         if self._rng.random() < 0.5:
             return self._make_look(action_id, entity_id, tick)
@@ -705,10 +745,15 @@ class NPCActionGenerator:
             return self._make_wait(action_id, actor_id, tick)
 
         # If the NPC is away from its home and home is directly reachable, head
-        # back rather than drifting further away (P1.8).
+        # back rather than drifting further away (P1.8). Under the daily rhythm
+        # this home-pull only applies at dusk/night; by day the NPC wanders out
+        # (toward "work") instead of being yanked home.
         home = getattr(entity, "home_location", None)
         reachable = [c.to_location for c in loc.connections]
-        if home is not None and entity.location_id != home and home in reachable:
+        head_home = home is not None and entity.location_id != home and home in reachable
+        if self.daily_rhythm and not prefers_home_now(_phase_of(world)):
+            head_home = False
+        if head_home:
             target_loc = home
         else:
             target_loc = self._rng.choice(loc.connections).to_location

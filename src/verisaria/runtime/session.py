@@ -154,6 +154,10 @@ class GameSession:
         self.npc_action_generator = NPCActionGenerator(
             seed=42, dialogue_generator=self.npc_dialogue_generator
         )
+        # Opt-in daily rhythm: time of day drives NPC home/away movement (slice 3).
+        self.npc_action_generator.daily_rhythm = bool(
+            getattr(premise, "npc_daily_rhythm", False) if premise else False
+        )
         self.npc_interaction_scheduler = NPCInteractionScheduler(seed=42)
         self.tick_scheduler = TickScheduler(initial_tick=self.world.state.tick)
         # Most recent aggregate campaign pressure, fed into pacing (FORCE rule).
