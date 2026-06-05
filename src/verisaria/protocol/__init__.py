@@ -29,13 +29,18 @@ REL_DIM_LABELS: dict[str, str] = {
 }
 
 # Calibrated to this engine's value distribution (diminishing-returns [0,1];
-# from playtests ~0.5 is already a strong, felt stance).
+# from playtests ~0.5 is already a strong, felt stance, and a whole arc of sincere
+# talk only nudges a stance to ~0.05–0.15). The visible bands therefore start
+# EARLY — a 0.1 dead zone hid exactly the relationship-building the player was
+# doing, so a few sincere exchanges read as "nothing changed" (playability F2).
+# Only true noise (< 0.04, e.g. a bystander's faint, ×0.35-weighted impression)
+# stays negligible.
 def _band(value: float) -> str:
-    if value < 0.1:
+    if value < 0.04:
         return "negligible"
-    if value < 0.3:
+    if value < 0.15:
         return "slight"
-    if value < 0.5:
+    if value < 0.35:
         return "moderate"
     return "strong"
 

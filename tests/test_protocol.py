@@ -14,10 +14,14 @@ from verisaria import protocol as P
 # --- §8.1 relationship rendering: data in the protocol, mode picked by frontend ---
 
 def test_relationship_descriptor_bands():
-    neg = P.relationship_descriptor("suspicion", 0.05)
+    # bands start early (F2): only true noise is negligible; a sincere arc's ~0.05
+    # trust is already a visible "slight" stance, not a silent dead zone.
+    neg = P.relationship_descriptor("suspicion", 0.02)
     assert neg.band == "negligible" and neg.phrase == ""
-    sl = P.relationship_descriptor("trust", 0.2)
-    assert sl.band == "slight" and sl.phrase
+    sl = P.relationship_descriptor("trust", 0.05)
+    assert sl.band == "slight" and sl.phrase     # 0.05 now reads as a felt nudge
+    mod = P.relationship_descriptor("trust", 0.2)
+    assert mod.band == "moderate"
     strong = P.relationship_descriptor("suspicion", 0.51)
     assert strong.band == "strong"
     assert strong.label == "怀疑"
