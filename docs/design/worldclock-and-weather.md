@@ -82,10 +82,18 @@
 - 纯措辞 `worldclock.time_phrase`/`phase_transition_line`、`weather.weather_phrase`/`weather_change_line`
   （单测覆盖）；大跳跨相用「到达某时段」兜底。
 
-## 4c. 仍未做的未来钩子（远期）
+## 4c. 关键岗位 NPC 守岗（slice 3c-a，已落地）
 
-限时事件（宵禁、换岗）、天气对行动/能见度的影响、季节使天气阶梯随月份偏移；作息「暮夜采样稀+节拍碎」
-可调（给关键岗位 NPC 更强 home 黏性、或快进跨暮夜留一两拍驻足）。
+二跑真机暴露的作息真实副作用：开 rhythm 后**旁观的关键 NPC（闸官老康）日间×2.5 离岗游走、卡住护送链**。
+解法是**包级 per-NPC `stationed`**：标记守岗的 NPC（卫兵/权威）**永不自主游走**（仍说话/张望/等待），
+即便世界在跑 rhythm 也始终可达。`EntityState.stationed`（默认 False → 零行为变化）；loader 读
+`initial_entities[*].stationed`；`_generate_for_npc` 在两个移动分支前置 `not stationed`——RNG 仍照抽，
+复现确定性不变。于是一个包可以**让世界跑日夜节律、同时把权威钉在岗位上**。
+
+## 4d. 仍未做的未来钩子（远期）
+
+限时事件（宵禁、换岗——`stationed` 可作其基座）、天气对行动/能见度的影响、季节使天气阶梯随月份偏移；
+作息节拍强度可调（多数 tunable 已是数据）。
 
 ## 5. 落位与持久化
 
@@ -102,4 +110,5 @@
 - ✅ **slice 2**：weather 纯模块（气候阶梯随机游走）+ 天气状态 + 按世界时推进 + 包气候字段 + 状态条天气位。
 - ✅ **slice 3a**：时段驱动 NPC 作息（白天离家、夜里回家），包级 opt-in（`npc_daily_rhythm`，默认关）。
 - ✅ **slice 3b**：时段/天气进 NPC 对白 prompt + 过渡环境叙述（沉浸；真机验证后补的缺口）。
+- ✅ **slice 3c-a**：per-NPC `stationed`——关键岗位 NPC 守岗不游走（让 rhythm 可安全用于有权威的包）。
 - **slice 3c（远期）**：限时事件（宵禁/换岗）、天气影响行动/能见度、季节使阶梯随月份偏移、作息节拍调参。

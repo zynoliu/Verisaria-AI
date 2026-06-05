@@ -548,6 +548,10 @@ class NPCActionGenerator:
         # (more restless) behaviour.
         home = getattr(entity, "home_location", None)
         away_from_home = home is not None and entity.location_id != home
+        # A stationed NPC holds its post — it never autonomously wanders (still
+        # talks/looks/waits), so a key authority/guard stays reachable even under
+        # the daily rhythm. The RNG is still drawn, so replay determinism holds.
+        stationed = getattr(entity, "stationed", False)
 
         # Daily rhythm (opt-in): the time of day scales the home-anchored move
         # chance — by day leave home, by dusk/night head back and settle. A no-op
@@ -565,7 +569,7 @@ class NPCActionGenerator:
         if nearby:
             roll = self._rng.random()
             move_chance = 0.2 if home is None else (0.5 if away_from_home else 0.04)
-            if roll < move_chance * rhythm:
+            if not stationed and roll < move_chance * rhythm:
                 return self._make_movement(action_id, entity_id, entity, world, tick)
             # Re-roll the remaining behaviours over the leftover probability mass.
             r = self._rng.random()
@@ -582,7 +586,7 @@ class NPCActionGenerator:
         # 4. Alone
         roll = self._rng.random()
         move_chance = 0.3 if home is None else (0.6 if away_from_home else 0.08)
-        if roll < move_chance * rhythm:
+        if not stationed and roll < move_chance * rhythm:
             return self._make_movement(action_id, entity_id, entity, world, tick)
         if self._rng.random() < 0.5:
             return self._make_look(action_id, entity_id, tick)

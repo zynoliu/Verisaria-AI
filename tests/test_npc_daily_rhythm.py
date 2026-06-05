@@ -7,7 +7,9 @@ from __future__ import annotations
 from verisaria.engine.world import WorldState, EntityState, LocationState, Connection
 from verisaria.engine import npc_runtime as NR
 from verisaria.engine.npc_runtime import NPCActionGenerator
+from verisaria.engine.schemas import ActionType
 
+PACK = "fixtures/content_packs/frostgate_watchpost.json"
 DAY = 12 * 60     # 12:00 → 昼
 NIGHT = 22 * 60   # 22:00 → 夜
 
@@ -78,6 +80,46 @@ def test_no_home_means_no_rhythm_effect():
     world, npc = _world(NIGHT, home=None)
     # with no home, _make_movement just picks a random connection (never crashes)
     assert _dest(gen, world, npc) in {"home", "market"}
+
+
+# -- stationed: a key NPC holds its post (slice 3c) --
+
+def test_stationed_npc_never_autonomously_moves_even_under_rhythm(tmp_path):
+    # a stationed at-home NPC, by day (×2.5 leave), must still never wander off
+    gen = NPCActionGenerator(seed=1)
+    gen.daily_rhythm = True
+    world, npc = _world(DAY, npc_loc="home")  # at its post
+    npc.stationed = True
+    for seed in range(60):
+        gen2 = NPCActionGenerator(seed=seed)
+        gen2.daily_rhythm = True
+        act = gen2._generate_for_npc("npc.x", npc, world, tick=0, in_conversation=False)
+        assert act.action_type != ActionType.MOVEMENT  # holds post; talks/looks/waits only
+
+
+def test_non_stationed_default_unchanged(tmp_path):
+    # default stationed=False → the rhythm still disperses by day (proves the gate
+    # is the only difference)
+    world, npc = _world(DAY, npc_loc="home")
+    assert getattr(npc, "stationed", False) is False
+    moved = False
+    for seed in range(60):
+        gen = NPCActionGenerator(seed=seed)
+        gen.daily_rhythm = True
+        act = gen._generate_for_npc("npc.x", npc, world, tick=0, in_conversation=False)
+        if act.action_type == ActionType.MOVEMENT:
+            moved = True
+            break
+    assert moved  # a non-stationed at-home NPC does leave sometimes by day
+
+
+def test_loader_reads_stationed_flag(tmp_path):
+    from verisaria.engine.campaign_loader import CampaignLoader
+    from verisaria.engine.world import WorldState
+    pack, state, _ = CampaignLoader.load_or_fallback(PACK)
+    # frostgate declares no stationed NPCs → all default False
+    assert all(not getattr(e, "stationed", False)
+               for e in state.entities.values() if e.entity_type == "npc")
 
 
 # -- pack opt-in wiring --

@@ -332,6 +332,7 @@ class CampaignLoader:
                 stamina=int(stamina),
                 max_stamina=max_stamina,
                 home_location=home,
+                stationed=bool(ent.get("stationed", False)),
             )
             state.entities[eid] = entity
 

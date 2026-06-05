@@ -37,6 +37,10 @@ class EntityState:
     # An NPC's "post" — where it belongs and tends to return to (P1.8). When set,
     # the NPC seldom wanders off and heads home when away.
     home_location: str | None = None
+    # A pack may mark a key NPC (guard, authority) as holding its post: it never
+    # autonomously wanders (still talks/looks/waits), so it stays reachable even
+    # when the world runs the daily rhythm. Default off → no behaviour change.
+    stationed: bool = False
 
 
 @dataclass
