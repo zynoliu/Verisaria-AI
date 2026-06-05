@@ -98,3 +98,54 @@ driver 每拍打印**关系快照**（至少 suspicion/trust 对在场每个 NPC
 
 确认 #5 的修复在真机让**真诚/讲理/公道的行动真的能降怀疑、建信任**，旁观者不再凭空爆表，从而把首跑那句
 **「越使劲 NPC 越怀疑我、证据全锁、选择没分量」翻过来**；并判明把证据线推到真闭环还差不差一层**内容调参**。
+
+---
+
+## ⏱ 第三跑（commit 591b785 起）—— F1 收敛护栏：原始 fixture 不调内容能否自己闭合
+
+二跑结论：证据线**「光引擎不够、差一层内容调参」**——真因是 arbiter 临场涌现 `pump_failure_disclosed_publicly`，
+和作者 `pump_failure_disclosed` **互不相认**（满足一个不顶另一个），且不断加码（存档→公示→广播→联署…）。你当时靠
+authored 副本手搓标签救活。
+
+已上 **F1 两道确定性引擎闸**（`_register_dynamic_prerequisite`，commit `591b785`）：
+- **去重复用**：新前置若与已有变量**语义近重复**（id-stem 包含，如 `pump_failure_disclosed` ⊂
+  `pump_failure_disclosed_publicly`；或新关键词已命中已有 label）→ **复用已有变量**，把新措辞折进其 keywords。
+- **封顶**：单个终态最多派生 `_MAX_PREREQS_PER_TERMINAL=2` 个前置，挡无限细分。
+
+**这一跑就盯一件事：回到原始 `tidebreak_quarantine_harbor.json`（不是 authored 副本、不调任何标签/关键词），
+F1 能不能让证据链自己闭合。**
+
+> ⚠ F1 是确定性的，但**它能否命中真实 arbiter 行为取决于 LLM 怎么命名近重复**：若 LLM 把重复变量命名成
+> 派生 id（`..._publicly`）或带重叠关键词，去重就生效；若它造一个**毫不相关的新 id**，id-stem 兜不住——这正是
+> 真机要回答的。所以请**贴 arbiter 实际涌现的 var_id 原文**。
+
+### 怎么跑
+
+**原始 fixture**（仅可注入 world_premise 那几个无关开关，**不许动 world_state_vars 标签/关键词**），复刻二跑那条
+endgame：把「三号泵闸事故」证据公开 → 去找林槐请求撤销征船令。driver 每拍打印 `/world`（全 world-var 值）+ 把每条
+arbiter 涌现的 `new_prerequisite var_id` 落原文。
+
+### 关注点（逐条回答）
+
+1. **⭐ 去重是否命中**：arbiter 这次涌现的「公开」类前置 var_id **叫什么**（贴原文）？引擎是否把它**复用**进了已有
+   `pump_failure_disclosed`（日志 `new_prerequisite proposed but NOT registered (dup/...)` 或 `/world` 里**没有**
+   第二个公开类变量）？还是又造了个独立变量？
+2. **⭐ 链能否自己闭合**：不调内容标签，`pump_failure_disclosed ⟳FLIP → tow_order_halted ⟳FLIP` 能否走通？还是
+   仍卡在两变量互不相认（说明 LLM 命名躲过了 id-stem，需要更强语义去重）？
+3. **封顶是否挡住加码**：林槐是否不再「存档→公示→广播→联署」一层层加新前置（同一终态动态前置数 ≤2）？贴
+   `serves=tow_order_halted` 的动态前置个数。
+4. **没误伤**：正常多前置场景（如证人作证 + 文件归档是两件事）是否仍各自成立、没被错误合并？
+5. 回归：`FALLBACK=0`？无崩溃/死锁？
+
+### 报告请包含
+
+- ⭐ arbiter 涌现的「公开」var_id 原文 + 是否被复用进 `pump_failure_disclosed`（成立/躲过）。
+- ⭐ 不调内容，证据链能否自己 `⟳FLIP` 到 `tow_order_halted`（成/卡 + 原因）。
+- 封顶：单终态动态前置个数；加码是否停了。
+- 有无误伤（合并了不该合并的）。
+- `FALLBACK` 计数；新 `*.log` + transcript + driver 放 `reports/<新目录>/`。
+
+### 一句话目标
+
+确认 F1 在真机**让 arbiter 不再造近重复变量、不再无限加码**，从而**原始 fixture（零内容手搓）下证据链能自己闭合**；
+若 LLM 命名躲过了 id-stem 去重，给出原文，好判断要不要上更强的语义去重。
