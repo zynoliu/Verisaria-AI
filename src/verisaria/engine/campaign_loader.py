@@ -101,8 +101,66 @@ class CampaignLoader:
         cls._validate_location_consistency(pack, result)
         cls._validate_campaign_drivers(pack, result)
         cls._validate_agenda_premise(pack, result)
+        cls._validate_world_var_satisfiability(pack, result)
 
         return result
+
+    @classmethod
+    def _validate_world_var_satisfiability(
+        cls, pack: ContentPack, result: ValidationResult
+    ) -> None:
+        """Authoring lint for world_state_vars — the traps that make a chain
+        unclosable (playability audit #1): a mutable var no one can satisfy, a var
+        the player can't address by natural language, and near-duplicate vars that
+        split one fact into two the arbiter then treats as unrelated. Warnings only
+        (the pack still loads); see docs/design/pack-authoring-guide.md."""
+        vars_ = [v for v in (pack.world_state_vars or []) if isinstance(v, dict)]
+
+        # Resolvable satisfiers: every NPC id (prefix-tolerant) + every authority role.
+        npc_ids: set[str] = set()
+        authorities: set[str] = set()
+        for ent in pack.initial_entities:
+            if ent.get("entity_type", "npc") != "npc":
+                continue
+            eid = ent.get("entity_id", "")
+            if eid:
+                npc_ids.update({eid, eid.replace("npc.", ""), f"npc.{eid.replace('npc.', '')}"})
+            auth = (ent.get("attributes") or {}).get("authority")
+            if auth:
+                authorities.add(auth)
+
+        def _resolvable(sb: str) -> bool:
+            bare = sb.replace("npc.", "")
+            return sb in npc_ids or bare in npc_ids or sb in authorities
+
+        for v in vars_:
+            vid = v.get("var_id", "?")
+            if v.get("mutable", True) is False:
+                continue
+            path = f"world_state_vars.{vid}"
+            set_by = v.get("set_by") or []
+            if not set_by:
+                result.add("warning", "world_var_unsatisfiable",
+                           f"可变变量 '{vid}' 没有 set_by —— 没有谁能让它变 true，链会卡在这里。", path)
+            elif not any(_resolvable(sb) for sb in set_by):
+                result.add("warning", "world_var_unsatisfiable",
+                           f"可变变量 '{vid}' 的 set_by={set_by} 没有一个对应到真实 NPC 的 id 或其 "
+                           f"authority 角色 —— 无人可满足它。", path)
+            if not (v.get("request_keywords") or []):
+                result.add("warning", "world_var_no_keywords",
+                           f"可变变量 '{vid}' 没有 request_keywords —— 玩家的自然语句很难路由到它。", path)
+
+        # Near-duplicate vars: one id is a long substring of another (pump_failure_disclosed
+        # ⊂ pump_failure_disclosed_publicly). The player satisfies one, the authority
+        # references the other — the #1 dead end.
+        ids = [v.get("var_id", "") for v in vars_]
+        for i, a in enumerate(ids):
+            for b in ids[i + 1:]:
+                al, bl = a.lower(), b.lower()
+                if a and b and min(len(al), len(bl)) >= 6 and (al in bl or bl in al):
+                    result.add("warning", "world_var_near_duplicate",
+                               f"变量 '{a}' 与 '{b}' 的 id 高度重合 —— 像是同一件事的两个变量，"
+                               f"玩家满足一个可能不顶另一个（#1 陷阱）。", "world_state_vars")
 
     @classmethod
     def _validate_schema_version(cls, pack: ContentPack, result: ValidationResult) -> None:

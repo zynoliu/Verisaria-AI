@@ -187,3 +187,75 @@ class TestIntegration:
         assert result.valid is False
         assert pack.schema_version == "1.0"
         assert len(state.entities) == 0  # Original pack has no entities
+
+
+# ---------------------------------------------------------------------------
+# world_state_vars authoring lint (playability audit #1 — pack-side traps)
+# ---------------------------------------------------------------------------
+
+def _pack_with_vars(vars_, entities=None):
+    ents = [{"entity_id": "player_001", "entity_type": "player", "location_id": "hall"}]
+    ents += entities or [
+        {"entity_id": "npc.warden", "entity_type": "npc", "location_id": "hall",
+         "attributes": {"authority": "gate_authority"}}]
+    return ContentPack(
+        content_pack_id="x", schema_version="2.0",
+        world_premise={"era": "e", "tone": "t", "central_tension": "c"},
+        starting_location="hall", initial_entities=ents,
+        initial_locations=[{"location_id": "hall", "name": "大厅", "connections": []}],
+        world_state_vars=vars_,
+    )
+
+
+def _rules(result, rule):
+    return [i for i in result.issues if i.rule == rule]
+
+
+class TestWorldVarLint:
+    def test_clean_var_passes(self):
+        pack = _pack_with_vars([{
+            "var_id": "gate_open", "label": "门是否开", "mutable": True,
+            "set_by": ["gate_authority"], "request_keywords": ["开门"]}])
+        result = CampaignLoader.validate(pack)
+        assert not _rules(result, "world_var_unsatisfiable")
+        assert not _rules(result, "world_var_no_keywords")
+
+    def test_set_by_resolvable_by_npc_id(self):
+        pack = _pack_with_vars([{
+            "var_id": "v", "label": "l", "mutable": True,
+            "set_by": ["npc.warden"], "request_keywords": ["k"]}])
+        assert not _rules(CampaignLoader.validate(pack), "world_var_unsatisfiable")
+
+    def test_unsatisfiable_var_flagged(self):
+        pack = _pack_with_vars([{
+            "var_id": "v", "label": "l", "mutable": True,
+            "set_by": ["npc.ghost"], "request_keywords": ["k"]}])  # ghost isn't an entity
+        issues = _rules(CampaignLoader.validate(pack), "world_var_unsatisfiable")
+        assert issues and "v" in issues[0].message
+
+    def test_missing_keywords_flagged(self):
+        pack = _pack_with_vars([{
+            "var_id": "v", "label": "l", "mutable": True,
+            "set_by": ["gate_authority"], "request_keywords": []}])
+        assert _rules(CampaignLoader.validate(pack), "world_var_no_keywords")
+
+    def test_near_duplicate_vars_flagged(self):
+        pack = _pack_with_vars([
+            {"var_id": "disclosed", "label": "公开", "mutable": True,
+             "set_by": ["gate_authority"], "request_keywords": ["k"]},
+            {"var_id": "disclosed_publicly", "label": "公开公示", "mutable": True,
+             "set_by": ["gate_authority"], "request_keywords": ["k2"]}])
+        assert _rules(CampaignLoader.validate(pack), "world_var_near_duplicate")
+
+    def test_lint_warnings_do_not_fail_the_pack(self):
+        pack = _pack_with_vars([{
+            "var_id": "v", "label": "l", "mutable": True, "set_by": [], "request_keywords": []}])
+        result = CampaignLoader.validate(pack)
+        assert result.valid is True  # authoring guidance, not a hard error
+        assert _rules(result, "world_var_unsatisfiable")
+
+    def test_real_clean_pack_has_no_var_lint_warnings(self):
+        pack = CampaignLoader.load_from_file("fixtures/content_packs/escort_proving_ground.json")
+        result = CampaignLoader.validate(pack)
+        for rule in ("world_var_unsatisfiable", "world_var_no_keywords", "world_var_near_duplicate"):
+            assert not _rules(result, rule), f"{rule}: {[i.message for i in _rules(result, rule)]}"
