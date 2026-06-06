@@ -180,6 +180,28 @@ def test_dynamic_var_routes_a_request_by_npc_id_set_by(tmp_path):
     assert g._world_change_request(action) == ("door_unbarred", "npc.sentry_voss")
 
 
+def test_keyword_request_phrased_as_question_still_routes(tmp_path):
+    """Audit 5 #1: a real request to the authority that HITS a keyword routes even
+    when phrased as a question ('你敢不敢把门开了？') — it was silently dropped as
+    discussion before. A topic question with no keyword stays discussion."""
+    g = _session(tmp_path)
+    voss = g.world.state.get_entity("npc.sentry_voss")
+    player = g.world.state.get_entity(g.player_id)
+    voss.location_id = player.location_id
+    g._register_dynamic_prerequisite(NewPrerequisite(
+        var_id="door_unbarred", set_by=["npc.sentry_voss"], request_keywords=["开门"]))
+
+    asking = Action(action_id="a", actor_id=g.player_id, action_type=ActionType.SPEECH,
+                    target_id="npc.sentry_voss", tick=1,
+                    params={"content": "你敢不敢现在就开门？"})  # question form + keyword
+    assert g._world_change_request(asking) == ("door_unbarred", "npc.sentry_voss")
+
+    topic = Action(action_id="a", actor_id=g.player_id, action_type=ActionType.SPEECH,
+                   target_id="npc.sentry_voss", tick=1,
+                   params={"content": "这道门到底卡在哪儿？"})  # question, no keyword
+    assert g._world_change_request(topic) is None
+
+
 def test_dynamic_var_routes_even_with_no_keyword_match(tmp_path):
     """A GM-invented var with empty/mismatched keywords still routes when the player
     addresses its authority NPC substantively — the arbiter then judges relevance."""

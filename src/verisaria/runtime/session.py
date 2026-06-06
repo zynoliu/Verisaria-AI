@@ -1694,10 +1694,8 @@ class GameSession:
         if player is None or entity.location_id != player.location_id:
             return None
         content = action.params.get("content") or ""
-        # A *question/discussion* about the topic ("难民入营这事卡在哪儿？") is not a
-        # command to change it — don't route it to the world-change adjudication.
-        if self._looks_like_question(content):
-            return None
+        is_question = self._looks_like_question(content)
+        exact: tuple[str, str] | None = None
         fuzzy: tuple[str, str] | None = None
         fallback: tuple[str, str] | None = None
         for var_id, spec in self._world_var_specs.items():
@@ -1708,7 +1706,8 @@ class GameSession:
                 continue
             keywords = spec.get("request_keywords") or []
             if any(k in content for k in keywords):
-                return (var_id, target)
+                exact = (var_id, target)
+                break
             # Natural phrasing rarely contains a keyword VERBATIM ("暂停白舱对证人记忆的
             # 清洗" vs the keyword "暂停白舱接收"; "为这份禁令联签" vs "为禁令联签"), so an
             # exact-substring gate silently strands real requests as chatter. A ≥3-char
@@ -1723,6 +1722,14 @@ class GameSession:
             # (dynamic / carrying ledger facts) routes even without any overlap.
             if fallback is None and (spec.get("dynamic") or self.fact_ledger.relevant(var_id)):
                 fallback = (var_id, target)
+        # An exact keyword hit to the authority IS a request even if phrased as a
+        # question ("你敢不敢把广播撤了？") — route it; the arbiter judges. But a topic
+        # question with no keyword hit ("这事卡在哪儿？") stays discussion, so the
+        # question gate only suppresses the weaker fuzzy/fallback routes (audit 5 #1).
+        if exact:
+            return exact
+        if is_question:
+            return None
         return fuzzy or fallback
 
     # Map an arbiter outcome to how the authority NPC should voice it (the
