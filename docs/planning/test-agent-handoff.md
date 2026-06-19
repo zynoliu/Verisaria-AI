@@ -38,6 +38,50 @@ suspicion/trust）+ `snapshot.time_of_day/clock/weather`，并抓关键日志行
   用来分清「LLM 给没给」vs「被关系存储衰减吃掉」。
 - 还可抓 `sufficiency backstop`（充分性引擎兜底触发）、`NpcMoved`（护送/自主进出场，带显示名）、`⟳FLIP`（旗标翻转）。
 
+### 最小 driver 骨架（复制即用；完整范例见 `scripts/emberfall_natural_e2e.py`）
+```python
+import os, sys, logging, threading
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]; os.chdir(ROOT); sys.path.insert(0, str(ROOT/"src"))
+for ln in (ROOT/".env").read_text().splitlines():          # 加载 API key
+    if "=" in ln and not ln.strip().startswith("#"):
+        k, v = ln.split("=", 1); os.environ.setdefault(k.strip(), v.strip().strip("'\""))
+
+import verisaria.protocol as P
+from verisaria.runtime.session import GameSession
+from verisaria.protocol.engine_session import EngineSession
+
+PACK = "fixtures/content_packs/<你的包>.json"
+OUT = ROOT/"reports/<你的目录>"; OUT.mkdir(parents=True, exist_ok=True)
+fh = logging.FileHandler(OUT/"run.log", mode="w", encoding="utf-8")
+fh.setFormatter(logging.Formatter("%(asctime)s %(name)s %(message)s"))
+for nm in ("verisaria.channel_c", "verisaria.relationship"):   # ← 关键日志频道
+    lg = logging.getLogger(nm); lg.setLevel(logging.INFO); lg.addHandler(fh)
+
+g = GameSession(PACK, save_dir="_tmp_run", llm_backend="minimax")
+g._progress_sink = lambda m: None                          # 静默转圈
+es = EngineSession(g)
+
+def submit(text, timeout=90):                              # 看门狗：单拍最多 timeout 秒
+    R = {}
+    def run(): R["r"] = es.submit(P.SubmitInput(text=text))
+    th = threading.Thread(target=run, daemon=True); th.start(); th.join(timeout)
+    return R.get("r"), th.is_alive()                       # (TickResult, 是否超时)
+
+world   = lambda: dict(g.world.state.world_vars)           # /world 全量
+present = lambda: [e.name for e in es.snapshot().present]  # 在场 NPC
+# 关系快照: g.relationship_store.relationships_toward(g.player_id)
+
+tf = open(OUT/"transcript.md", "w", encoding="utf-8")
+for line in ["对窑监阔说：……（自然措辞）", "我去账房。"]:        # 你的玩家输入序列
+    res, timed_out = submit(line)
+    # res.events: NpcSpoke / Narration / WorldVarChanged(⟳FLIP) / NpcMoved / PlayerMoved …
+    tf.write(f"> {line}\n  world={world()}\n"); tf.flush()  # ← 每拍即时 flush（防中断丢数据）
+```
+- **注入 `world_premise` 开关走内存副本**：`GameSession` 加载后改 `g.pack.world_premise.<字段>` / 你自己包的 var，
+  不用动磁盘上 committed fixture。
+- **跑 lint / 校验包**：`python -m verisaria validate <pack> --llm fake`，或本文 §5 的 `PackEditor` 一行。
+
 ### 两类跑法
 - **闭环/定向跑**：验某条链能不能闭、某机制对不对（贴 `⟳FLIP` 链路 / 卡点 `reason=`）。
 - **探索跑**：像好奇玩家那样自由玩，**找下一批摩擦**——这是「好不好玩」的核心证据。
