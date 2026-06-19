@@ -164,8 +164,9 @@ class LLMArbiter:
             zone_id=actor.zone_id if actor else None,
             recent_events=recent,
             world_book_entries=[e.content for e in filtered],
-            # escort is a willingness judgment — no world-var/prerequisite context
-            mutable_world_vars=([] if escort else list(getattr(world, "mutable_world_vars", []) or [])),
+            # escort: pass vars so prompt can show TRUE ones as established-fact context
+            # (false vars are filtered out in _build_escort_prompt — no prereq bias)
+            mutable_world_vars=list(getattr(world, "mutable_world_vars", []) or []),
             npc_roster=roster,
             escort=escort,
             target_world_book=target_world_book,
@@ -333,6 +334,14 @@ class LLMArbiter:
         rel = esc.get("relationship") or {}
         rel_str = "、".join(f"{k} {v:.2f}" for k, v in rel.items()) or "（无既有关系，初次打交道）"
         recent = "\n".join(f"- {e['summary']}" for e in context.recent_events) or "（无）"
+        # Only show vars that are already True — gives the LLM established-fact context
+        # without creating a "prerequisites not yet met" framing for False vars.
+        true_vars = [v for v in context.mutable_world_vars if v.get("current") is True]
+        if true_vars:
+            facts_lines = "\n".join(f"- {v['label']}（已成立）" for v in true_vars)
+            facts_section = f"\n## 已成立的世界事实（背景参考）\n{facts_lines}\n"
+        else:
+            facts_section = ""
         return f"""你是一名公正的仲裁者，判断一个 NPC 此刻是否愿意【陪同当事人前往某地】。
 
 ## 请求
@@ -345,8 +354,7 @@ class LLMArbiter:
 - 属性：{context.target_attributes or {}}
 
 ## 该 NPC 对当事人的态度（关系维度，0–1）
-{rel_str}
-
+{rel_str}{facts_section}
 ## 最近发生的事
 {recent}
 
@@ -355,8 +363,10 @@ class LLMArbiter:
 - success = 愿意，当场就跟着走；
 - partial_success = 没当场拒绝，但有条件或在犹豫（要个保障、要先办完手头的事…）；
 - failure = 不愿意。
-这是一次**社交意愿**判断，**不要**把它当成需要满足世界前置变量的请求。给真实、可信、贴合人设的
-判断；当 TA 对当事人信任足够、风险不高时，就让 TA 答应同行。
+这是一次**社交意愿**判断，**不要**把它当成需要满足世界前置变量的请求。
+若「已成立的世界事实」中有明确担保或允许该 NPC 出行/出证的既成事实，应将其视为对应安全顾虑
+已消除的具体依据——在此基础上 NPC 只需克服情绪/性格层面的顾虑，而非继续等待外部保障。
+给真实、可信、贴合人设的判断；当 TA 对当事人信任足够、风险不高时，就让 TA 答应同行。
 
 返回 JSON：
 {{"outcome": "success" | "partial_success" | "failure", "reason": "理由（80字内）", "confidence": 0.0-1.0, "narration_hint": "给叙事者的提示（可空）"}}

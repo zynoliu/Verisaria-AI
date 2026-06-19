@@ -2053,10 +2053,12 @@ class GameSession:
             "relationship": ({k: round(v, 2) for k, v in snap.dimensions.items() if v > 0}
                              if snap else {}),
         }
+        self.world.mutable_world_vars = self._world_vars_for_arbiter()
         try:
             outcome = self.arbiter.arbitrate(action, self.world)
         finally:
             self.world.escort_request = None
+            self.world.mutable_world_vars = None
         agreed = outcome.arbiter_output.outcome == "success"
         npc = self.world.state.get_entity(npc_id)
         player = self.world.state.get_entity(self.player_id)

@@ -95,6 +95,57 @@ def test_escort_uses_willingness_prompt_not_world_change():
     assert "热心肠" in prompt and "乐意帮忙" in prompt   # persona traits reach the judge
     assert "new_prerequisite" not in prompt and "process_started" not in prompt
     assert "可改变的世界状态" not in prompt          # no world-var prerequisite section
+    assert "## 已成立的世界事实" not in prompt        # no true vars → section header omitted
+
+
+def test_escort_prompt_shows_true_world_vars_as_context():
+    """When there are True world vars, the escort prompt shows them as established
+    background facts — so the LLM knows e.g. a safe-passage guarantee is in place."""
+    from verisaria.engine.arbiter import LLMArbiter, ArbiterContext
+    from verisaria.engine.llm import FakeLLMProvider, LLMOrchestrator
+    from verisaria.engine.schemas import Action
+
+    arb = LLMArbiter(llm_orchestrator=LLMOrchestrator(primary_provider=FakeLLMProvider()))
+    action = Action(action_id="a", actor_id="player_001", action_type=ActionType.SPEECH,
+                    target_id="npc.x", tick=1, params={"content": "跟我去审瓷堂"})
+    true_var  = {"var_id": "safe_passage_granted", "label": "苗已获放行担保", "current": True}
+    false_var = {"var_id": "testimony_given",      "label": "证词已备案",     "current": False}
+    ctx = ArbiterContext(
+        action=action, actor_attributes={}, target_attributes={},
+        target_traits=["惊恐", "低信任"],
+        location_id="x", zone_id=None, recent_events=[], world_book_entries=[],
+        mutable_world_vars=[true_var, false_var],
+        escort={"npc_name": "苗", "dest": "审瓷堂", "relationship": {}})
+    prompt = arb._build_prompt(ctx)
+    assert "已成立的世界事实" in prompt
+    assert "苗已获放行担保（已成立）" in prompt      # true var visible
+    assert "证词已备案" not in prompt               # false var hidden (prevents prereq bias)
+    assert "已消除" in prompt                       # instruction acknowledges fact as sufficient
+
+
+def test_handle_escort_passes_world_vars_to_arbiter(tmp_path):
+    """_handle_escort_request must set mutable_world_vars on world before arbitration
+    so the escort prompt can surface established safety guarantees."""
+    g = _session(tmp_path)
+    # plant a True world var so _world_vars_for_arbiter returns something non-empty
+    g.world.state.world_vars["safe_passage_granted"] = True
+    g._world_var_specs["safe_passage_granted"] = {
+        "label": "苗已获放行担保", "initial": False, "set_by": []
+    }
+    captured: dict = {}
+
+    def fake_arb(action, world):
+        captured["world_vars"] = list(getattr(world, "mutable_world_vars", None) or [])
+        ao = ArbiterOutput(arbiter_id="t", source_action_id="a", outcome="failure",
+                           reason="r", confidence=0.5)
+        return ValidatedOutcome(accepted=True, arbiter_output=ao,
+                                accepted_state_changes=[], rejected_state_changes=[])
+
+    g.arbiter.arbitrate = fake_arb
+    g._handle_escort_request(_speech("跟我去兵营"), "npc.sentry_voss", "barracks")
+    true_labels = [v["label"] for v in captured.get("world_vars", []) if v.get("current") is True]
+    assert "苗已获放行担保" in true_labels           # var reaches the arbiter
+    assert getattr(g.world, "mutable_world_vars", None) is None  # cleaned up after
 
 
 def test_handle_escort_passes_stance_and_resets_context(tmp_path):
