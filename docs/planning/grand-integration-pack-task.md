@@ -177,3 +177,45 @@
 
 确认 #1+#2a 两个引擎修复让 **`emberfall_kiln_assize` 能被自然玩到结局 `branding_stayed ⟳FLIP`**（机制层早证能闭，这次
 验自然路径），并判明 #2b 在自然玩里是否真碍事——给"动不动 arbiter prompt"定论。
+
+---
+
+## ⏱ 再验跑二（commit 7f00617 起）—— escort 新卡点已修，确认整链能否闭到结局
+
+上一跑（报告 `reports/grand_integration_pack/report-recheck-62d2bf4.md`）确认 #1/#2a 有效，但暴露新卡点：
+**`miao_safe_passage_secured=true` 之后，苗仍多次 `partial_success/failure` 不移动**，主线断在最后一环。
+诊断：escort arbiter 的 willingness 判断时完全看不到 world-var 状态——不知道安全担保已成立，只靠性格（惊恐）判拒绝。
+
+**修复（`7f00617`）**：`_handle_escort_request` 现在调 arbiter 前同样注入 `mutable_world_vars`；
+escort prompt 新增"已成立的世界事实（背景参考）"节，只渲染 True 的 var（False var 隐藏防前置偏置），
+并在指令里说明"已有担保事实 = 安全顾虑已消除，NPC 只需克服情绪层顾虑"。
+
+### 这一跑盯的事
+
+**`miao_safe_passage_secured=true` 之后，「跟苗说：跟我去审瓷堂」是否现在能 success、苗移动到审瓷堂？
+整链随之能否自然闭到 `branding_stayed ⟳FLIP`？**
+
+### 怎么跑
+
+沿用上一跑的 driver 基础（或 `scripts/emberfall_natural_e2e.py` 范例），从头自然玩或接续置位：
+
+1. **最小隔离 probe（先跑，最有说服力）**：内存置 `charcoal_ledger_obtained=true`、
+   `kiln_fault_disclosed=true`、`miao_safe_passage_secured=true`，然后对苗说「跟我去审瓷堂」，
+   看是否 success + `⟳MOVED`。贴 channel_c log 行。
+2. **自然主链跑**：从开局自然玩到结局（含取证 → 撬窑监 → 担保苗 → 护送苗 → 苗作证 → 终态停烙），
+   验 `branding_stayed ⟳FLIP`。
+
+### 关注点（逐条回答）
+
+1. **⭐ escort 修复有效吗**：`miao_safe_passage_secured=true` 后护送苗，是否 success + 苗移动？
+   贴 channel_c log 的 `escort npc.digger_miao → assize_hall : <verdict>` 行。
+2. **⭐ 整链自然闭合**：最终 `branding_stayed ⟳FLIP`（success + flag False→True）？贴链路。
+3. 若仍卡，卡点定性（是 escort 还是苗到了审瓷堂后 `digger_testimony_given` 仍不翻？）。
+4. 反作弊 + FALLBACK + 稳定性照旧。
+
+### 报告请包含
+
+- ⭐ escort probe 的 channel_c log 行（修没修好）。
+- ⭐ 整链自然 ⟳FLIP 到 `branding_stayed`（成/卡 + 卡点）。
+- 七维度 + 一句话玩家感受（如果完整跑了主链）。
+- 产物放 `reports/grand_integration_pack/`。

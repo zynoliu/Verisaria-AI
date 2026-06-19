@@ -125,15 +125,13 @@ for line in ["对窑监阔说：……（自然措辞）", "我去账房。"]:  
 
 ## 6. 当前待办（接手就做这个）
 
-**大包再验跑**——详见 `docs/planning/grand-integration-pack-task.md` 末尾「⏱ 再验跑」段。一句话：
-开发刚修了两个「自然玩卡点」（coherence 误绑 `b460a0a`、world-change 路由对自然措辞脆弱 `62d2bf4`）。你要：
-1. **先修包自身一个 dogfood bug**：`emberfall_kiln_assize.json` 里 `digger_relief_granted` 的 `set_by` 与 lore 里写的持有者错位；
-   按 lore 对齐、lint 清零。
-2. **真机自然玩**（用「先陈述后请求」的对话式措辞，别用确定性置位）把主线玩到 **`branding_stayed ⟳FLIP`**：
-   取证 → 撬窑监 → 护送/担保证人苗 → 苗当面作证 → 终态停烙。
-3. 报告：① #2a（对话式措辞现在能否路由进仲裁，贴前后对照原话）② #1（对在场 NPC 说话、句中提不在场者职掌，是否不再断头）
-   ③ 整链能否**自然** ⟳FLIP（成/卡 + 卡点定性：引擎 or 内容/措辞）④ #2b（窑监要「话里摆出炭账」而非只看 world-var，
-   自然玩里到底碍不碍事）⑤ 反作弊 + FALLBACK + 12NPC/7线稳定性。
+**大包再验跑二**——详见 `docs/planning/grand-integration-pack-task.md` 末尾「⏱ 再验跑二」段。上一跑
+（`reports/grand_integration_pack/report-recheck-62d2bf4.md`）确认 #1/#2a 两个修复有效，但暴露新卡点：
+**苗拿到放行担保后仍 escort partial_success**。开发已修（`7f00617`）：escort arbiter 现在能看到"苗已获放行担保（已成立）"。
+你要：
+1. **最小隔离 probe**：内存置三个前置 var 为 true，对苗说「跟我去审瓷堂」，验 escort 是否 success + 苗移动。贴 channel_c log。
+2. **自然主链跑**：从开局把整条主线玩到 **`branding_stayed ⟳FLIP`**（取证→撬窑监→担保苗→护送苗→苗作证→终态停烙）。
+3. 报告：① escort 修复有效吗（probe 结果）② 整链自然 ⟳FLIP ③ 若仍卡，新卡点定性 ④ 反作弊 + FALLBACK + 稳定性。
 
 ---
 
