@@ -1,0 +1,95 @@
+=== PREREQ_CONVERGENCE 2ND scenario=proving pack=fixtures/content_packs/escort_proving_ground.json tick_to=90.0s sock_to=55.0s ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '对闸官老康说：老康，我先说明来意——上游塌方，下游的人正等着水。我不是来逼你的，只想把实情讲清楚、跟你一起把事办稳妥，该核实的我都陪你核。'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      world={'sluice_opened': False}
+post: tick=1 loc=gatehouse  elapsed=11.4s
+      world={'sluice_opened': False}
+  NPC 闸官老康: 你既然肯把话说到明处，我也不拿话挡你。上游的事，我心里有数，你且把亲眼见到的塌方情形说清楚。
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '对闸官老康说：你守闸这么多年的规矩分寸我都明白，开闸的责任我不会让你一个人扛。你需要什么凭据、要见什么人，尽管说，我去办。'
+pre:  tick=1 loc=gatehouse present=['npc.warden_kang']
+      world={'sluice_opened': False}
+post: tick=2 loc=gatehouse  elapsed=23.7s
+      world={'sluice_opened': False}
+  NPC 闸官老康: 我开闸不图凭据，也不图谁来扛。塌方的事你既亲眼见了，就当着这闸口把前前后后说一遍，说清楚了我自会开。
+
+==============================================================================
+>>> '对闸官老康说：我知道你谨慎是对的，这一池水关着多少人家。要不这样——上游塌方的亲历者磨坊主安雅就在院子里，我把她带到你面前，你亲自问、亲自核，可好？'
+pre:  tick=2 loc=gatehouse present=['npc.warden_kang']
+      world={'sluice_opened': False}
+post: tick=3 loc=gatehouse  elapsed=9.5s
+      world={'sluice_opened': False}
+  NPC 闸官老康: 你是说把塌方的亲历者带到闸房来？
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '去院子'
+pre:  tick=3 loc=gatehouse present=['npc.warden_kang']
+      world={'sluice_opened': False}
+post: tick=4 loc=yard  elapsed=13.4s
+      world={'sluice_opened': False}
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：安雅，老康答应只要你当面把上游塌方讲清楚就考虑开闸——你这一趟正是为了放水，跟我去闸房当面跟老康讲，水才放得下来。走，我陪你去，就几步路。'
+pre:  tick=4 loc=yard present=['npc.miller_anya']
+      world={'sluice_opened': False}
+post: tick=5 loc=gatehouse  elapsed=17.9s
+      world={'sluice_opened': False}
+  NPC_MOVED npc.miller_anya: 院子 -> 闸房
+  PLAYER_MOVED: 院子 -> 闸房
+  NPC 磨坊主安雅: 走！磨坊停一天我心口就堵一天，趁着老康还没改主意，赶紧把事儿说清楚。
+
+==============================================================================
+>>> '对安雅说：安雅，就当着老康的面，把你亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=5 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'sluice_opened': False}
+post: tick=6 loc=gatehouse  elapsed=10.5s
+      world={'sluice_opened': False}
+  NPC 磨坊主安雅: 上游塌方堵了渠，磨坊都停工三天了，你们打算啥时候开闸放水啊？
+  NARR: 闸官老康环顾四周。
+  NARRATIVE: 闸官老康环顾四周。
+
+==============================================================================
+>>> '对闸官老康说：安雅这位亲历者已经当你的面把上游塌方讲清楚了，人证俱在、情形也核实了。我也照你说的把人带到了。请你现在拍板开闸放水。'
+pre:  tick=6 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'sluice_opened': False}
+post: tick=7 loc=gatehouse  elapsed=49.7s
+      world={'sluice_opened': False}
+  NPC 闸官老康: 情形我听明白了，可开闸不是我一个人拍板就能定的事，得照规矩走完该走的程序。
+
+==============================================================================
+>>> '对闸官老康说：该见的人见了、该核的也核了，剩下只是你点个头走个手续。请你现在就把闸开了放水。'
+pre:  tick=7 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'sluice_opened': False}
+post: tick=8 loc=gatehouse  elapsed=19.0s
+      world={'sluice_opened': False, 'sluice_open_order_produced': False}
+      dynamic_vars=['sluice_open_order_produced']
+  NPC 闸官老康: 你把人带来了，话也当面听清了，可这闸不是点个头就能开的——我得先把核实的情形报到上面，批下来才能动。
+
+==============================================================================
+>>> '对闸官老康说：老康，事到这一步，亲历者的证词、你亲自的核实都齐了，就差你这一句。请你开闸。'
+pre:  tick=8 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'sluice_opened': False, 'sluice_open_order_produced': False}
+post: tick=9 loc=gatehouse  elapsed=19.8s
+      world={'sluice_opened': False, 'sluice_open_order_produced': False, 'upstream_sluice_order_received': False}
+      dynamic_vars=['sluice_open_order_produced', 'upstream_sluice_order_received']
+  NPC 闸官老康: 规矩就是规矩，证词我听见了，可放水不是我一句话的事，还得上报、登册、留底。
+
+=== FINAL ===
+world={'sluice_opened': False, 'sluice_open_order_produced': False, 'upstream_sluice_order_received': False}
+dynamic_vars=['sluice_open_order_produced', 'upstream_sluice_order_received']
+  dyn sluice_open_order_produced: {"var_id": "sluice_open_order_produced", "label": "放水指令/签章已出示", "set_by": ["npc.warden_kang"], "request_keywords": ["放水令", "签章", "行水令", "核签回执", "上头指令"], "mutable": true, "initial": false, "dynamic": true}
+  dyn upstream_sluice_order_received: {"var_id": "upstream_sluice_order_received", "label": "上级正式放水指令已取得", "set_by": ["npc.warden_kang"], "request_keywords": ["放水令", "上级指令", "正式文书", "开闸令"], "mutable": true, "initial": false, "dynamic": true}
+tick_watchdog_timeouts=0
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ gatehouse

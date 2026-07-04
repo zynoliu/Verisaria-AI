@@ -1,0 +1,10 @@
+rhythm=True warden_home=gatehouse
+t0 warden@gatehouse phase=晨
+t1 warden@gatehouse (was gatehouse) moved=False player_in_conv=True
+t2 warden@gatehouse (was gatehouse) moved=False player_in_conv=True
+t3 warden@gatehouse (was gatehouse) moved=False player_in_conv=True
+t4 warden@gatehouse (was gatehouse) moved=False player_in_conv=True
+t5 warden@gatehouse (was gatehouse) moved=False player_in_conv=True
+t6 warden@gatehouse (was gatehouse) moved=False player_in_conv=True
+TOTAL warden moves while named/in-conversation: 0 (expect 0)
+RESULT: 被点名NPC不乱走 = 成立

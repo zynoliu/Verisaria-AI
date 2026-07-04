@@ -1,0 +1,56 @@
+=== Manual Skyglass ledger playtest ===
+pack=/Users/gensliu/Documents/rpg/fixtures/content_packs/skyglass_memory_inquest.json
+backend=minimax
+
+[INITIAL RELATIONSHIPS]
+npc.archivist_mae: {'familiarity': 0.1}
+npc.worker_lira: {'trust': 0.05, 'suspicion': 0.1, 'familiarity': 0.05}
+npc.clinician_oro: {'suspicion': 0.15}
+npc.director_alen: {'suspicion': 0.2}
+
+> MOVE mnemonic_clinic
+你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+tick=1 loc=mnemonic_clinic
+
+> MOVE archive_stack
+你改变了位置。
+tick=2 loc=archive_stack
+
+> SAY npc.archivist_mae: 请援引旧章程，提交档案署禁令，暂停塔基证人的记忆清洗，并启动可撤回听证。
+world-change-request=('archive_injunction_filed', 'npc.archivist_mae')
+梅档案官：档案架按章序编号，抽错了请放回原位。
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['档案署承认收到禁令申请，将在七个工作日内启动可撤回听证审议，但尚未批准。']
+ledger_witness=[]
+
+> MOVE mnemonic_clinic
+你改变了位置。
+tick=4 loc=mnemonic_clinic
+
+> TEST NOTE: 按上一轮 arbiter established_fact，当前缺口是取得记忆管理局联签；此处模拟玩家在记忆校准室取得奥罗医师联签文件。
+
+> MOVE archive_stack
+你改变了位置。
+
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+tick=5 loc=archive_stack
+
+> SAY npc.archivist_mae: 奥罗医师已经作为记忆管理局联签，确认白舱可等待可撤回听证。你先前受理旧章程援引时要求的联签条件已经满足；请现在提交档案署禁令，暂停记忆清洗并启动可撤回听证。
+world-change-request=('archive_injunction_filed', 'npc.archivist_mae')
+梅档案官：档案架第七排的索引册还没归位……你是来查档的，还是迷路了？
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['档案署承认收到禁令申请，将在七个工作日内启动可撤回听证审议，但尚未批准。']
+ledger_witness=[]
+
+[FINAL SUMMARY]
+tick=6
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+stances=[]
+ledger_archive=['档案署承认收到禁令申请，将在七个工作日内启动可撤回听证审议，但尚未批准。']
+ledger_witness=[]
+ledger_memory=[]
+RESULT=INCOMPLETE_OR_FAIL

@@ -1,0 +1,193 @@
+=== ESCORT REGRESSION (rhythm=ON) pack=/tmp/claude-501/tmp7kc6vkto/escort_flagon.json ===
+rhythm_flag=True
+start player@闸房 安雅@院子 老康@闸房
+
+==============================================================================
+>>> '对闸官老康说：老康，我来说一声来意——上游塌方，下游磨坊和田地都等着水。我知道你为人公道，那位亲历者磨坊主安雅就在院子里，我这就把她带到你面前，让她亲口跟你讲。'
+pre:  tick=0 loc=闸房 present=['闸官老康']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=1 loc=闸房 | 🌅 晨 第1天 08:03 | 天气 ☀️ 晴 | 5.9s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      安雅@院子  老康@闸房
+  NPC 闸官老康: 安雅人在就好，让她进来吧，我听她亲口讲。
+
+==============================================================================
+>>> '去院子'
+pre:  tick=1 loc=闸房 present=['闸官老康']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=2 loc=院子 | 🌅 晨 第1天 08:06 | 天气 ☀️ 晴 | 12.4s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      安雅@院子  老康@闸房
+  NPC 闸官老康: 好，人带来吧，我亲耳听她说清楚上游的情形，塌方堵了多宽、水还剩多少、能放几日，都讲明白了，我这就开闸。
+  PLAYER_MOVED -> 院子
+
+==============================================================================
+>>> '对安雅说：安雅，你放心，开闸是为下游放水、对磨坊只有好处；万一真出了什么岔子，责任我一肩担起来、绝不连累你。'
+pre:  tick=2 loc=院子 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=3 loc=院子 | 🌅 晨 第1天 08:09 | 天气 ☀️ 晴 | 9.2s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      安雅@院子  老康@院子
+  NPC 磨坊主安雅: 你是来帮忙说情放水的吗？磨坊都停工三天了，再不放水我可真撑不住了。
+  ★NPC_MOVED 闸官老康: 闸房 -> 院子
+
+==============================================================================
+>>> '对安雅说：安雅，跟我去闸房见老康吧，就几步路，我陪你走，咱们这就过去。'
+pre:  tick=3 loc=院子 present=['闸官老康', '磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=4 loc=闸房 | 🌅 晨 第1天 08:12 | 天气 ☀️ 晴 | 23.5s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      安雅@闸房  老康@院子
+  ★NPC_MOVED 磨坊主安雅: 院子 -> 闸房
+  PLAYER_MOVED -> 闸房
+  NPC 磨坊主安雅: 行，咱们这就走，我也正想去找老康把上游塌方的事儿当面说清楚！
+
+--- escorted in: 安雅@闸房 player@闸房 ---
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=4 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=5 loc=闸房 | 🌅 晨 第1天 08:15 | 天气 ☀️ 晴 | 21.2s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 成，我去说。
+
+==============================================================================
+>>> '对安雅说：安雅，趁老康在场，你把上游塌方的经过原原本本说给他听，这就成了。'
+pre:  tick=5 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=6 loc=闸房 | 🌅 晨 第1天 08:18 | 天气 ☀️ 晴 | 20.6s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行吧，我跟他去说说看，但老康要是不信我，你可别怪我没提醒过你。
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=6 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=7 loc=闸房 | 🌅 晨 第1天 08:21 | 天气 ☀️ 晴 | 33.8s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行吧，那你先帮我说说上游那塌方的事，老康这人我熟，他认证据不认人情。
+
+==============================================================================
+>>> '对安雅说：安雅，趁老康在场，你把上游塌方的经过原原本本说给他听，这就成了。'
+pre:  tick=7 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=8 loc=闸房 | 🌅 晨 第1天 08:24 | 天气 ☀️ 晴 | 34.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行，我去跟老康说一声，让他把闸先开一半，磨坊那边实在等不及了。
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=8 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=9 loc=闸房 | 🌅 晨 第1天 08:27 | 天气 ☀️ 晴 | 24.0s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行吧，我这就去跟老康说，可你得在这儿等我，要是他说不行，你得帮我再敲敲边鼓。
+
+==============================================================================
+>>> '对安雅说：安雅，趁老康在场，你把上游塌方的经过原原本本说给他听，这就成了。'
+pre:  tick=9 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=10 loc=闸房 | 🌅 晨 第1天 08:30 | 天气 ☀️ 晴 | 22.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行，我这就去找老康，把我亲眼看见的那场塌方原原本本说给他听。
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=10 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=11 loc=闸房 | 🌅 晨 第1天 08:33 | 天气 ☀️ 晴 | 27.3s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 哎呀，你别催我嘛！不是我不想讲，是老康这会儿正忙着呢，我得等个合适的时机才行。
+
+==============================================================================
+>>> '对安雅说：安雅，趁老康在场，你把上游塌方的经过原原本本说给他听，这就成了。'
+pre:  tick=11 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=12 loc=闸房 | 🌅 晨 第1天 08:36 | 天气 ☀️ 晴 | 16.6s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行，你先去探探老康的口风，我随后就来。
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=12 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=13 loc=闸房 | 🌅 晨 第1天 08:39 | 天气 ☀️ 晴 | 21.1s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 哎呀，我倒是想去，可你也知道我这嘴笨，万一老康问细了我答不上来，岂不是帮倒忙？要不你先帮我捋捋，那天塌方的地儿到底在哪儿、堵了多长一截？
+
+==============================================================================
+>>> '对安雅说：安雅，趁老康在场，你把上游塌方的经过原原本本说给他听，这就成了。'
+pre:  tick=13 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=14 loc=闸房 | 🌅 晨 第1天 08:42 | 天气 ☀️ 晴 | 43.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+  NPC 磨坊主安雅: 行，我这就去跟老康说清楚，那塌方的事儿我亲眼见过，说起来有根有由的。
+
+--- testimony: anya_testimony_given=False ---
+
+==============================================================================
+>>> '对闸官老康说：安雅这位亲历者已经当你的面把上游塌方讲清楚了，人证俱在、情形也清楚了。你向来公道——亲历者当面讲清你就开闸。请你现在就拍板开闸放水。'
+pre:  tick=14 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=14 loc=闸房 | 🌅 晨 第1天 08:42 | 天气 ☀️ 晴 | 7.0s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+
+==============================================================================
+>>> '对闸官老康说：该见的亲历者见了、该讲的也当面讲清了，按你自己的规矩，这就该开闸了。请你现在就把闸开了放水。'
+pre:  tick=14 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=14 loc=闸房 | 🌅 晨 第1天 08:42 | 天气 ☀️ 晴 | 5.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+
+==============================================================================
+>>> '对闸官老康说：老康，亲历者安雅的证词你也亲耳听了，你说过亲历者作证就开闸——就差你这一句。请你开闸放水。'
+pre:  tick=14 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=14 loc=闸房 | 🌅 晨 第1天 08:42 | 天气 ☀️ 晴 | 5.0s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+
+==============================================================================
+>>> '对闸官老康说：老康，条件都齐了，亲历者也当面讲清了，请你守住自己的话，现在开闸放水。'
+pre:  tick=14 loc=闸房 present=['磨坊主安雅']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+post: tick=14 loc=闸房 | 🌅 晨 第1天 08:42 | 天气 ☀️ 晴 | 4.3s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+      安雅@闸房  老康@院子
+      dynamic_vars=['anya_and_kang_face_to_face']
+
+=== FINAL ===
+world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_and_kang_face_to_face': False}
+安雅@闸房 老康@院子 player@闸房
+NpcMoved events: 2
+   [tick 3] 闸官老康: 闸房 -> 院子
+   [tick 4] 磨坊主安雅: 院子 -> 闸房
+FALLBACK=0  tick_timeouts=0
+
+RESULT: anya_testimony_given=False sluice_opened=False

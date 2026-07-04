@@ -1,0 +1,9 @@
+2026-06-04 22:24:41,057 INFO === prereq_convergence_test THIRD RUN log (proving_b) ===
+2026-06-04 22:24:52,356 INFO [t0] npc.warden_kang appraises player: Δ{'familiarity': 0.15, 'trust': 0.05} → {'trust': 0.29, 'familiarity': 0.28} | 这人主动来找我说话，可能是来报信的上游塌方的事，也可能是来套近乎的，先听他讲什么。
+2026-06-04 22:24:52,357 INFO [t0] npc.miller_anya appraises player: Δ{'trust': 0.15, 'suspicion': -0.05, 'affection': 0.15, 'respect': 0.1, 'familiarity': 0.1} → {'trust': 0.49, 'affection': 0.15, 'respect': 0.1, 'familiarity': 0.28} | 这人跑去找老康说话了，盼着能帮磨坊把水的事说清楚，是个热心肠。
+2026-06-04 22:25:30,851 INFO [t2] escort npc.miller_anya → gatehouse : failure
+2026-06-04 22:25:48,611 INFO [t3] npc.warden_kang appraises player: Δ{'trust': -0.05, 'suspicion': 0.1, 'familiarity': 0.05} → {'trust': 0.27, 'suspicion': 0.1, 'familiarity': 0.31} | 这人倒先找磨坊的人说话去了，不知是在了解水情还是在打别的算盘，先观望。
+2026-06-04 22:25:48,611 INFO [t3] npc.miller_anya appraises player: Δ{'familiarity': 0.2, 'affection': 0.1, 'trust': 0.1} → {'trust': 0.54, 'affection': 0.23, 'respect': 0.1, 'familiarity': 0.42} | 这人主动来找磨坊主搭话，看样子是个愿意伸手帮忙的实在人。
+2026-06-04 22:26:03,834 INFO [t4] world-change anya_testimony_given by npc.miller_anya → partial_success | flag False→False | reason='安雅对玩家有基本信任(0.54)和熟悉度(0.42)，愿意在闸官面前作证上游塌方一事；但她要求老康本人在场旁听以确保证词被采信。' | ledger(anya_testimony_given)=['安雅同意当面作证上游塌方经过，但要求闸官老康本人在场旁听才肯开口。']
+2026-06-04 22:26:03,835 INFO [t4]   +dynamic prerequisite var 'warden_kang_present_for_testimony' (set_by=['npc.warden_kang'], keywords=['叫老康来', '请闸官到场', '老康过来', '把闸官请来'])
+2026-06-04 22:26:03,835 INFO [t4]   established_fact='安雅同意当面作证上游塌方经过，但要求闸官老康本人在场旁听才肯开口。'

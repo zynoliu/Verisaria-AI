@@ -1,0 +1,112 @@
+=== THIRD-RUN tamsin ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去城市广播席'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='城市广播席'->id=None to_loc='press_gallery' content=''
+post: tick=1 loc=press_gallery  elapsed=6.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 听证会还有几分钟开始，请各位先入座，不要在走廊里逗留。
+  NPC 学徒尼奥: 我、我是第七个进来的……前面六个人都已经进去了。
+  PLAYER_MOVED: 静钟审询厅 -> 城市广播席
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '去低谷列车站台'
+pre:  tick=1 loc=press_gallery present=['npc.broadcaster_iva']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='低谷列车站台'->id='valley_platform' to_loc='valley_platform' content=''
+post: tick=2 loc=valley_platform  elapsed=7.7s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 广播员伊娃: 哟，外来者，赶上好戏了——坎特·塞拉夫刚往这边走，我得先把镜头抢到手。你要是有什么内幕，可别忘了我啊。
+  PLAYER_MOVED: 城市广播席 -> 低谷列车站台
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对 courier_tamsin 说：我是外来审询员，受命查清事故。镜阵若被证实出故障，低谷家庭会先被涨价吞掉——我想为山谷争取临时热能和列车通行证，你是信使工会的人，我需要你帮我把这件事在审询厅当场敲定。'
+pre:  tick=2 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='courier_tamsin'->id='npc.courier_tamsin' to_loc=None content='我是外来审询员，受命查清事故。镜阵若被证实出故障，低谷家庭会先被涨价吞掉——我想为山谷争取临时热能和列车通行证，你是信使工会的人，我需要你帮'
+post: tick=3 loc=valley_platform  elapsed=9.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 信使塔姆辛: 把热能配额和列车通行证当场敲定，这事我一个人说了不算，但你要是能拿出审询厅的正式传票，我可以帮你把工会这边的路子先趟开。
+  NARR: 谷地母亲琼环顾四周。
+  NARRATIVE: 谷地母亲琼环顾四周。
+
+==============================================================================
+>>> '对 courier_tamsin 说：我可以保证：你只要到审询厅当我的在场证人，全程在我和档案署的合法授权下，安保队不能动你；这趟是为山谷拿通行证，不是把你卷进危险。'
+pre:  tick=3 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='courier_tamsin'->id='npc.courier_tamsin' to_loc=None content='我可以保证：你只要到审询厅当我的在场证人，全程在我和档案署的合法授权下，安保队不能动你；这趟是为山谷拿通行证，不是把你卷进危险。'
+post: tick=4 loc=valley_platform  elapsed=15.4s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 信使塔姆辛: 合法授权我听进去了，但"不能动你"这话你得落在纸上——白纸黑字盖档案署的章，我才好跟工会那边交差。
+  NARR: 谷地母亲琼环顾四周。
+  NARRATIVE: 谷地母亲琼环顾四周。
+
+==============================================================================
+>>> '对 courier_tamsin 说：跟我一起去静钟审询厅吧，当着艾伦总监的面，我们现在就把低谷热能通行证敲定，我带你过去，全程保护你。'
+pre:  tick=4 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE clarify amb='generic' q="'低谷热能通行证' 指代不明，请确认："
+post: tick=4 loc=valley_platform  elapsed=8.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  CLARIFY: '低谷热能通行证' 指代不明，请确认： opts=['尝试执行', '取消动作']
+  NARRATIVE: '低谷热能通行证' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+==============================================================================
+>>> '/look'
+  [/look] loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+  CMD_OUT: Location: valley_platform
+Zone: freight_gate
+You see:
+  - npc.courier_tamsin (freight_gate)
+  - npc.valley_mother_june (blanket_line)
+
+==============================================================================
+>>> '对 courier_tamsin 说：现在就请你以信使工会的名义，正式调拨热筹、发放低谷列车通行证，保障山谷家庭。'
+pre:  tick=4 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='courier_tamsin'->id='npc.courier_tamsin' to_loc=None content='现在就请你以信使工会的名义，正式调拨热筹、发放低谷列车通行证，保障山谷家庭。'
+post: tick=5 loc=valley_platform  elapsed=24.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'union_emergency_relief_cosigned': False}
+  NPC 信使塔姆辛: 工会的章不是我能自己盖的，但调拨函我已经让人送出去了，你先别催我——信使跑腿要时间，等消息回来我第一时间告诉你。
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'union_emergency_relief_cosigned': False}
+player_loc=valley_platform
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

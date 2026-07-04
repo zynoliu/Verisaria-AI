@@ -1,0 +1,39 @@
+=== TRAITS FED TO JUDGE ===
+['热心肠', '直率', '盼着开闸放水', '乐意帮忙']
+
+=== RENDERED ESCORT PROMPT ===
+你是一名公正的仲裁者，判断一个 NPC 此刻是否愿意【陪同当事人前往某地】。
+
+## 请求
+- 对象 NPC：磨坊主安雅
+- 目的地：闸房
+- 当事人原话：跟我去闸房，把你亲眼见过的上游塌方当面讲给闸官老康听，我现在就带你过去。
+
+## 该 NPC 的人设
+- 性格/特质：热心肠、直率、盼着开闸放水、乐意帮忙
+- 属性：{'charisma': 0.6, 'faction': 'mill', 'region': 'rivertown'}
+
+## 该 NPC 对当事人的态度（关系维度，0–1）
+trust 0.40、familiarity 0.20
+
+## 最近发生的事
+- npc.miller_anya look
+
+## 判断要求
+只根据这个 NPC 的【性格、对当事人的态度、当前处境与利害】，判断 TA 此刻愿不愿意起身跟着走：
+- success = 愿意，当场就跟着走；
+- partial_success = 没当场拒绝，但有条件或在犹豫（要个保障、要先办完手头的事…）；
+- failure = 不愿意。
+这是一次**社交意愿**判断，**不要**把它当成需要满足世界前置变量的请求。给真实、可信、贴合人设的
+判断；当 TA 对当事人信任足够、风险不高时，就让 TA 答应同行。
+
+返回 JSON：
+{"outcome": "success" | "partial_success" | "failure", "reason": "理由（80字内）", "confidence": 0.0-1.0, "narration_hint": "给叙事者的提示（可空）"}
+
+
+=== ARBITER OUTPUT ===
+outcome  = failure
+reason   = LLM 不可用，按默认规则处理。
+confidence = 0.5
+
+anya.location_id = yard  (moved? False)

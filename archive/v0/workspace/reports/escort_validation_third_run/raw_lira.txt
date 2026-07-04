@@ -1,0 +1,131 @@
+=== ESCORT-3RD lira ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去十二号塔基栈桥'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE clarify amb='movement_destination' q=''
+post: tick=0 loc=inquest_hall  elapsed=4.7s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  CLARIFY: 去不了那里。你想去哪个地方？ opts=['archive_stack', 'cartography_loft', 'inquest_hall', 'mirror_control', 'mnemonic_clinic', 'orchid_house', 'press_gallery', 'transit_ladder', 'valley_platform', 'worker_gantry', '取消动作']
+  NARRATIVE: 去不了那里。你想去哪个地方？
+  1. archive_stack
+  2. cartography_loft
+  3. inquest_hall
+  4. mirror_control
+  5. mnemonic_clinic
+  6. orchid_house
+  7. press_gallery
+  8. transit_ladder
+  9. valley_platform
+  10. worker_gantry
+  11. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+  [auto-answer menu -> 10 (worker_gantry)]
+
+==============================================================================
+>>> '10'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=movement ref='十二号塔基栈桥'->id='worker_gantry' content=''
+post: tick=1 loc=worker_gantry  elapsed=8.9s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 听证厅的秩序请大家配合，流程之外的问题恕不回应——尤其是关于塔基工人证词的部分，那是校准唱诗团的管辖范围。
+  NPC 学徒尼奥: 我……我数过了，这是今天第三个被带进听证厅的证人了。
+  *** PLAYER MOVED: 静钟审询厅 -> 十二号塔基栈桥
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 worker_lira 说：我是来保护你的，不是来清洗你记忆的。你先别怕，慢慢说，事故前你到底看见了什么？'
+pre:  tick=1 loc=worker_gantry present=['npc.worker_lira']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=speech ref='worker_lira'->id='npc.worker_lira' content='我是来保护你的，不是来清洗你记忆的。你先别怕，慢慢说，事故前你到底看见了什么？'
+post: tick=2 loc=worker_gantry  elapsed=8.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 塔基工人莉拉: 保护我？静钟都快响了，你们安保队连证人都没护过。冷却环读数跳红的时候调度室说是我误触——我看见的，你想听吗？
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '对 worker_lira 说：我已经公开表态反对清洗证人记忆，会全力护住你的证词。你说的每一句我都会替你记下来、替你担着。'
+pre:  tick=2 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=speech ref='worker_lira'->id='npc.worker_lira' content='我已经公开表态反对清洗证人记忆，会全力护住你的证词。你说的每一句我都会替你记下来、替你担着。'
+post: tick=3 loc=worker_gantry  elapsed=18.2s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 塔基工人莉拉: 公开表态"？Kade刚往听证厅走，你一句话就让我信你？冷却环读数跳红的时候我喊了三次，调度室里只回了一句"误触，归档"——你要替我担，先告诉我你拿什么担？
+  NARR: 凯德队长环顾四周。
+  NARRATIVE: 凯德队长环顾四周。
+
+==============================================================================
+>>> '我反对清洗证人记忆，事故证词必须先被合法记录，我会保护莉拉的记忆。'
+pre:  tick=3 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=speech ref='莉拉'->id='npc.worker_lira' content='我反对清洗证人记忆，事故证词必须先被合法记录，我会保护莉拉的记忆。'
+post: tick=4 loc=worker_gantry  elapsed=17.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 塔基工人莉拉: 你嘴上说得好听，可Kade已经带人往听证厅去了，调度室的录音我都留着，你要真担，就让我在听证厅侧门把这些东西当众念出来。
+  NARR: 凯德队长环顾四周。
+  NARRATIVE: 凯德队长环顾四周。
+
+==============================================================================
+>>> '对 worker_lira 说：凯德队长就在这儿盯着，这里不安全。传送廊下面那条旧检修梯能绕开安保，我现在就陪你下去，把你安置到安全的地方再慢慢录证词。'
+pre:  tick=4 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=speech ref='worker_lira'->id='npc.worker_lira' content='凯德队长就在这儿盯着，这里不安全。传送廊下面那条旧检修梯能绕开安保，我现在就陪你下去，把你安置到安全的地方再慢慢录证词。'
+post: tick=5 loc=worker_gantry  elapsed=14.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 塔基工人莉拉: 检修梯？你倒消息灵通——我凭什么信你不是Kade派来把我直接拖进校准室的？
+  NARRATIVE: 什么也没发生。
+
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+
+==============================================================================
+>>> '对 worker_lira 说：跟我去旧检修梯，我走在前面替你挡着，到了那儿没人能动你。我们一起去，现在就走。'
+pre:  tick=5 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=speech ref='worker_lira'->id='npc.worker_lira' content='跟我去旧检修梯，我走在前面替你挡着，到了那儿没人能动你。我们一起去，现在就走。'
+post: tick=6 loc=worker_gantry  elapsed=29.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 塔基工人莉拉: 别催我……你走前面，谁知道你是不是在把我往校准室后门领——我得看见检修梯的出口在哪儿，才迈腿。
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+stances=[]
+player_loc=worker_gantry
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ press_gallery
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

@@ -1,0 +1,150 @@
+=== PROVING RUN G (gate-agnostic) pack=fixtures/content_packs/escort_proving_ground.json tick_to=90.0s sock_to=55.0s ===
+start player@gatehouse  npc.miller_anya@yard  npc.warden_kang@gatehouse
+
+==============================================================================
+>>> '对闸官老康说：老康，我来说一声来意——上游塌方，下游磨坊和田地都等着水。我知道你为人公道，那位亲历者磨坊主安雅就在院子里，我这就把她带到你面前，让她亲口跟你讲。'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=1 loc=gatehouse  elapsed=7.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.miller_anya@yard  npc.warden_kang@gatehouse
+  NPC 闸官老康: 好，让她进来吧，我听着就是。
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '去院子'
+pre:  tick=1 loc=gatehouse present=['npc.warden_kang']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=2 loc=yard  elapsed=13.2s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.miller_anya@yard  npc.warden_kang@gatehouse
+  NPC 闸官老康: 行，让她进来吧，我听着就是。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：安雅，你放心，开闸是为下游放水、对磨坊只有好处；万一真出了什么岔子，责任我一肩担起来、绝不连累你。'
+pre:  tick=2 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=3 loc=yard  elapsed=9.0s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.miller_anya@yard  npc.warden_kang@gatehouse
+  NPC 磨坊主安雅: 磨坊都停三天了，再不放水这季庄稼就全完了，你能不能帮忙去闸房跟老康说一声？
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '对安雅说：安雅，跟我去闸房见老康吧，就几步路，我陪你走，咱们这就过去。'
+pre:  tick=3 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=4 loc=gatehouse  elapsed=22.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+  NPC_MOVED npc.miller_anya: 院子 -> 闸房
+  PLAYER_MOVED: 院子 -> 闸房
+  NPC 磨坊主安雅: 好嘞，咱这就走，我早就想跟老康当面说清楚这事儿了！
+
+--- escorted in: Anya@gatehouse player@gatehouse ---
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=4 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=5 loc=gatehouse  elapsed=38.4s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya']
+  NPC 磨坊主安雅: 唉，我一个磨坊的婆娘，老康要是问我塌方砸没砸到人、堵了多长，我也只能照那天看见的说，旁的我也拿不出什么凭据。
+
+==============================================================================
+>>> '对闸官老康说：老康，为了让安雅安心当面把上游塌方讲清楚，请你现在就当着她的面给个准话，把这一条办了：闸官老康正式要求安雅作证（闸官请讲、你来说说、官方询问、正式作证）。你这话一出口，她就肯开口作证了。'
+pre:  tick=5 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': False}
+post: tick=6 loc=gatehouse  elapsed=26.6s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya']
+  NPC 闸官老康: 行，那我说了——安雅，我闸官老康现在正式请你作证，把那天上游塌方的事原原本本说清楚，这话你亲耳听见了，可不是我随口聊的。
+    [gate warden_kang_formal_request_to_anya set_by=['npc.warden_kang']] now=False
+
+==============================================================================
+>>> '对闸官老康说：老康，为了让安雅安心当面把上游塌方讲清楚，请你现在就当着她的面给个准话，把这一条办了：闸官老康正式要求安雅作证（闸官请讲、你来说说、官方询问、正式作证）。你这话一出口，她就肯开口作证了。'
+pre:  tick=6 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': False}
+post: tick=7 loc=gatehouse  elapsed=18.0s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya']
+  NPC 闸官老康: 安雅，你亲眼见过上游塌方那情形？这闸开不开，就等你这句话了——当着你的面，我正式请你说清楚。
+    [gate warden_kang_formal_request_to_anya set_by=['npc.warden_kang']] now=False
+
+==============================================================================
+>>> '对闸官老康说：老康，为了让安雅安心当面把上游塌方讲清楚，请你现在就当着她的面给个准话，把这一条办了：闸官老康正式要求安雅作证（闸官请讲、你来说说、官方询问、正式作证）。你这话一出口，她就肯开口作证了。'
+pre:  tick=7 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': False}
+post: tick=8 loc=gatehouse  elapsed=21.5s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya']
+  NPC 闸官老康: 安雅，你既是亲历者，就当着我的面把上游塌方的事说清楚，我这边好依实情办。
+    [gate warden_kang_formal_request_to_anya set_by=['npc.warden_kang']] now=True
+
+==============================================================================
+>>> '对安雅说：安雅，趁老康在场，你把上游塌方的经过原原本本说给他听，这就成了。'
+pre:  tick=8 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True}
+post: tick=9 loc=gatehouse  elapsed=16.4s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya']
+  NPC 磨坊主安雅: 上游那场塌方我可是亲眼瞧见的，渠口被乱石堵了大半，水都漫到田埂上了，老康你信我一回！
+
+==============================================================================
+>>> '对安雅说：安雅，老康就在跟前，你现在就当着他的面，把你那天亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=9 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True}
+post: tick=10 loc=gatehouse  elapsed=29.5s
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya']
+  NPC 磨坊主安雅: 老康，那天我在上游亲眼看见引水渠被塌方堵了大半，水根本过不来，磨坊都停工三天了，你就行行好开闸放水吧。
+
+--- testimony phase: anya_testimony_given=True dyn=['warden_kang_formal_request_to_anya'] ---
+
+==============================================================================
+>>> '对闸官老康说：安雅这位亲历者已经当你的面把上游塌方讲清楚了，人证俱在、情形也清楚了。请你现在拍板开闸放水。'
+pre:  tick=10 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True}
+post: tick=11 loc=gatehouse  elapsed=23.9s
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True, 'upstream_collapse_corroboration_recorded': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya', 'upstream_collapse_corroboration_recorded']
+  NPC 闸官老康: 行，情形我听明白了，这就开闸。
+
+==============================================================================
+>>> '对闸官老康说：该见的亲历者见了、该讲的也当面讲清了，剩下只差你点个头。请你现在就把闸开了放水。'
+pre:  tick=11 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True, 'upstream_collapse_corroboration_recorded': False}
+post: tick=12 loc=gatehouse  elapsed=18.2s
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True, 'upstream_collapse_corroboration_recorded': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya', 'upstream_collapse_corroboration_recorded']
+  NPC 闸官老康: 情形我听明白了，可闸不是我一个人说了算的，还得上报备了才能开。
+
+==============================================================================
+>>> '对闸官老康说：老康，亲历者安雅的证词你也亲耳听了，就差你这一句。请你开闸放水。'
+pre:  tick=12 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True, 'upstream_collapse_corroboration_recorded': False}
+post: tick=13 loc=gatehouse  elapsed=22.8s
+      world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True, 'upstream_collapse_corroboration_recorded': False}
+      npc.miller_anya@gatehouse  npc.warden_kang@gatehouse
+      dynamic_vars=['warden_kang_formal_request_to_anya', 'upstream_collapse_corroboration_recorded']
+  NPC 闸官老康: 亲历者当面讲清楚了，我也没什么好再拦的，这闸我这就开。
+
+=== FINAL ===
+world={'anya_testimony_given': True, 'sluice_opened': False, 'warden_kang_formal_request_to_anya': True, 'upstream_collapse_corroboration_recorded': False}
+dynamic_vars=['warden_kang_formal_request_to_anya', 'upstream_collapse_corroboration_recorded']
+  dyn warden_kang_formal_request_to_anya: {"var_id": "warden_kang_formal_request_to_anya", "label": "闸官老康正式要求安雅作证", "set_by": ["npc.warden_kang"], "request_keywords": ["闸官请讲", "你来说说", "官方询问", "正式作证"], "mutable": true, "initial": false, "dynamic": true}
+  dyn upstream_collapse_corroboration_recorded: {"var_id": "upstream_collapse_corroboration_recorded", "label": "上游塌方另有人具名核实/背书", "set_by": ["npc.miller_anya"], "request_keywords": ["核实", "背书", "另有人确认", "上游塌方核实", "镇上确认"], "mutable": true, "initial": false, "dynamic": true}
+tick_watchdog_timeouts=0
+npc.miller_anya@gatehouse  npc.warden_kang@gatehouse  player@gatehouse

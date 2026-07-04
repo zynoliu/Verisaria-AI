@@ -1,0 +1,641 @@
+{
+  "content_pack_id": "emberfall_kiln_assize",
+  "schema_version": "2.0",
+  "world_premise": {
+    "era": "late_imperial_canyon_kiln_town",
+    "tone": "ashen_guild_intrigue",
+    "central_tension": "赭壁峡谷的贡瓷窑城每年封窑烧贡。今年龙脊窑膛在火中拱裂、整批贡瓷尽碎，征瓷使到城，限封窑钟三响之内定罪：要么查明窑变真因，要么把掘泥户女工烙刑、举户充作债役抵偿碎贡。窑监一口咬定是掘泥户的赭泥不净，掩盖了他把上好龙骨土与官炭私运给征瓷使靠山做私货、以致窑拱缺骨而裂的实情。",
+    "climate": "干旱",
+    "opening_time": "暮",
+    "npc_daily_rhythm": true
+  },
+  "world_book": [
+    {
+      "entry_id": "tribute_kiln_public_function",
+      "layer": "canonical_fact",
+      "content": "龙脊窑是赭壁窑城唯一够格烧官样贡瓷的大窑，一年只封烧一次。贡瓷若碎而无替补，窑城要向边镇侯府赔补，按旧例可拘窑户、掘泥户充作债役抵偿。",
+      "access": {"visible_to": {"region": ["emberfall"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "impure_clay_public_frame",
+      "layer": "public_belief",
+      "content": "城里许多人相信这批贡瓷是因掘泥户挖出的赭泥掺了砂石、烧时炸膛所致——毕竟泥是他们掘的，出了事自然怪到泥上。",
+      "access": {"visible_to": {"region": ["emberfall"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "guild_blame_line",
+      "layer": "faction_propaganda",
+      "content": "窑监府反复放话：掘泥户世代手脚不净，今年定是他们偷换了龙骨土、以次充好，才害得贡瓷尽碎；不烙一儆百，明年无人敢信窑城的瓷。",
+      "access": {"visible_to": {"faction": ["kiln_guild", "guild_watch", "town_market"]}, "hidden_from": {"faction": ["clay_diggers"]}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "crier_blame_chant",
+      "layer": "faction_propaganda",
+      "content": "市声播报伯每到钟点便沿窑户巷高唱：碎贡之祸起于掘泥户的脏泥，凡为泥工说情者皆是要叫全城赔补、要害窑城断了贡路的祸根。",
+      "access": {"visible_to": {"faction": ["town_market", "kiln_guild"]}, "hidden_from": {"faction": ["clay_diggers"]}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "vault_starved_of_dragonbone_clay",
+      "layer": "forbidden_knowledge",
+      "content": "窑拱真正缺的是龙骨土——窑监阔在封窑前把上好龙骨土与三车官炭私运出城，给征瓷使的靠山赶制一批私货茶器，致使窑拱以次土充骨、受火即裂。这与掘泥户的赭泥无关。",
+      "access": {"visible_to": {"clearance": ["inner_ring"], "profession": ["kiln_master", "glaze_alchemist"]}, "hidden_from": {"faction": ["clay_diggers", "town_market", "guild_watch"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "assessor_kickback_secret",
+      "layer": "forbidden_knowledge",
+      "content": "征瓷使严其实早收了那批私货茶器作程仪；他若秉公查出窑监私运，便等于自承受赇。故他更愿意速速烙个泥工、封窑了事，除非当面摆出他无法抵赖的真凭与一条体面台阶。",
+      "access": {"visible_to": {"clearance": ["inner_ring"]}, "hidden_from": {"faction": ["clay_diggers", "town_market", "guild_watch", "kiln_guild"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "digger_miao_saw_the_carts",
+      "layer": "personal_truth",
+      "content": "掘泥女工苗在封窑前夜，亲眼看见龙骨土与官炭被装上无号的骡车从旧矿道运出城，赶车的挂着窑监府的腰牌。她想说，却被窑卫按在掘场不许离开。",
+      "access": {"visible_to": {"profession": ["clay_digger"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "factor_lou_keeps_charcoal_ledger",
+      "layer": "personal_truth",
+      "content": "商会账房娄手里有一本私账，记着那三车官炭出城的日子、骡车数目与窑监府的画押——他留着这账既怕惹祸，又想留作护身。",
+      "access": {"visible_to": {"profession": ["guild_factor"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "old_kiln_master_knows_starved_vault",
+      "layer": "personal_truth",
+      "content": "老窑师陶在拱裂时被塌砖压伤一臂。他一摸断口便知是缺了龙骨土的次土受火崩的茬口，不是砂泥炸膛;但他一家三代靠窑监府的窑书吃饭，不敢先开口。",
+      "access": {"visible_to": {"profession": ["kiln_master"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "glazier_shen_neutral_read",
+      "layer": "personal_truth",
+      "content": "游方釉师沈替几座窑配过釉，看断口的釉泪走向就断定窑拱受火不均、内里缺骨。她是外乡人、无派无党，肯把这判词说给愿意听的人,但不愿替任何一方当出头椽子。",
+      "access": {"visible_to": {"profession": ["glaze_alchemist"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "old_charter_appeal_right",
+      "layer": "canonical_fact",
+      "content": "山祠存有窑城的古约：凡定罪封窑，掘泥户工首可向山祠祭主递『窑变申诉』，由祭主主持一场设坛验断的过堂之礼;礼成之前不得行烙、不得封掘场。礼需备坛、焚香、候三巡香方成。",
+      "access": {"visible_to": {"profession": ["kiln_priest", "clay_digger"], "clearance": ["inner_ring"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "assessor_release_condition",
+      "layer": "canonical_fact",
+      "content": "按征瓷使的程例，只要窑变真因被当众查实、且掘泥户一方有人当面陈情备案，他便可不行烙刑、不封掘场，转以缓赔议偿了结;真因既明、陈情既备，便无可再推。",
+      "access": {"visible_to": {"region": ["emberfall"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "secret_drift_route",
+      "layer": "local_rumor",
+      "content": "掘场底下有条废弃的旧矿道,绕开窑卫的掘场卡口,能把人从赭泥掘场直接带到山祠后坛。掘泥户世代记着这条道。",
+      "access": {"visible_to": {"faction": ["clay_diggers"], "region": ["emberfall"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "relief_fuel_depends_on_factor",
+      "layer": "canonical_fact",
+      "content": "若掘场被封、举户充债,窑户巷里靠泥工男丁过活的几家会先断炊;救济炭粮与免役文书都攥在商会账房手里,只有他肯调拨才发得出。",
+      "access": {"visible_to": {"region": ["emberfall"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "one_cache_of_dragonbone_clay",
+      "layer": "forbidden_knowledge",
+      "content": "私运之后,城里只剩最后一窖未动的龙骨土。它要么够补烧一炉小样贡瓷、勉强糊弄过征瓷使的封验,要么够拿去夯实掘场塌方的支拱、救下被困的几名泥工——两样只能择其一。",
+      "access": {"visible_to": {"clearance": ["inner_ring"], "profession": ["kiln_master", "guild_factor"]}, "hidden_from": {"faction": ["town_market"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "assayer_cannot_invent_motive",
+      "layer": "canonical_fact",
+      "content": "勘瓷使只能凭当众的供述、可对查的账册物证与当面的承诺推动定断,不能凭空指认谁心里有鬼;断口、私账、证人之言,才是能搬上过堂的东西。",
+      "access": {"visible_to": {"faction": ["all"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    }
+  ],
+  "starting_location": "assize_hall",
+  "initial_locations": [
+    {
+      "location_id": "assize_hall",
+      "name": "审瓷堂",
+      "description": "封窑钟楼下的青砖大堂，碎贡的瓷片摊在朱案上待验。征瓷使的封窑朱印悬在梁间，堂外暮色压顶，炭灰随穿堂风飘进来。",
+      "connections": [
+        {"to": "guild_loft", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.1, "description": "穿过侧廊登上窑监阁"},
+        {"to": "potters_row", "distance": "near", "noise_leak": 0.4, "visual_leak": 0.2, "description": "下石阶进入窑户巷"},
+        {"to": "kiln_shrine", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.05, "description": "沿香道走向山祠"},
+        {"to": "dragon_kiln", "distance": "near", "noise_leak": 0.45, "visual_leak": 0.15, "description": "经验栈走向龙脊窑膛"}
+      ]
+    },
+    {
+      "location_id": "guild_loft",
+      "name": "窑监阁",
+      "description": "高踞窑膛之上的木阁，窑书与画押层层叠叠。窗下能望见整座窑城，也望得见旧矿道的出口。",
+      "connections": [
+        {"to": "assize_hall", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.1, "description": "下侧廊回到审瓷堂"},
+        {"to": "dragon_kiln", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.1, "description": "由监道下到龙脊窑膛"},
+        {"to": "tally_house", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "过账桥前往商会账房"}
+      ]
+    },
+    {
+      "location_id": "dragon_kiln",
+      "name": "龙脊窑膛",
+      "description": "拱裂的大窑还在散着余温，焦黑的窑砖塌了半壁，断口处的次土像枯骨一样发白。塌砖底下隐约压着没刨净的工棚。",
+      "connections": [
+        {"to": "assize_hall", "distance": "near", "noise_leak": 0.45, "visual_leak": 0.15, "description": "经验栈回到审瓷堂"},
+        {"to": "guild_loft", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.1, "description": "由监道上到窑监阁"},
+        {"to": "glaze_works", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.05, "description": "推开侧门进入釉作坊"},
+        {"to": "clay_pits", "distance": "near", "noise_leak": 0.35, "visual_leak": 0.1, "description": "沿料道下到赭泥掘场"}
+      ]
+    },
+    {
+      "location_id": "glaze_works",
+      "name": "釉作坊",
+      "description": "成排的釉缸与试片，墙上挂着各窑的釉泪样本。游方釉师沈在这里看断口的釉色走向。",
+      "connections": [
+        {"to": "dragon_kiln", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.05, "description": "回到龙脊窑膛"},
+        {"to": "charcoal_yard", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.0, "description": "经料廊走向炭料场"}
+      ]
+    },
+    {
+      "location_id": "charcoal_yard",
+      "name": "炭料场",
+      "description": "堆着官炭与窑柴的料场，地上还留着无号骡车的辙印，一直通向旧矿道方向。账房的过秤棚就在场边。",
+      "connections": [
+        {"to": "glaze_works", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.0, "description": "经料廊回到釉作坊"},
+        {"to": "tally_house", "distance": "adjacent", "noise_leak": 0.1, "visual_leak": 0.0, "description": "进入过秤棚旁的商会账房"},
+        {"to": "clay_pits", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.05, "description": "沿辙印走向赭泥掘场"}
+      ]
+    },
+    {
+      "location_id": "tally_house",
+      "name": "商会账房",
+      "description": "满架的账册与契券，铜秤与火漆印随手可及。账房娄在这里既管官炭过秤，也管救济炭粮的发放。",
+      "connections": [
+        {"to": "guild_loft", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "过账桥回到窑监阁"},
+        {"to": "charcoal_yard", "distance": "adjacent", "noise_leak": 0.1, "visual_leak": 0.0, "description": "出棚回到炭料场"},
+        {"to": "potters_row", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.1, "description": "沿契券巷走向窑户巷"}
+      ]
+    },
+    {
+      "location_id": "clay_pits",
+      "name": "赭泥掘场",
+      "description": "赭红的泥坑层层下挖，掘泥户的工棚围在坑边。一道红绳与窑卫的卡口拦着出口，泥工不许擅离。一处坑壁新近塌了方。",
+      "connections": [
+        {"to": "dragon_kiln", "distance": "near", "noise_leak": 0.35, "visual_leak": 0.1, "description": "沿料道上到龙脊窑膛"},
+        {"to": "charcoal_yard", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.05, "description": "沿辙印走向炭料场"},
+        {"to": "old_drift", "distance": "adjacent", "noise_leak": 0.15, "visual_leak": 0.0, "description": "钻进坑底的旧矿道"}
+      ]
+    },
+    {
+      "location_id": "old_drift",
+      "name": "旧矿道",
+      "description": "废弃的运泥矿道，潮湿幽暗，绕开了掘场卡口，一头通到山祠后坛。骡车的旧辙还印在道上。",
+      "connections": [
+        {"to": "clay_pits", "distance": "adjacent", "noise_leak": 0.15, "visual_leak": 0.0, "description": "钻回赭泥掘场坑底"},
+        {"to": "kiln_shrine", "distance": "near", "noise_leak": 0.1, "visual_leak": 0.0, "description": "出矿道到山祠后坛"}
+      ]
+    },
+    {
+      "location_id": "kiln_shrine",
+      "name": "山祠",
+      "description": "供着窑神与历代窑书的石祠，古约碑立在坛前。祭主姞在这里主持验断之礼，香炉的烟一直没断。",
+      "connections": [
+        {"to": "assize_hall", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.05, "description": "沿香道回到审瓷堂"},
+        {"to": "old_drift", "distance": "near", "noise_leak": 0.1, "visual_leak": 0.0, "description": "由后坛进入旧矿道"},
+        {"to": "potters_row", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.1, "description": "下祠阶走向窑户巷"}
+      ]
+    },
+    {
+      "location_id": "potters_row",
+      "name": "窑户巷",
+      "description": "依崖而建的窑户人家，巷口是市声播报伯吆喝的小台。断了炊的几家妇孺挤在巷里，等着掘场的男丁消息。",
+      "connections": [
+        {"to": "assize_hall", "distance": "near", "noise_leak": 0.4, "visual_leak": 0.2, "description": "上石阶回到审瓷堂"},
+        {"to": "tally_house", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.1, "description": "沿契券巷走向商会账房"},
+        {"to": "kiln_shrine", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.1, "description": "上祠阶走向山祠"}
+      ]
+    }
+  ],
+  "initial_entities": [
+    {
+      "entity_id": "player_001",
+      "name": "你",
+      "entity_type": "player",
+      "location_id": "assize_hall",
+      "zone_id": "assay_table",
+      "zone_info": {"visibility": "high", "noise_level": "moderate", "capacity": 6},
+      "attributes": {"strength": 0.46, "dexterity": 0.52, "perception": 0.78, "charisma": 0.62, "faction": "neutral", "region": "emberfall", "profession": "kiln_assayer", "clearance": "writ"},
+      "traits": ["outsider", "writ_bearing", "patient_listener", "trusted_by_no_faction"],
+      "hp": 100,
+      "max_hp": 100,
+      "stamina": 100
+    },
+    {
+      "entity_id": "npc.assessor_yan",
+      "name": "征瓷使严",
+      "entity_type": "npc",
+      "location_id": "assize_hall",
+      "zone_id": "tribute_seat",
+      "zone_info": {"visibility": "high", "noise_level": "quiet", "capacity": 4},
+      "attributes": {"charisma": 0.8, "perception": 0.74, "intelligence": 0.78, "faction": "margrave_envoy", "region": "emberfall", "clearance": "inner_ring", "authority": "assize_authority"},
+      "traits": ["polished", "compromised", "wants_to_close_fast", "moved_only_by_proof"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.warden_kuo",
+      "name": "窑监阔",
+      "entity_type": "npc",
+      "location_id": "guild_loft",
+      "zone_id": "ledger_desk",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 4},
+      "attributes": {"charisma": 0.66, "perception": 0.7, "intelligence": 0.72, "faction": "kiln_guild", "region": "emberfall", "clearance": "inner_ring", "authority": "guild_authority"},
+      "traits": ["guilty", "guarded", "blames_diggers", "yields_only_to_evidence"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.digger_miao",
+      "name": "掘泥女工苗",
+      "entity_type": "npc",
+      "location_id": "clay_pits",
+      "zone_id": "red_rope",
+      "zone_info": {"visibility": "medium", "noise_level": "loud", "capacity": 12},
+      "attributes": {"strength": 0.6, "perception": 0.74, "charisma": 0.5, "faction": "clay_diggers", "region": "emberfall", "profession": "clay_digger", "authority": "witness_authority"},
+      "traits": ["frightened", "stubborn", "saw_the_carts", "afraid_of_the_brand"]
+    },
+    {
+      "entity_id": "npc.enforcer_geng",
+      "name": "窑卫耿",
+      "entity_type": "npc",
+      "location_id": "clay_pits",
+      "zone_id": "checkpoint",
+      "zone_info": {"visibility": "high", "noise_level": "loud", "capacity": 8},
+      "attributes": {"strength": 0.8, "perception": 0.72, "faction": "guild_watch", "region": "emberfall", "authority": "pit_authority"},
+      "traits": ["disciplined", "orders_first", "not_cruel", "guild_loyal"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.factor_lou",
+      "name": "商会账房娄",
+      "entity_type": "npc",
+      "location_id": "tally_house",
+      "zone_id": "scale_desk",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 5},
+      "attributes": {"intelligence": 0.82, "perception": 0.75, "charisma": 0.58, "faction": "guild_merchants", "region": "emberfall", "profession": "guild_factor", "authority": "merchant_authority"},
+      "traits": ["cautious", "self_preserving", "keeps_receipts", "buyable_and_persuadable"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.priest_ji",
+      "name": "山祠祭主姞",
+      "entity_type": "npc",
+      "location_id": "kiln_shrine",
+      "zone_id": "charter_altar",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 8},
+      "attributes": {"charisma": 0.74, "perception": 0.66, "faction": "kiln_shrine", "region": "emberfall", "profession": "kiln_priest", "authority": "shrine_authority"},
+      "traits": ["ceremonial", "bound_by_charter", "quietly_just", "slow_and_careful"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.headwoman_dou",
+      "name": "掘泥工首窦",
+      "entity_type": "npc",
+      "location_id": "potters_row",
+      "zone_id": "diggers_stoop",
+      "zone_info": {"visibility": "medium", "noise_level": "moderate", "capacity": 10},
+      "attributes": {"strength": 0.64, "perception": 0.7, "charisma": 0.68, "faction": "clay_diggers", "region": "emberfall", "profession": "clay_digger"},
+      "traits": ["weathered", "protective_of_caste", "direct", "distrusts_the_guild"]
+    },
+    {
+      "entity_id": "npc.widow_lan",
+      "name": "窑户寡妇兰",
+      "entity_type": "npc",
+      "location_id": "potters_row",
+      "zone_id": "cold_hearth",
+      "zone_info": {"visibility": "high", "noise_level": "moderate", "capacity": 12},
+      "attributes": {"charisma": 0.58, "perception": 0.54, "faction": "kiln_households", "region": "emberfall", "profession": "kiln_household"},
+      "traits": ["exhausted", "blunt", "son_in_the_pits", "wary_of_outsiders"]
+    },
+    {
+      "entity_id": "npc.apprentice_qi",
+      "name": "学徒戚",
+      "entity_type": "npc",
+      "location_id": "dragon_kiln",
+      "zone_id": "stoke_hole",
+      "zone_info": {"visibility": "medium", "noise_level": "loud", "capacity": 6},
+      "attributes": {"perception": 0.56, "charisma": 0.36, "faction": "kiln_guild", "region": "emberfall", "profession": "kiln_apprentice"},
+      "traits": ["young", "terrified", "observant", "counts_the_carts"]
+    },
+    {
+      "entity_id": "npc.master_tao",
+      "name": "老窑师陶",
+      "entity_type": "npc",
+      "location_id": "dragon_kiln",
+      "zone_id": "broken_arch",
+      "zone_info": {"visibility": "low", "noise_level": "moderate", "capacity": 4},
+      "attributes": {"intelligence": 0.8, "perception": 0.84, "faction": "kiln_guild", "region": "emberfall", "profession": "kiln_master", "clearance": "inner_ring"},
+      "traits": ["injured", "expert", "loyal_but_ashamed", "afraid_for_his_family"]
+    },
+    {
+      "entity_id": "npc.glazier_shen",
+      "name": "游方釉师沈",
+      "entity_type": "npc",
+      "location_id": "glaze_works",
+      "zone_id": "glaze_vats",
+      "zone_info": {"visibility": "low", "noise_level": "quiet", "capacity": 4},
+      "attributes": {"intelligence": 0.86, "perception": 0.88, "faction": "wanderers", "region": "outland", "profession": "glaze_alchemist"},
+      "traits": ["itinerant", "factional_neutral", "reads_the_fracture", "wont_be_anyones_pawn"]
+    },
+    {
+      "entity_id": "npc.crier_bo",
+      "name": "市声播报伯",
+      "entity_type": "npc",
+      "location_id": "potters_row",
+      "zone_id": "crier_stand",
+      "zone_info": {"visibility": "high", "noise_level": "loud", "capacity": 8},
+      "attributes": {"charisma": 0.82, "perception": 0.5, "faction": "town_market", "region": "emberfall", "profession": "town_crier", "authority": "crier_authority"},
+      "traits": ["loud", "crowd_pleasing", "fears_the_guild", "turns_with_the_wind"]
+    }
+  ],
+  "initial_relationships": [
+    {"npc_id": "npc.assessor_yan", "target_id": "player_001", "type": "formal_wariness"},
+    {"npc_id": "npc.warden_kuo", "target_id": "player_001", "type": "guarded_hostility"},
+    {"npc_id": "npc.digger_miao", "target_id": "player_001", "type": "frightened_hope"},
+    {"npc_id": "npc.enforcer_geng", "target_id": "player_001", "type": "orderly_suspicion"},
+    {"npc_id": "npc.factor_lou", "target_id": "player_001", "type": "transactional_caution"},
+    {"npc_id": "npc.priest_ji", "target_id": "player_001", "type": "procedural_neutrality"},
+    {"npc_id": "npc.headwoman_dou", "target_id": "player_001", "type": "needs_proof"},
+    {"npc_id": "npc.widow_lan", "target_id": "player_001", "type": "wary_distance"},
+    {"npc_id": "npc.apprentice_qi", "target_id": "player_001", "type": "timid_curiosity"},
+    {"npc_id": "npc.master_tao", "target_id": "player_001", "type": "ashamed_avoidance"},
+    {"npc_id": "npc.glazier_shen", "target_id": "player_001", "type": "neutral_willingness"},
+    {"npc_id": "npc.crier_bo", "target_id": "player_001", "type": "opportunistic_interest"},
+    {"npc_id": "npc.warden_kuo", "target_id": "npc.digger_miao", "type": "scapegoating"},
+    {"npc_id": "npc.enforcer_geng", "target_id": "npc.digger_miao", "type": "contained_witness"},
+    {"npc_id": "npc.assessor_yan", "target_id": "npc.warden_kuo", "type": "secret_complicity"},
+    {"npc_id": "npc.headwoman_dou", "target_id": "npc.digger_miao", "type": "protective_kin"},
+    {"npc_id": "npc.master_tao", "target_id": "npc.warden_kuo", "type": "indebted_silence"}
+  ],
+  "initial_conversations": [
+    {
+      "conversation_id": "conv_sealing_bell_prehearing",
+      "participants": ["npc.assessor_yan"],
+      "topic": "封窑钟三响前是否就把碎贡之罪定下",
+      "tone": "cold_procedure"
+    },
+    {
+      "conversation_id": "conv_pit_checkpoint_standoff",
+      "participants": ["npc.digger_miao", "npc.enforcer_geng"],
+      "topic": "掘泥户能否离开红绳卡口",
+      "tone": "contained_fear"
+    }
+  ],
+  "player_agenda_template": {
+    "current_drives": [
+      {"id": "drive_find_true_fault", "label": "查明龙脊窑拱裂的真因", "strength": 0.72, "source": "writ_mandate"},
+      {"id": "drive_stop_the_branding", "label": "在封窑钟三响前阻止把碎贡之罪烙在掘泥户身上", "strength": 0.58, "source": "player_declared"}
+    ],
+    "inference_mode": "reflection_only",
+    "suggestion_mode": "subtle"
+  },
+  "style_guide": {
+    "narrative_voice": "第三人称有限视角，质地是窑火、炭灰、赭泥与旧约的重量；冷峻克制，重制度压力与匠人尊严，避免宏大独白与奇幻色彩",
+    "tone_references": ["ashen_guild_intrigue", "artisan_caste_pressure", "tribute_debt_politics", "canyon_kiln_town"],
+    "prohibited_tropes": ["harbor_quarantine", "boat_requisition", "tow_order", "memory_erasure", "mirror_array", "snowbound_frontier", "sluice_gate", "chosen_one", "fantasy_magic", "demon_war"]
+  },
+  "constraints": {
+    "max_entities_per_location": 18,
+    "player_death": "incapacitated_only",
+    "punitive_branding": "requires_declared_world_state_change",
+    "no_god_knowledge": true
+  },
+  "campaign_drivers": [
+    {
+      "driver_id": "sealing_bell_countdown",
+      "type": "deadline_pressure",
+      "description": "封窑钟接近三响时，征瓷使的定罪封窑会向前推进，逼玩家尽快查实真因或备好申诉。",
+      "signals": [
+        {"condition": "world.branding_stayed == false", "weight": 0.55},
+        {"condition": "tick >= 3", "weight": 0.3},
+        {"condition": "recent_event_count >= 5", "weight": 0.15}
+      ],
+      "possible_events": [
+        {"event_type": "sealing_bell_tolls_again", "probability": 0.5},
+        {"event_type": "assessor_calls_for_the_brand_iron", "probability": 0.5}
+      ],
+      "severity": 0.68,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "guild_blame_campaign",
+      "type": "faction_response",
+      "description": "玩家持续替掘泥户说话后，窑监府与市声播报会把玩家说成要害窑城赔补的搅局外人。",
+      "signals": [
+        {"condition": "stance.defend_the_diggers", "weight": 0.7},
+        {"condition": "tick >= 2", "weight": 0.3}
+      ],
+      "possible_events": [
+        {"event_type": "crier_names_player_as_tribute_breaker", "probability": 0.6},
+        {"event_type": "warden_files_impurity_charge", "probability": 0.4}
+      ],
+      "severity": 0.55,
+      "cooldown_ticks": 7
+    },
+    {
+      "driver_id": "diggers_panic_near_branding",
+      "type": "crowd_pressure",
+      "description": "若迟迟没有结果，掘泥户会试图冲破红绳或经旧矿道逃散。",
+      "signals": [
+        {"condition": "world.branding_stayed == false", "weight": 0.4},
+        {"condition": "tick >= 6", "weight": 0.3},
+        {"condition": "stance.defend_the_diggers", "weight": 0.3}
+      ],
+      "possible_events": [
+        {"event_type": "diggers_rush_the_red_rope", "probability": 0.55},
+        {"event_type": "miao_hides_in_old_drift", "probability": 0.45}
+      ],
+      "severity": 0.6,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "fault_truth_reorders_town",
+      "type": "revelation",
+      "description": "窑变真因被当众查实后，舆论焦点会从掘泥户的脏泥转向窑监私运与征瓷使受赇。",
+      "signals": [
+        {"condition": "world.kiln_fault_disclosed == true", "weight": 0.7},
+        {"condition": "world.charcoal_ledger_obtained == true", "weight": 0.3}
+      ],
+      "possible_events": [
+        {"event_type": "row_demands_to_see_the_charcoal_ledger", "probability": 0.55},
+        {"event_type": "warden_scrambles_to_shift_blame", "probability": 0.45}
+      ],
+      "severity": 0.6,
+      "cooldown_ticks": 7
+    },
+    {
+      "driver_id": "charter_appeal_window",
+      "type": "legal_opportunity",
+      "description": "若玩家替掘泥户张目，山祠古约会成为暂缓行烙的可用法门。",
+      "signals": [
+        {"condition": "stance.defend_the_diggers", "weight": 0.45},
+        {"condition": "world.shrine_appeal_consecrated == false", "weight": 0.35},
+        {"condition": "tick >= 4", "weight": 0.2}
+      ],
+      "possible_events": [
+        {"event_type": "priest_mentions_the_old_charter", "probability": 1.0}
+      ],
+      "severity": 0.35,
+      "cooldown_ticks": 8
+    },
+    {
+      "driver_id": "households_go_cold",
+      "type": "ambient_pressure",
+      "description": "掘场被封的阴影下，窑户巷断炊的人家会越聚越多，催着救济炭粮。",
+      "signals": [
+        {"condition": "world.digger_relief_granted == false", "weight": 0.4},
+        {"condition": "recent_event_count >= 6", "weight": 0.3},
+        {"condition": "tick >= 4", "weight": 0.3}
+      ],
+      "possible_events": [
+        {"event_type": "households_crowd_the_tally_house", "probability": 0.5},
+        {"event_type": "widow_lan_pleads_for_fuel", "probability": 0.5}
+      ],
+      "severity": 0.5,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "appeal_consequence",
+      "type": "consequence",
+      "description": "窑变申诉成约后，行烙暂止，但窑监府会转而向山祠与勘瓷使施压。",
+      "signals": [
+        {"condition": "world.shrine_appeal_consecrated == true", "weight": 1.0}
+      ],
+      "possible_events": [
+        {"event_type": "warden_pressures_the_shrine", "probability": 0.5},
+        {"event_type": "guild_questions_the_assayer_writ", "probability": 0.5}
+      ],
+      "severity": 0.45,
+      "cooldown_ticks": 6
+    }
+  ],
+  "world_state_vars": [
+    {
+      "var_id": "charcoal_ledger_obtained",
+      "label": "玩家是否拿到记着官炭私运的商会私账。此为一手物证、本身无前置：玩家当面索要即可确立，账房娄至多讨个体面台阶或护身承诺（如不写他名字、出事担着），不得以『需先有别的世界状态/别条线先成』推搪追加新前置。",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": ["merchant_authority"],
+      "request_keywords": ["交出私账", "给我炭账", "官炭私运账", "私运炭料的账册", "出城官炭的画押", "看那本炭账", "把账册交给勘瓷"]
+    },
+    {
+      "var_id": "miao_safe_passage_secured",
+      "label": "窑卫耿是否放行/担保掘泥女工苗安全离开掘场、不因作证被事后追究。耿持掘场卡口权限(pit_authority)；玩家须说服耿放行担保（或在窑变真因已查实 world.kiln_fault_disclosed==true 后请其放行）。此为证人子链的合法起点：苗有了受护放行的硬保障，才肯被带去当面作证。",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": ["pit_authority"],
+      "request_keywords": ["放行证人", "担保苗安全", "放苗离开掘场", "保苗不被追究", "让苗安全到堂", "放掘泥女工走", "撤掉红绳放行", "出具放行担保"]
+    },
+    {
+      "var_id": "kiln_fault_disclosed",
+      "label": "窑变真因——窑监私运龙骨土致窑拱缺骨而裂——是否被窑监阔当众查实承认。撬动凭据：world.charcoal_ledger_obtained==true（已拿到记着官炭私运的炭账物证），即有可核对的账册当面压在阔面前；此时只要玩家再给个体面台阶（如不深究他个人、容他将功折罪），阔即应据此当众承认，不得再以『还需别的什么』推搪追加新前置。无凭据时阔合理地保持戒备、不认。",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["guild_authority"],
+      "request_keywords": ["承认私运龙骨土", "公开窑变真因", "承认窑拱缺骨", "查实碎贡真因", "说明拱裂非泥之过", "承认次土充骨", "公开断口真相"]
+    },
+    {
+      "var_id": "digger_testimony_given",
+      "label": "女工苗是否当面把那夜骡车出城、龙骨土被运走的目击作证、陈情备案。前置：苗需先有受护放行的硬保障(world.miao_safe_passage_secured==true)、且已被带到审瓷堂（移动靠护送『跟我去X』，不在本 var 关键词内）；二者既具，苗即肯当面口述作证，不得再另设新前置。",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": ["witness_authority"],
+      "request_keywords": ["让苗当面作证", "当面陈情备案", "苗说出那夜所见", "把你看到的讲出来", "当面把骡车出城讲清楚", "苗口述目击作证", "当庭作证陈情"]
+    },
+    {
+      "var_id": "shrine_appeal_consecrated",
+      "label": "山祠古约的窑变申诉是否设坛成礼（递交后需候三巡香方成）",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["shrine_authority"],
+      "request_keywords": ["递窑变申诉", "请祭主设坛", "启动古约过堂", "援引山祠古约", "求验断之礼", "递申诉求缓烙", "请山祠主持验断"]
+    },
+    {
+      "var_id": "branding_stayed",
+      "label": "掘泥户女工的烙刑与举户充债是否被叫停。唯一前置：world.kiln_fault_disclosed==true 且 world.digger_testimony_given==true；二者皆为真即应停烙、不封掘场、转以缓赔议偿，不得再另设新前置。",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["assize_authority"],
+      "request_keywords": ["停止行烙", "叫停烙刑", "不要封掘场", "免去充债", "改判缓赔", "停烙缓赔议偿", "撤销烙刑封窑"]
+    },
+    {
+      "var_id": "digger_relief_granted",
+      "label": "断炊的窑户与掘泥户是否获得救济炭粮与免役文书",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["merchant_authority"],
+      "request_keywords": ["发放救济炭粮", "调拨救济炭", "开免役文书", "给窑户口粮", "赈济断炊人家", "拨炭粮救掘泥户"]
+    }
+  ],
+  "stance_topics": [
+    {
+      "topic_id": "defend_the_diggers",
+      "label": "替掘泥户洗冤、阻止行烙",
+      "keywords": ["掘泥户", "替泥工说情", "别烙", "停烙", "不是泥之过", "苗", "替他们洗冤", "护住泥工"]
+    },
+    {
+      "topic_id": "uphold_the_guild_order",
+      "label": "维护窑监府的定罪与贡路",
+      "keywords": ["相信窑监", "贡路要紧", "定罪了事", "脏泥炸膛", "维护窑城", "先保贡瓷", "按例封窑"]
+    },
+    {
+      "topic_id": "expose_the_clay_diversion",
+      "label": "揭穿私运龙骨土的真相",
+      "keywords": ["龙骨土", "私运", "官炭出城", "窑拱缺骨", "次土充骨", "断口真相", "碎贡真因"]
+    },
+    {
+      "topic_id": "secure_the_evidence_chain",
+      "label": "坐实人证物证的证据链",
+      "keywords": ["炭账", "私账", "苗的证词", "证据链", "目击", "封存证词", "物证账册"]
+    },
+    {
+      "topic_id": "protect_the_kiln_households",
+      "label": "保住断炊窑户的生计",
+      "keywords": ["救济炭粮", "断炊", "窑户", "免役", "口粮", "赈济", "断了炊"]
+    },
+    {
+      "topic_id": "challenge_the_blame_chant",
+      "label": "驳斥脏泥嫁祸的市声",
+      "keywords": ["脏泥", "嫁祸", "市声", "播报", "更正吆喝", "撤回脏泥说", "别叫泥工祸根"]
+    }
+  ],
+  "rule_presets": {
+    "difficulty": "investigative_tense",
+    "stealth_threshold_base": 0.55,
+    "combat_lethality": "non_lethal_default",
+    "social_consequence_weight": "high",
+    "tribute_ethics": "fault_must_be_shown"
+  }
+}

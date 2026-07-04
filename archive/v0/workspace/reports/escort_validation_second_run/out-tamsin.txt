@@ -1,0 +1,155 @@
+=== Escort Validation Second Run ===
+pack=fixtures/content_packs/skyglass_memory_inquest.json
+backend=minimax  MINIMAX_API_KEY=set
+valid=True
+
+========================================================================
+STEP 1 (goto valley_platform: hop press_gallery)
+pre: tick=0 loc=inquest_hall world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.apprentice_nio': '学徒尼奥', 'npc.cantor_seraph': '副领唱瑟芙', 'npc.director_alen': '艾伦总监'}
+clarification_active=False
+>>> '去 press_gallery'
+PARSE: type=movement ref='press_gallery'->id=None content='' mods={'to_location': 'press_gallery'}
+post: tick=1 loc=press_gallery world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=8.5s
+narrative:
+你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+protocol_events=9 (+0 speech)
+{'event': 'Progress', 'tick': 0, 'message': '（正在领会你的意思…）'}
+{'event': 'NpcSpoke', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'line': '听证厅的席位都按程序排好了，请各位就座，流程上没有需要重新讨论的环节。'}
+{'event': 'NpcSpoke', 'tick': 0, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'line': '静钟还有三响……我是说，我已经在这里数过两遍了。'}
+{'event': 'PlayerMoved', 'tick': 0, 'from_loc': '静钟审询厅', 'to_loc': '城市广播席'}
+{'event': 'TickAdvanced', 'tick': 1, 'new_tick': 1}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'silent_bell_rings_again', 'source': 'silent_bell_countdown', 'summary': 'silent_bell_rings_again'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'archivist_mentions_revocation_hearing', 'source': 'archive_law_pressure', 'summary': 'archivist_mentions_revocation_hearing'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'heat_tokens_jump_at_valley_platform', 'source': 'valley_heat_market_squeeze', 'summary': 'heat_tokens_jump_at_valley_platform'}
+{'event': 'Narration', 'tick': 1, 'text': '你改变了位置。'}
+
+========================================================================
+STEP 2 (goto valley_platform: hop valley_platform)
+pre: tick=1 loc=press_gallery world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.broadcaster_iva': '广播员伊娃'}
+clarification_active=False
+>>> '去 valley_platform'
+PARSE: type=movement ref='valley_platform'->id='valley_platform' content='' mods={'to_location': 'valley_platform'}
+post: tick=2 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=10.0s
+narrative:
+你改变了位置。
+protocol_events=5 (+0 speech)
+{'event': 'Progress', 'tick': 1, 'message': '（正在领会你的意思…）'}
+{'event': 'NpcSpoke', 'tick': 1, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'line': '哦，您是从下面来的？记者席视野有限，但角度绝佳——您是来采访的，还是来旁听的？'}
+{'event': 'PlayerMoved', 'tick': 1, 'from_loc': '城市广播席', 'to_loc': '低谷列车站台'}
+{'event': 'TickAdvanced', 'tick': 2, 'new_tick': 2}
+{'event': 'Narration', 'tick': 2, 'text': '你改变了位置。'}
+
+========================================================================
+STEP 3 (rapport: offer a deal)
+pre: tick=2 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.courier_tamsin': '信使塔姆辛', 'npc.valley_mother_june': '谷地母亲琼'}
+clarification_active=False
+>>> '对信使塔姆辛说：我能在听证厅替低谷家庭争取热能通行证，但我需要你帮个忙——你最熟那条旧检修梯。'
+PARSE: type=speech ref='信使塔姆辛'->id='npc.courier_tamsin' content='我能在听证厅替低谷家庭争取热能通行证，但我需要你帮个忙——你最熟那条旧检修梯。' mods={}
+
+courier_tamsin：我带你下去可以，但事后热筹市场那边的好处，你得分我三成。
+post: tick=3 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=8.5s
+narrative:
+谷地母亲琼环顾四周。
+protocol_events=5 (+2 speech)
+{'event': 'Progress', 'tick': 2, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 2, 'line': '我能在听证厅替低谷家庭争取热能通行证，但我需要你帮个忙——你最熟那条旧检修梯。'}
+{'event': 'NpcSpoke', 'tick': 2, 'npc_id': 'npc.courier_tamsin', 'name': '信使塔姆辛', 'line': '我带你下去可以，但事后热筹市场那边的好处，你得分我三成。'}
+{'event': 'TickAdvanced', 'tick': 3, 'new_tick': 3}
+{'event': 'Narration', 'tick': 3, 'text': '谷地母亲琼环顾四周。'}
+
+========================================================================
+STEP 4 (ESCORT: Tamsin -> transit_ladder, success ⟳MOVED expected)
+pre: tick=3 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.courier_tamsin': '信使塔姆辛', 'npc.valley_mother_june': '谷地母亲琼'}
+clarification_active=False
+>>> '对信使塔姆辛说：跟我去 transit_ladder，就走你那条旧检修梯，我们一起把证人接出来，事成我保证低谷拿到通行证。'
+PARSE: CLARIFICATION type='generic' q="'transit_ladder' 指代不明，请确认：" opts=['尝试执行', '取消动作']
+post: tick=3 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=True elapsed=9.1s
+narrative:
+'transit_ladder' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+protocol_events=5 (+0 speech)
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.courier_tamsin', 'name': '信使塔姆辛', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.courier_tamsin', 'name': '信使塔姆辛', 'descriptor': {'dimension': 'suspicion', 'value': 0.1, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.courier_tamsin', 'name': '信使塔姆辛', 'descriptor': {'dimension': 'familiarity', 'value': 0.235, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.15}
+{'event': 'Progress', 'tick': 3, 'message': '（正在领会你的意思…）'}
+{'event': 'ClarificationNeeded', 'tick': 3, 'question': "'transit_ladder' 指代不明，请确认：", 'options': ['尝试执行', '取消动作']}
+
+========================================================================
+STEP 5 (auto-cancel leftover clarification)
+pre: tick=3 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.courier_tamsin': '信使塔姆辛', 'npc.valley_mother_june': '谷地母亲琼'}
+clarification_active=True
+>>> '/cancel'
+post: tick=3 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=0.0s
+narrative:
+动作已取消。
+protocol_events=0 (+0 speech)
+
+========================================================================
+STEP 6 (ESCORT retry)
+pre: tick=3 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.courier_tamsin': '信使塔姆辛', 'npc.valley_mother_june': '谷地母亲琼'}
+clarification_active=False
+>>> '对信使塔姆辛说：跟我去旧检修梯，现在就走，我跟你一起。'
+PARSE: type=speech ref='信使塔姆辛'->id='npc.courier_tamsin' content='跟我去旧检修梯，现在就走，我跟你一起。' mods={'urgency': 'high'}
+
+courier_tamsin：走啊，别磨蹭了——June姨那边我去说，你先跟我下廊道。
+post: tick=4 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=6.1s
+narrative:
+谷地母亲琼环顾四周。
+protocol_events=5 (+3 speech)
+{'event': 'Progress', 'tick': 3, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 3, 'line': '跟我去旧检修梯，现在就走，我跟你一起。'}
+{'event': 'NpcSpoke', 'tick': 3, 'npc_id': 'npc.courier_tamsin', 'name': '信使塔姆辛', 'line': '走啊，别磨蹭了——June姨那边我去说，你先跟我下廊道。'}
+{'event': 'TickAdvanced', 'tick': 4, 'new_tick': 4}
+{'event': 'Narration', 'tick': 4, 'text': '谷地母亲琼环顾四周。'}
+
+========================================================================
+STEP 7 
+pre: tick=4 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.courier_tamsin': '信使塔姆辛', 'npc.valley_mother_june': '谷地母亲琼'}
+clarification_active=False
+>>> '/world'
+post: tick=4 loc=valley_platform world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=0.0s
+narrative:
+=== 世界状态 ===
+  莉拉是否亲口留下十二号接点事故证词（lira_witness_statement_recorded）: False
+  奥罗医师是否为档案署禁令申请联签（clinician_cosign_obtained）: False
+  塔基证人的记忆清洗是否暂停（memory_purge_halted）: False
+  档案署是否提交暂停清洗禁令（archive_injunction_filed）: False
+  莉拉的事故证词是否被保全（witness_record_secured）: False
+  十二号接点故障是否被公开承认（array_fault_disclosed）: False
+  玩家是否获得镜图副本（cartography_copy_obtained）: False
+  低谷家庭是否获得临时热能和列车通行（valley_heat_passes_released）: False
+  城市广播是否撤回破镜派宣传（broadcast_retraction_issued）: False
+protocol_events=0 (+0 speech)
+
+[FINAL]
+tick=4
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+dynamic_vars=[]
+stances=[]
+final_positions:
+  npc.apprentice_nio: inquest_hall
+  npc.archivist_mae: archive_stack
+  npc.broadcaster_iva: press_gallery
+  npc.cantor_seraph: inquest_hall
+  npc.cartographer_renke: mirror_control
+  npc.clinician_oro: mnemonic_clinic
+  npc.courier_tamsin: valley_platform
+  npc.director_alen: inquest_hall
+  npc.greenhouse_sura: orchid_house
+  npc.security_kade: inquest_hall
+  npc.valley_mother_june: valley_platform
+  npc.worker_lira: worker_gantry
+  player_001: valley_platform

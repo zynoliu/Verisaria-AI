@@ -1,0 +1,121 @@
+=== THIRD final-ordered: per_tick=90.0s sock=55.0s ===
+start player@gatehouse anya@yard kang@gatehouse
+
+==============================================================================
+>>> '去院子找安雅'
+pre:  tick=0 player@gatehouse present=['npc.warden_kang'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=1 player@yard anya@yard kang@gatehouse world={'sluice_opened': False} elapsed=4.6s
+  NPC 闸官老康: 闸房重地，闲人止步。你要是没什么正经事，就在外头等着。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+--- ESCORT ATTEMPT 1 ---
+
+==============================================================================
+>>> '对安雅说：跟我去闸房，把你亲眼见过的上游塌方当面讲给闸官老康听，我现在就带你过去。'
+pre:  tick=1 player@yard present=['npc.miller_anya'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=2 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=13.6s
+  NPC_MOVED npc.miller_anya: 院子 -> 闸房
+  PLAYER_MOVED: 院子 -> 闸房
+  NPC 磨坊主安雅: 太好了，我正盼着呢！磨坊都停工三天了，走，这就跟你去见老康！
+*** ⟳MOVED confirmed: Anya@gatehouse ***
+
+--- OPEN-SLUICE ASK round 1 ---
+
+==============================================================================
+>>> '对闸官老康说：请你现在就开闸放水。'
+pre:  tick=2 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=3 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=15.2s
+  NPC 闸官老康: 没有亲历者当面把上游情形说清楚，这闸我不能开。
+
+--- ANYA TESTIFIES round 1 (prereq var now: None) ---
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方亲口作证给他——你当时在渠口，看见整面山皮塌进河里、水头一下就断了，把这经过讲清楚。'
+pre:  tick=3 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=4 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=12.9s
+  NPC 磨坊主安雅: 成！我正想去呢，磨坊都停三天了，柴米都快见底了，咱们这就走！
+  NARRATIVE: 什么也没发生。
+
+--- OPEN-SLUICE ASK round 2 ---
+
+==============================================================================
+>>> '对闸官老康说：请你现在就开闸放水。'
+pre:  tick=4 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=5 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=24.3s
+  NPC 闸官老康: 你亲眼见着了塌方，亲口跟我说了，这才算数。安雅，你也在场，当时是不是也瞧见了？
+
+--- ANYA TESTIFIES round 2 (prereq var now: None) ---
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方亲口作证给他——你当时在渠口，看见整面山皮塌进河里、水头一下就断了，把这经过讲清楚。'
+pre:  tick=5 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=6 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=14.0s
+  NPC 磨坊主安雅: 好嘞！我这就跟你走，路上我再把塌方那段仔细跟你说说。
+  NARR: 闸官老康环顾四周。
+  NARRATIVE: 闸官老康环顾四周。
+
+--- OPEN-SLUICE ASK round 3 ---
+
+==============================================================================
+>>> '对闸官老康说：请你现在就开闸放水。'
+pre:  tick=6 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=7 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=21.3s
+  NPC 闸官老康: 光你一句话可不行，得有人把上游的情形当面说清楚，这是规矩。
+
+--- ANYA TESTIFIES round 3 (prereq var now: None) ---
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方亲口作证给他——你当时在渠口，看见整面山皮塌进河里、水头一下就断了，把这经过讲清楚。'
+pre:  tick=7 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+post: tick=8 player@gatehouse anya@gatehouse kang@yard world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=9.0s
+  NPC 磨坊主安雅: 走走走，我早就盼着这一天了！
+  NARR: 闸官老康改变了位置。
+  NARRATIVE: 闸官老康改变了位置。
+
+==============================================================================
+>>> '去院子'
+pre:  tick=8 player@gatehouse present=['npc.miller_anya'] anya@gatehouse kang@yard world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+post: tick=9 player@yard anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=13.1s
+  NPC 磨坊主安雅: 得嘞！老康那人最讲理，我去把亲眼看见的一五一十说给他听，这闸今天准能开！
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+--- OPEN-SLUICE ASK round 4 ---
+
+==============================================================================
+>>> '对闸官老康说：请你现在就开闸放水。'
+pre:  tick=9 player@yard present=[] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+post: tick=9 player@yard anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=4.5s
+  NARRATIVE: 输入存在矛盾: 闸官老康不在这儿，TA在闸房那边，你得先过去才能搭话。
+请重新输入。
+
+--- ANYA TESTIFIES round 4 (prereq var now: None) ---
+
+==============================================================================
+>>> '去闸房'
+pre:  tick=9 player@yard present=[] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+post: tick=10 player@gatehouse anya@yard kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=5.7s
+  PLAYER_MOVED: 院子 -> 闸房
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：跟我去闸房，把你亲眼见过的上游塌方当面讲给闸官老康听，我现在就带你过去。'
+pre:  tick=10 player@gatehouse present=['npc.warden_kang'] anya@yard kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+post: tick=10 player@gatehouse anya@yard kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=5.1s
+  NARRATIVE: 输入存在矛盾: 磨坊主安雅不在这儿，TA在院子那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方亲口作证给他——你当时在渠口，看见整面山皮塌进河里、水头一下就断了，把这经过讲清楚。'
+pre:  tick=10 player@gatehouse present=['npc.warden_kang'] anya@yard kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+post: tick=10 player@gatehouse anya@yard kang@gatehouse world={'sluice_opened': False, 'sluice_open_authorization_presented': False} elapsed=6.0s
+  NARRATIVE: 输入存在矛盾: 磨坊主安雅不在这儿，TA在院子那边，你得先过去才能搭话。
+请重新输入。
+
+=== FINAL ===
+world={'sluice_opened': False, 'sluice_open_authorization_presented': False}
+player@gatehouse anya@yard kang@gatehouse

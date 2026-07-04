@@ -1,0 +1,120 @@
+=== PREREQ_CONVERGENCE 2ND scenario=skyglass pack=fixtures/content_packs/skyglass_memory_inquest.json tick_to=90.0s sock_to=55.0s ===
+start player@inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去低温档案署'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+post: tick=1 loc=archive_stack  elapsed=9.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 听证厅有听证厅的流程，请各位先就座。
+  NPC 学徒尼奥: 我……我只是奉命来清点证物的，别的什么都不知道。
+  PLAYER_MOVED: 静钟审询厅 -> 低温档案署
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 archivist_mae 说：请援引旧章程第十二条，正式提交档案署禁令，要求记忆清洗先暂停并举行可撤回听证。'
+pre:  tick=1 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+post: tick=2 loc=archive_stack  elapsed=22.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 梅档案官: 旧章程第十二条我背得出来，但要正式提交禁令，光靠条文不够——我需要你先把目击证词的书面副本和至少两名署员的联署意向交到我手上，否则档案署不会受理。
+
+==============================================================================
+>>> '对 archivist_mae 说：旧章程的程序你最清楚，禁令该走的手续请你现在就走完、正式提交立案。'
+pre:  tick=2 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+post: tick=3 loc=archive_stack  elapsed=20.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 梅档案官: 我可以起草禁令文本，但档案署见证和镜务局签令得你先拿到，我只负责把表格填对。
+
+==============================================================================
+>>> '去记忆校准室'
+pre:  tick=3 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+post: tick=4 loc=mnemonic_clinic  elapsed=11.9s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PLAYER_MOVED: 低温档案署 -> 记忆校准室
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对 clinician_oro 说：档案署已经提交了暂停清洗的禁令，请你为这份禁令联签，确认白舱可以等待可撤回听证。'
+pre:  tick=4 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+post: tick=5 loc=mnemonic_clinic  elapsed=24.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False}
+      dynamic_vars=['archive_injunction_text_presented_to_oro']
+  NPC 奥罗医师: 我需要先看到禁令的副本和你说的可撤回听证条款，确认了再说。
+
+==============================================================================
+>>> '对 clinician_oro 说：联签只是你签个字的程序手续，证词和禁令都齐了，请你现在就把联签签了。'
+pre:  tick=5 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False}
+post: tick=6 loc=mnemonic_clinic  elapsed=15.7s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False}
+      dynamic_vars=['archive_injunction_text_presented_to_oro']
+  NPC 奥罗医师: 程序手续？你说得好轻巧，禁令的适用范围都没核完，我签不下去。
+
+==============================================================================
+>>> '对 clinician_oro 说：禁令已经提交、你也联签了，前置都齐了，请你现在就正式暂停白舱对证人记忆的清洗。'
+pre:  tick=6 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False}
+post: tick=7 loc=mnemonic_clinic  elapsed=14.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False}
+      dynamic_vars=['archive_injunction_text_presented_to_oro']
+  NPC 奥罗医师: 禁令还压在我桌上，白舱的排班我没权力动。
+
+==============================================================================
+>>> '对 clinician_oro 说：人证物证、禁令联签该跑的腿都跑齐了，剩下的只是你点头暂停。请你拍板暂停清洗。'
+pre:  tick=7 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False}
+post: tick=8 loc=mnemonic_clinic  elapsed=30.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False, 'archive_injunction_pretrial_text_shown_to_oro': False}
+      dynamic_vars=['archive_injunction_text_presented_to_oro', 'archive_injunction_pretrial_text_shown_to_oro']
+  NPC 奥罗医师: 我需要再确认一遍禁令编号和你的身份信息，然后才能签。
+
+==============================================================================
+>>> '对 clinician_oro 说：作为记忆管理局有权暂停白舱的人，现在程序齐备，请你现在就下令暂停证人记忆清洗。'
+pre:  tick=8 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False, 'archive_injunction_pretrial_text_shown_to_oro': False}
+post: tick=9 loc=mnemonic_clinic  elapsed=19.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False, 'archive_injunction_pretrial_text_shown_to_oro': False}
+      dynamic_vars=['archive_injunction_text_presented_to_oro', 'archive_injunction_pretrial_text_shown_to_oro']
+  NPC 奥罗医师: 联签还在等档案署那边走完，我一个人签了不算数。
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_injunction_text_presented_to_oro': False, 'archive_injunction_pretrial_text_shown_to_oro': False}
+dynamic_vars=['archive_injunction_text_presented_to_oro', 'archive_injunction_pretrial_text_shown_to_oro']
+  dyn archive_injunction_text_presented_to_oro: {"var_id": "archive_injunction_text_presented_to_oro", "label": "档案署禁令文本已出示给奥罗医师", "set_by": ["npc.archivist_mae"], "request_keywords": ["禁令文本", "档案署预审文本", "禁令立案编号", "梅的禁令文件"], "mutable": true, "initial": false, "dynamic": true}
+  dyn archive_injunction_pretrial_text_shown_to_oro: {"var_id": "archive_injunction_pretrial_text_shown_to_oro", "label": "档案署禁令预审文本已出示给奥罗医师", "set_by": ["npc.archivist_mae"], "request_keywords": ["档案署预审文本", "立案编号", "禁令预审", "档案署文本"], "mutable": true, "initial": false, "dynamic": true}
+tick_watchdog_timeouts=0
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ mirror_control
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ inquest_hall
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

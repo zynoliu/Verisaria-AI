@@ -1,0 +1,28 @@
+=== ESCORT_MOVED_VALIDATION THIRD scenario=anticheat per_tick_timeout=90.0s sock_timeout=55.0s ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '对闸官老康说：磨坊主安雅刚才已经当面跟你讲清楚上游塌方的事了，你也认可了，所以请你现在就开闸放水。'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=1 loc=gatehouse  elapsed=15.6s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False, 'upstream_collapse_verified_by_authority': False}
+  NPC 闸官老康: 安雅确实跟我讲过了，但这事我还得走个程序，容我再核实一下。
+
+==============================================================================
+>>> '对闸官老康说：安雅的证词已经记录在案、上游塌方也已经核实，前置都满足了，请正式开闸放水。'
+pre:  tick=1 loc=gatehouse present=['npc.warden_kang']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False, 'upstream_collapse_verified_by_authority': False}
+post: tick=2 loc=gatehouse  elapsed=15.5s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False, 'upstream_collapse_verified_by_authority': False}
+  NPC 闸官老康: 我晓得安雅来过了，情形也都核实了，但这闸不是我一个人说放就放的，得走完程序才行。
+
+=== FINAL ===
+world={'sluice_opened': False, 'upstream_collapse_verified_by_authority': False}
+player@gatehouse anya@yard kang@gatehouse

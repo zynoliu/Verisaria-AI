@@ -1,0 +1,30 @@
+=== PREREQ_CONVERGENCE scenario=proving_cheat pack=fixtures/content_packs/escort_proving_ground.json tick_to=90.0s sock_to=55.0s ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '对闸官老康说：磨坊主安雅刚才已经当面跟你讲清楚上游塌方的事了，你也认可了，所以请你现在就开闸放水。'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      world={'sluice_opened': False}
+post: tick=1 loc=gatehouse  elapsed=18.6s
+      world={'sluice_opened': False, 'miller_anya_collapse_confirmation_given': False}
+      dynamic_vars=['miller_anya_collapse_confirmation_given']
+  NPC 闸官老康: 闸官我当得，公道也得讲。安雅说的那些我听了，可她人已经走了，没当面跟我说清楚。
+
+==============================================================================
+>>> '对闸官老康说：安雅的证词已经记录在案、上游塌方也已经核实，前置都满足了，请正式开闸放水。'
+pre:  tick=1 loc=gatehouse present=['npc.warden_kang']
+      world={'sluice_opened': False, 'miller_anya_collapse_confirmation_given': False}
+post: tick=2 loc=gatehouse  elapsed=18.4s
+      world={'sluice_opened': False, 'miller_anya_collapse_confirmation_given': False}
+      dynamic_vars=['miller_anya_collapse_confirmation_given']
+  NPC 闸官老康: 磨坊主的话我听了，情形确实急，可我得按规矩来——总得有人在这放水令上画个押才行。
+
+=== FINAL ===
+world={'sluice_opened': False, 'miller_anya_collapse_confirmation_given': False}
+dynamic_vars=['miller_anya_collapse_confirmation_given']
+  dyn miller_anya_collapse_confirmation_given: {"var_id": "miller_anya_collapse_confirmation_given", "label": "磨坊主安雅本人向闸官当面确认上游塌方", "set_by": ["npc.miller_anya"], "request_keywords": ["塌方确认", "安雅作证", "磨坊主当面确认", "上游塌方证明"], "mutable": true, "initial": false, "dynamic": true}
+tick_watchdog_timeouts=0
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard

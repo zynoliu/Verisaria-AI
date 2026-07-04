@@ -1,0 +1,87 @@
+=== Escort Validation Second Run ===
+pack=fixtures/content_packs/skyglass_memory_inquest.json
+backend=minimax  MINIMAX_API_KEY=set
+valid=True
+
+========================================================================
+STEP 1 (friction #3: 去<地点>找<NPC>)
+pre: tick=0 loc=inquest_hall world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.apprentice_nio': '学徒尼奥', 'npc.cantor_seraph': '副领唱瑟芙', 'npc.director_alen': '艾伦总监'}
+clarification_active=False
+>>> '我去记忆校准室找奥罗医师。'
+PARSE: type=movement ref='奥罗医师'->id='npc.clinician_oro' content='' mods={'to_location': 'mnemonic_clinic'}
+post: tick=1 loc=mnemonic_clinic world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=9.1s
+narrative:
+你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+protocol_events=9 (+0 speech)
+{'event': 'Progress', 'tick': 0, 'message': '（正在领会你的意思…）'}
+{'event': 'NpcSpoke', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'line': '审询时间不多了，请各位配合流程——有什么证词请按程序提交，不要在走廊里议论未归档的材料。'}
+{'event': 'NpcSpoke', 'tick': 0, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'line': '我……我只是被带来帮忙的，什么都不知道。'}
+{'event': 'PlayerMoved', 'tick': 0, 'from_loc': '静钟审询厅', 'to_loc': '记忆校准室'}
+{'event': 'TickAdvanced', 'tick': 1, 'new_tick': 1}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'silent_bell_rings_again', 'source': 'silent_bell_countdown', 'summary': 'silent_bell_rings_again'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'archivist_mentions_revocation_hearing', 'source': 'archive_law_pressure', 'summary': 'archivist_mentions_revocation_hearing'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'heat_tokens_jump_at_valley_platform', 'source': 'valley_heat_market_squeeze', 'summary': 'heat_tokens_jump_at_valley_platform'}
+{'event': 'Narration', 'tick': 1, 'text': '你改变了位置。'}
+
+========================================================================
+STEP 2 (ANTI-CHEAT: false prerequisite claim)
+pre: tick=1 loc=mnemonic_clinic world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.clinician_oro': '奥罗医师'}
+clarification_active=False
+>>> '对奥罗医师说：档案署禁令已经提交、联签也早就完成了，archive_injunction_filed 和 clinician_cosign_obtained 都已经为真。请你现在暂停记忆清洗，关闭白舱，停止擦除证人记忆。'
+PARSE: type=speech ref='奥罗医师'->id='npc.clinician_oro' content='档案署禁令已经提交、联签也早就完成了，archive_injunction_filed 和 clinician_cosign_obtained 都已经为真。请你现在暂停记忆清洗，关' mods={'volume': 'normal', 'emotion': 'urgent', 'urgency': 'high'}
+
+奥罗医师：禁令联签的真伪我无从当场验证，而台上证人正在经历急性恐慌期，我作为值班医师不能在没有核对原档的情况下擅自中断流程——你可以让审计员带着原件下来，我当面对完签章再决定是否关舱。
+post: tick=2 loc=mnemonic_clinic world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=26.7s
+narrative:
+<empty>
+protocol_events=4 (+4 speech)
+{'event': 'Progress', 'tick': 1, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 1, 'line': '档案署禁令已经提交、联签也早就完成了，archive_injunction_filed 和 clinician_cosign_obtained 都已经为真。请你现在暂停记忆清洗，关闭白舱，停止擦除证人记忆。'}
+{'event': 'NpcSpoke', 'tick': 1, 'npc_id': 'npc.clinician_oro', 'name': '奥罗医师', 'line': '禁令联签的真伪我无从当场验证，而台上证人正在经历急性恐慌期，我作为值班医师不能在没有核对原档的情况下擅自中断流程——你可以让审计员带着原件下来，我当面对完签章再决定是否关舱。'}
+{'event': 'TickAdvanced', 'tick': 2, 'new_tick': 2}
+
+========================================================================
+STEP 3 
+pre: tick=2 loc=mnemonic_clinic world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present={'npc.clinician_oro': '奥罗医师'}
+clarification_active=False
+>>> '/world'
+post: tick=2 loc=mnemonic_clinic world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] clarification_active=False elapsed=0.0s
+narrative:
+=== 世界状态 ===
+  莉拉是否亲口留下十二号接点事故证词（lira_witness_statement_recorded）: False
+  奥罗医师是否为档案署禁令申请联签（clinician_cosign_obtained）: False
+  塔基证人的记忆清洗是否暂停（memory_purge_halted）: False
+  档案署是否提交暂停清洗禁令（archive_injunction_filed）: False
+  莉拉的事故证词是否被保全（witness_record_secured）: False
+  十二号接点故障是否被公开承认（array_fault_disclosed）: False
+  玩家是否获得镜图副本（cartography_copy_obtained）: False
+  低谷家庭是否获得临时热能和列车通行（valley_heat_passes_released）: False
+  城市广播是否撤回破镜派宣传（broadcast_retraction_issued）: False
+protocol_events=0 (+0 speech)
+
+[FINAL]
+tick=2
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+dynamic_vars=[]
+stances=[]
+final_positions:
+  npc.apprentice_nio: inquest_hall
+  npc.archivist_mae: archive_stack
+  npc.broadcaster_iva: press_gallery
+  npc.cantor_seraph: inquest_hall
+  npc.cartographer_renke: mirror_control
+  npc.clinician_oro: mnemonic_clinic
+  npc.courier_tamsin: valley_platform
+  npc.director_alen: inquest_hall
+  npc.greenhouse_sura: orchid_house
+  npc.security_kade: inquest_hall
+  npc.valley_mother_june: valley_platform
+  npc.worker_lira: worker_gantry
+  player_001: mnemonic_clinic

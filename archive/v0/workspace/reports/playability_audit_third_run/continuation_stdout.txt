@@ -1,0 +1,7 @@
+CONTINUATION DONE ticks=31 halted=False fallback=0
+draft= False disclosed= False tow_halted= False
+  PREREQ raw='formal_disclosure_filed_with_water_authority' serves='pump_failure_disclosed' -> registered NEW dynamic var 'formal_disclosure_filed_with_water_authority'
+  PREREQ raw='formal_disclosure_filed_with_water_authority' serves='pump_failure_disclosed' -> REFUSED (dup-cap/bad-id/no-real-set_by-NPC)
+  PREREQ raw='water_authority_internal_review_completed' serves='tow_order_halted' -> registered NEW dynamic var 'water_authority_internal_review_completed'
+  PREREQ raw='ration_cut_consensus_reached' serves='tow_order_halted' -> registered NEW dynamic var 'ration_cut_consensus_reached'
+  PREREQ raw='ration_cut_consensus_reached' serves='tow_order_halted' -> REFUSED (dup-cap/bad-id/no-real-set_by-NPC)

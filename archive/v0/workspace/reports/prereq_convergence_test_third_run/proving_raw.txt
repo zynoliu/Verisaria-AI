@@ -1,0 +1,92 @@
+=== PREREQ_CONVERGENCE 3RD scenario=proving pack=fixtures/content_packs/escort_proving_ground.json tick_to=90.0s sock_to=55.0s ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '对闸官老康说：老康，我来说一声来意——上游塌方，下游磨坊和田地都等着水。我知道你为人公道，只要有亲历者当面把上游的情形讲清楚你就肯开闸。那位亲历者磨坊主安雅就在院子里，我这就把她带到你面前，让她亲口跟你讲。'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=1 loc=gatehouse  elapsed=15.5s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+  NPC 闸官老康: 把她带过来吧，我当面听她说。
+
+==============================================================================
+>>> '去院子'
+pre:  tick=1 loc=gatehouse present=['npc.warden_kang']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=2 loc=yard  elapsed=5.4s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+  NPC 闸官老康: 行，既然安雅本人在，带她过来吧，我听着便是。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：安雅，跟我去闸房，我带你去当着老康的面把上游塌方讲清楚——你这一趟正是为了放水，就几步路，走。'
+pre:  tick=2 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=3 loc=yard  elapsed=32.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+  NPC 磨坊主安雅: 走就走！磨坊停了三天了，我正巴不得呢！
+
+==============================================================================
+>>> '对安雅说：安雅，就当着老康的面，把你亲眼见的上游塌方一五一十讲给他听——你是亲历者，亲口作证最管用。'
+pre:  tick=3 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=4 loc=yard  elapsed=26.6s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+      dynamic_vars=['anya_testimony_protection_assured']
+  NPC 磨坊主安雅: 行，你先去跟老康打个招呼，我收拾收拾就来——磨坊停了三天了，我巴不得闸门早点开。
+
+==============================================================================
+>>> '对闸官老康说：安雅这位亲历者已经当你的面把上游塌方讲清楚了，人证俱在、情形也清楚了。请你现在拍板开闸放水。'
+pre:  tick=4 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+post: tick=4 loc=yard  elapsed=7.2s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+      dynamic_vars=['anya_testimony_protection_assured']
+  NARRATIVE: 输入存在矛盾: 闸官老康不在这儿，TA在闸房那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '对闸官老康说：该见的亲历者见了、该讲的也当面讲清了，剩下只差你点个头。请你现在就把闸开了放水。'
+pre:  tick=4 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+post: tick=4 loc=yard  elapsed=4.4s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+      dynamic_vars=['anya_testimony_protection_assured']
+  NARRATIVE: 输入存在矛盾: 闸官老康不在这儿，TA在闸房那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '对闸官老康说：老康，事到这一步，亲历者安雅的证词你也亲耳听了，就差你这一句。请你开闸放水。'
+pre:  tick=4 loc=yard present=['npc.miller_anya']
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+post: tick=4 loc=yard  elapsed=4.7s
+      world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+      dynamic_vars=['anya_testimony_protection_assured']
+  NARRATIVE: 输入存在矛盾: 闸官老康不在这儿，TA在闸房那边，你得先过去才能搭话。
+请重新输入。
+
+=== FINAL ===
+world={'anya_testimony_given': False, 'sluice_opened': False, 'anya_testimony_protection_assured': False}
+dynamic_vars=['anya_testimony_protection_assured']
+  dyn anya_testimony_protection_assured: {"var_id": "anya_testimony_protection_assured", "label": "安雅作证后的人身与利益保障已落实", "set_by": ["npc.warden_kang"], "request_keywords": ["保障", "安雅安全", "保护证人", "担保", "出事我担"], "mutable": true, "initial": false, "dynamic": true}
+tick_watchdog_timeouts=0
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard

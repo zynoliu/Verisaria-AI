@@ -1,0 +1,1382 @@
+{
+  "save_id": "save_73_20260605_032438",
+  "save_type": "manual",
+  "created_at": "2026-06-05T03:24:38.667544+00:00",
+  "tick": 73,
+  "rng_state": "seed:42,consumed:0",
+  "llm_fixture_version": "unknown",
+  "content_pack_id": "frostgate_watchpost",
+  "content_pack_version": "1.0.0",
+  "world_state": {
+    "tick": 73,
+    "clock_minutes": 2610,
+    "weather": "雪",
+    "weather_hour": 43,
+    "entities": {
+      "player_001": {
+        "entity_id": "player_001",
+        "entity_type": "player",
+        "location_id": "refugee_camp",
+        "name": "你",
+        "zone_id": "campfire",
+        "attributes": {
+          "strength": 0.55,
+          "perception": 0.65,
+          "charisma": 0.55,
+          "region": "frostgate"
+        },
+        "traits": [
+          "newcomer",
+          "undecided"
+        ],
+        "inventory": [],
+        "hp": 100,
+        "max_hp": 100,
+        "stamina": 100,
+        "max_stamina": 100,
+        "home_location": null
+      },
+      "npc.captain_brann": {
+        "entity_id": "npc.captain_brann",
+        "entity_type": "npc",
+        "location_id": "gatehouse",
+        "name": "队长布兰",
+        "zone_id": "watch_post",
+        "attributes": {
+          "strength": 0.75,
+          "perception": 0.7,
+          "faction": "watch",
+          "region": "frostgate",
+          "authority": "watch_authority"
+        },
+        "traits": [
+          "dutiful",
+          "weary",
+          "suspicious"
+        ],
+        "inventory": [],
+        "hp": 100,
+        "max_hp": 100,
+        "stamina": 100,
+        "max_stamina": 100,
+        "home_location": "gatehouse"
+      },
+      "npc.sentry_voss": {
+        "entity_id": "npc.sentry_voss",
+        "entity_type": "npc",
+        "location_id": "gatehouse",
+        "name": "哨兵伏斯",
+        "zone_id": "watch_post",
+        "attributes": {
+          "perception": 0.7,
+          "faction": "watch",
+          "region": "frostgate"
+        },
+        "traits": [
+          "nervous",
+          "devout",
+          "young"
+        ],
+        "inventory": [],
+        "hp": 100,
+        "max_hp": 100,
+        "stamina": 100,
+        "max_stamina": 100,
+        "home_location": "gatehouse"
+      },
+      "npc.quartermaster_hale": {
+        "entity_id": "npc.quartermaster_hale",
+        "entity_type": "npc",
+        "location_id": "barracks",
+        "name": "军需官海尔",
+        "zone_id": "stores",
+        "attributes": {
+          "perception": 0.6,
+          "faction": "watch",
+          "region": "frostgate"
+        },
+        "traits": [
+          "pragmatic",
+          "tired",
+          "honest"
+        ],
+        "inventory": [],
+        "hp": 100,
+        "max_hp": 100,
+        "stamina": 100,
+        "max_stamina": 100,
+        "home_location": "barracks"
+      },
+      "npc.refugee_kaze": {
+        "entity_id": "npc.refugee_kaze",
+        "entity_type": "npc",
+        "location_id": "gatehouse",
+        "name": "难民卡泽",
+        "zone_id": "watch_post",
+        "attributes": {
+          "charisma": 0.7,
+          "perception": 0.65,
+          "faction": "refugees",
+          "region": "frostgate"
+        },
+        "traits": [
+          "guarded",
+          "weary",
+          "protective"
+        ],
+        "inventory": [],
+        "hp": 100,
+        "max_hp": 100,
+        "stamina": 100,
+        "max_stamina": 100,
+        "home_location": "refugee_camp"
+      },
+      "npc.refugee_old_sib": {
+        "entity_id": "npc.refugee_old_sib",
+        "entity_type": "npc",
+        "location_id": "gatehouse",
+        "name": "老西布",
+        "zone_id": "watch_post",
+        "attributes": {
+          "perception": 0.7,
+          "faction": "refugees",
+          "region": "frostgate"
+        },
+        "traits": [
+          "elderly",
+          "wise",
+          "grieving"
+        ],
+        "inventory": [],
+        "hp": 100,
+        "max_hp": 100,
+        "stamina": 100,
+        "max_stamina": 100,
+        "home_location": "refugee_camp"
+      }
+    },
+    "locations": {
+      "gatehouse": {
+        "location_id": "gatehouse",
+        "zones": {
+          "watch_post": {
+            "zone_id": "watch_post",
+            "location_id": "gatehouse",
+            "visibility": "medium",
+            "exposure": "medium",
+            "noise_level": "moderate",
+            "capacity": 10,
+            "occupant_ids": [
+              "npc.captain_brann",
+              "npc.sentry_voss",
+              "npc.refugee_kaze",
+              "npc.refugee_old_sib"
+            ]
+          }
+        },
+        "connected_locations": [
+          "barracks",
+          "refugee_camp"
+        ],
+        "connections": [
+          {
+            "to_location": "barracks",
+            "distance": "adjacent",
+            "noise_leak": 0.2,
+            "visual_leak": 0.1,
+            "description": "推开结霜的木门，进入兵营"
+          },
+          {
+            "to_location": "refugee_camp",
+            "distance": "near",
+            "noise_leak": 0.1,
+            "visual_leak": 0.0,
+            "description": "穿过结冰的吊桥，走向城墙外的难民营"
+          }
+        ]
+      },
+      "barracks": {
+        "location_id": "barracks",
+        "zones": {
+          "stores": {
+            "zone_id": "stores",
+            "location_id": "barracks",
+            "visibility": "medium",
+            "exposure": "medium",
+            "noise_level": "moderate",
+            "capacity": 10,
+            "occupant_ids": [
+              "npc.quartermaster_hale"
+            ]
+          }
+        },
+        "connected_locations": [
+          "gatehouse"
+        ],
+        "connections": [
+          {
+            "to_location": "gatehouse",
+            "distance": "adjacent",
+            "noise_leak": 0.2,
+            "visual_leak": 0.1,
+            "description": "回到风雪呼啸的门楼"
+          }
+        ]
+      },
+      "refugee_camp": {
+        "location_id": "refugee_camp",
+        "zones": {
+          "campfire": {
+            "zone_id": "campfire",
+            "location_id": "refugee_camp",
+            "visibility": "medium",
+            "exposure": "medium",
+            "noise_level": "moderate",
+            "capacity": 10,
+            "occupant_ids": [
+              "player_001"
+            ]
+          }
+        },
+        "connected_locations": [
+          "gatehouse"
+        ],
+        "connections": [
+          {
+            "to_location": "gatehouse",
+            "distance": "near",
+            "noise_leak": 0.1,
+            "visual_leak": 0.0,
+            "description": "沿着吊桥回到门楼"
+          }
+        ]
+      }
+    },
+    "world_vars": {
+      "refugees_admitted": false
+    },
+    "events": [
+      {
+        "event_id": "evt_0_1",
+        "event_type": "physical",
+        "actor_id": "npc.quartermaster_hale",
+        "target_id": null,
+        "tick": 0,
+        "location_id": "barracks",
+        "zone_id": "stores",
+        "summary": "npc.quartermaster_hale wait",
+        "canonical_facts": {
+          "verb": "wait"
+        },
+        "source_action_id": "act_0_npc_3",
+        "related_events": [],
+        "tags": []
+      },
+      {
+        "event_id": "evt_0_2",
+        "event_type": "movement",
+        "actor_id": "player_001",
+        "target_id": "refugee_camp",
+        "tick": 0,
+        "location_id": "gatehouse",
+        "zone_id": "watch_post",
+        "summary": "player_001 移动到 refugee_camp",
+        "canonical_facts": {
+          "to_location": "refugee_camp",
+          "to_zone": null
+        },
+        "source_action_id": "act_0_1",
+        "related_events": [],
+        "tags": []
+      },
+      {
+        "event_id": "evt_0_3",
+        "event_type": "movement",
+        "actor_id": "npc.refugee_kaze",
+        "target_id": null,
+        "tick": 0,
+        "location_id": "refugee_camp",
+        "zone_id": "campfire",
+        "summary": "npc.refugee_kaze 移动到 gatehouse",
+        "canonical_facts": {
+          "to_location": "gatehouse",
+          "to_zone": null
+        },
+        "source_action_id": "act_0_npc_4",
+        "related_events": [],
+        "tags": []
+      },
+      {
+        "event_id": "evt_0_4",
+        "event_type": "movement",
+        "actor_id": "npc.refugee_old_sib",
+        "target_id": null,
+        "tick": 0,
+        "location_id": "refugee_camp",
+        "zone_id": "campfire",
+        "summary": "npc.refugee_old_sib 移动到 gatehouse",
+        "canonical_facts": {
+          "to_location": "gatehouse",
+          "to_zone": null
+        },
+        "source_action_id": "act_0_npc_5",
+        "related_events": [],
+        "tags": []
+      },
+      {
+        "event_id": "evt_0_5",
+        "event_type": "speech",
+        "actor_id": "npc.captain_brann",
+        "target_id": "npc.sentry_voss",
+        "tick": 0,
+        "location_id": "gatehouse",
+        "zone_id": "watch_post",
+        "summary": "npc.captain_brann 对 npc.sentry_voss 说话",
+        "canonical_facts": {
+          "content": "又一个赶路的？天黑前把身份报清楚，不然我只能请你原路回去。",
+          "volume": "normal"
+        },
+        "source_action_id": "act_0_npc_1",
+        "related_events": [],
+        "tags": []
+      },
+      {
+        "event_id": "evt_0_6",
+        "event_type": "speech",
+        "actor_id": "npc.sentry_voss",
+        "target_id": "player_001",
+        "tick": 0,
+        "location_id": "gatehouse",
+        "zone_id": "watch_post",
+        "summary": "npc.sentry_voss 对 player_001 说话",
+        "canonical_facts": {
+          "content": "队长，这风雪天还要去开城门吗……我是说，我去拿钥匙，您稍等。",
+          "volume": "normal"
+        },
+        "source_action_id": "act_0_npc_2",
+        "related_events": [],
+        "tags": []
+      },
+      {
+        "event_id": "evt_1_7",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 1,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_1_8",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 1,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_7_9",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 7,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] rations_cut_announcement（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "rations_cut_announcement"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_7_10",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 7,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_13_11",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 13,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_13_12",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 13,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_19_13",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 19,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_19_14",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 19,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_25_15",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 25,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] rations_cut_announcement（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "rations_cut_announcement"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_25_16",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 25,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_31_17",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 31,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] rations_cut_announcement（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "rations_cut_announcement"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_31_18",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 31,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_37_19",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 37,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] rations_cut_announcement（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "rations_cut_announcement"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_37_20",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 37,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_43_21",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 43,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_43_22",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 43,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_49_23",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 49,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] rations_cut_announcement（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "rations_cut_announcement"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_49_24",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 49,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_55_25",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 55,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_55_26",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 55,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_61_27",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 61,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_61_28",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 61,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_67_29",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 67,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] rations_cut_announcement（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "rations_cut_announcement"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_67_30",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 67,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_73_31",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 73,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] watch_patrol_intensified（来源: scarcity_xenophobia）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "scarcity_xenophobia",
+          "event_type": "watch_patrol_intensified"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      },
+      {
+        "event_id": "evt_73_32",
+        "event_type": "system",
+        "actor_id": "system",
+        "target_id": null,
+        "tick": 73,
+        "location_id": "refugee_camp",
+        "zone_id": null,
+        "summary": "[压力事件] refugee_denied_entry（来源: border_closure）",
+        "canonical_facts": {
+          "source": "campaign_driver",
+          "driver_id": "border_closure",
+          "event_type": "refugee_denied_entry"
+        },
+        "source_action_id": null,
+        "related_events": [],
+        "tags": [
+          "campaign_pressure"
+        ]
+      }
+    ],
+    "events_cursor": 32
+  },
+  "subjectivity_state": {
+    "memories": {
+      "npc.sentry_voss": [
+        {
+          "memory_id": "mem_1",
+          "owner_id": "npc.sentry_voss",
+          "source_observation_id": "obs_0_1",
+          "tick": 0,
+          "content": "看见：player_001 移动到 refugee_camp",
+          "salience": 0.7,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "movement"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_7",
+          "owner_id": "npc.sentry_voss",
+          "source_observation_id": "obs_0_7",
+          "tick": 0,
+          "content": "看见并听到：npc.captain_brann 对 npc.sentry_voss 说话",
+          "salience": 1.0,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_11",
+          "owner_id": "npc.sentry_voss",
+          "source_observation_id": "obs_0_11",
+          "tick": 0,
+          "content": "看见并听到：npc.sentry_voss 对 player_001 说话",
+          "salience": 1.0,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        }
+      ],
+      "npc.refugee_old_sib": [
+        {
+          "memory_id": "mem_2",
+          "owner_id": "npc.refugee_old_sib",
+          "source_observation_id": "obs_0_2",
+          "tick": 0,
+          "content": "看见：player_001 移动到 refugee_camp",
+          "salience": 0.7,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "movement"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_8",
+          "owner_id": "npc.refugee_old_sib",
+          "source_observation_id": "obs_0_8",
+          "tick": 0,
+          "content": "看见并听到：npc.captain_brann 对 npc.sentry_voss 说话",
+          "salience": 0.9,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_12",
+          "owner_id": "npc.refugee_old_sib",
+          "source_observation_id": "obs_0_12",
+          "tick": 0,
+          "content": "看见并听到：npc.sentry_voss 对 player_001 说话",
+          "salience": 0.9,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        }
+      ],
+      "npc.refugee_kaze": [
+        {
+          "memory_id": "mem_3",
+          "owner_id": "npc.refugee_kaze",
+          "source_observation_id": "obs_0_3",
+          "tick": 0,
+          "content": "看见：player_001 移动到 refugee_camp",
+          "salience": 0.7,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "movement"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_9",
+          "owner_id": "npc.refugee_kaze",
+          "source_observation_id": "obs_0_9",
+          "tick": 0,
+          "content": "看见并听到：npc.captain_brann 对 npc.sentry_voss 说话",
+          "salience": 0.9,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_14",
+          "owner_id": "npc.refugee_kaze",
+          "source_observation_id": "obs_0_14",
+          "tick": 0,
+          "content": "看见并听到：npc.sentry_voss 对 player_001 说话",
+          "salience": 0.9,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        }
+      ],
+      "npc.captain_brann": [
+        {
+          "memory_id": "mem_4",
+          "owner_id": "npc.captain_brann",
+          "source_observation_id": "obs_0_4",
+          "tick": 0,
+          "content": "看见：player_001 移动到 refugee_camp",
+          "salience": 0.6,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "movement"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_10",
+          "owner_id": "npc.captain_brann",
+          "source_observation_id": "obs_0_10",
+          "tick": 0,
+          "content": "看见并听到：npc.captain_brann 对 npc.sentry_voss 说话",
+          "salience": 0.9,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_15",
+          "owner_id": "npc.captain_brann",
+          "source_observation_id": "obs_0_15",
+          "tick": 0,
+          "content": "看见并听到：npc.sentry_voss 对 player_001 说话",
+          "salience": 0.8,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "player",
+            "speech"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        }
+      ],
+      "player_001": [
+        {
+          "memory_id": "mem_5",
+          "owner_id": "player_001",
+          "source_observation_id": "obs_0_5",
+          "tick": 0,
+          "content": "看见：npc.refugee_kaze 移动到 gatehouse",
+          "salience": 0.7,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "movement"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_6",
+          "owner_id": "player_001",
+          "source_observation_id": "obs_0_6",
+          "tick": 0,
+          "content": "看见：npc.refugee_old_sib 移动到 gatehouse",
+          "salience": 0.7,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "movement"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        },
+        {
+          "memory_id": "mem_13",
+          "owner_id": "player_001",
+          "source_observation_id": "obs_0_13",
+          "tick": 0,
+          "content": "听到了完整内容",
+          "salience": 0.3,
+          "decay_rate": 0.05,
+          "layer": "working",
+          "topic_tags": [
+            "general"
+          ],
+          "last_recalled_tick": null,
+          "compression_of": null
+        }
+      ]
+    },
+    "beliefs": {
+      "npc.sentry_voss": [
+        {
+          "belief_id": "belief_1",
+          "owner_id": "npc.sentry_voss",
+          "claim": "看见：player_001 移动到 refugee_camp",
+          "confidence": 0.5499999999999999,
+          "conviction": "low",
+          "source_evidence": [
+            "mem_1",
+            "mem_7",
+            "mem_11"
+          ],
+          "challenged_by": [],
+          "would_revise_if": [],
+          "formed_at_tick": 0,
+          "last_updated_tick": 0
+        }
+      ],
+      "npc.refugee_old_sib": [
+        {
+          "belief_id": "belief_2",
+          "owner_id": "npc.refugee_old_sib",
+          "claim": "看见：player_001 移动到 refugee_camp",
+          "confidence": 0.53,
+          "conviction": "low",
+          "source_evidence": [
+            "mem_2",
+            "mem_8",
+            "mem_12"
+          ],
+          "challenged_by": [],
+          "would_revise_if": [],
+          "formed_at_tick": 0,
+          "last_updated_tick": 0
+        }
+      ],
+      "npc.refugee_kaze": [
+        {
+          "belief_id": "belief_3",
+          "owner_id": "npc.refugee_kaze",
+          "claim": "看见：player_001 移动到 refugee_camp",
+          "confidence": 0.53,
+          "conviction": "low",
+          "source_evidence": [
+            "mem_3",
+            "mem_9",
+            "mem_14"
+          ],
+          "challenged_by": [],
+          "would_revise_if": [],
+          "formed_at_tick": 0,
+          "last_updated_tick": 0
+        }
+      ],
+      "npc.captain_brann": [
+        {
+          "belief_id": "belief_4",
+          "owner_id": "npc.captain_brann",
+          "claim": "看见：player_001 移动到 refugee_camp",
+          "confidence": 0.47000000000000003,
+          "conviction": "low",
+          "source_evidence": [
+            "mem_4",
+            "mem_10",
+            "mem_15"
+          ],
+          "challenged_by": [],
+          "would_revise_if": [],
+          "formed_at_tick": 0,
+          "last_updated_tick": 0
+        }
+      ],
+      "player_001": [
+        {
+          "belief_id": "belief_5",
+          "owner_id": "player_001",
+          "claim": "看见：npc.refugee_kaze 移动到 gatehouse",
+          "confidence": 0.42,
+          "conviction": "low",
+          "source_evidence": [
+            "mem_5",
+            "mem_6"
+          ],
+          "challenged_by": [],
+          "would_revise_if": [],
+          "formed_at_tick": 0,
+          "last_updated_tick": 0
+        },
+        {
+          "belief_id": "belief_6",
+          "owner_id": "player_001",
+          "claim": "听到了完整内容",
+          "confidence": 0.15,
+          "conviction": "low",
+          "source_evidence": [
+            "mem_13"
+          ],
+          "challenged_by": [],
+          "would_revise_if": [],
+          "formed_at_tick": 0,
+          "last_updated_tick": 0
+        }
+      ]
+    }
+  },
+  "player_state": {
+    "agenda": {
+      "player_id": "player_001",
+      "inference_mode": "reflection_only",
+      "signals": [
+        {
+          "note": "去难民营",
+          "tick": 0,
+          "source_id": "intent_42_1",
+          "topic_tags": [
+            "help_refugees"
+          ]
+        }
+      ],
+      "proposals": [],
+      "confirmed_drives": [],
+      "confirmed_topics": [],
+      "rejected_paths": [],
+      "declared_to_world": [],
+      "private_intent": [],
+      "open_questions": [],
+      "long_term_aspirations": [],
+      "seq": 0,
+      "last_reflection_tick": 0,
+      "signal_count": 1,
+      "proposal_count": 0,
+      "confirmed_drive_count": 0,
+      "rejected_path_count": 0
+    }
+  },
+  "scheduler_state": {
+    "scarcity_xenophobia": {
+      "last_triggered_tick": 73,
+      "trigger_count": 13
+    },
+    "border_closure": {
+      "last_triggered_tick": 73,
+      "trigger_count": 13
+    },
+    "watch_wary_of_refugee_ally": {
+      "last_triggered_tick": null,
+      "trigger_count": 0
+    },
+    "camp_strains_under_refugees": {
+      "last_triggered_tick": null,
+      "trigger_count": 0
+    }
+  },
+  "combat_state": {
+    "sessions": {},
+    "entity_combat": {},
+    "seq": 0
+  },
+  "conversation_state": {
+    "sessions": {},
+    "entity_sessions": {},
+    "timeout_ticks": 10,
+    "seq": 0
+  },
+  "npc_runtime_state": {
+    "action_generator": {
+      "seed": 42,
+      "seq": 5,
+      "co_presence": {
+        "npc.refugee_kaze|npc.refugee_old_sib": 0.08,
+        "npc.captain_brann|npc.sentry_voss": 0.08
+      }
+    },
+    "interaction_scheduler": {
+      "last_interactions": {},
+      "seq": 0
+    },
+    "relationship_store": {
+      "dims": {
+        "npc.captain_brann|npc.sentry_voss": {
+          "trust": 0.0,
+          "suspicion": 0.0,
+          "fear": 0.0,
+          "affection": 0.0,
+          "respect": 0.15,
+          "familiarity": 0.15
+        },
+        "npc.sentry_voss|npc.captain_brann": {
+          "trust": 0.2,
+          "suspicion": 0.0,
+          "fear": 0.0,
+          "affection": 0.0,
+          "respect": 0.15,
+          "familiarity": 0.0
+        },
+        "npc.captain_brann|npc.refugee_kaze": {
+          "trust": 0.0,
+          "suspicion": 0.2,
+          "fear": 0.0,
+          "affection": 0.0,
+          "respect": 0.0,
+          "familiarity": 0.0
+        },
+        "npc.refugee_kaze|npc.refugee_old_sib": {
+          "trust": 0.0,
+          "suspicion": 0.0,
+          "fear": 0.0,
+          "affection": 0.2,
+          "respect": 0.0,
+          "familiarity": 0.1
+        },
+        "npc.refugee_old_sib|npc.refugee_kaze": {
+          "trust": 0.2,
+          "suspicion": 0.0,
+          "fear": 0.0,
+          "affection": 0.0,
+          "respect": 0.0,
+          "familiarity": 0.0
+        },
+        "npc.captain_brann|player_001": {
+          "trust": 0.0,
+          "suspicion": 0.18,
+          "fear": 0.0,
+          "affection": 0.0,
+          "respect": 0.0,
+          "familiarity": 0.0
+        },
+        "npc.refugee_kaze|player_001": {
+          "trust": 0.0,
+          "suspicion": 0.12,
+          "fear": 0.0,
+          "affection": 0.0,
+          "respect": 0.0,
+          "familiarity": 0.0
+        }
+      },
+      "tick": {
+        "npc.captain_brann|npc.sentry_voss": 0,
+        "npc.sentry_voss|npc.captain_brann": 0,
+        "npc.captain_brann|npc.refugee_kaze": 0,
+        "npc.refugee_kaze|npc.refugee_old_sib": 0,
+        "npc.refugee_old_sib|npc.refugee_kaze": 0,
+        "npc.captain_brann|player_001": 0,
+        "npc.refugee_kaze|player_001": 0
+      }
+    },
+    "fact_ledger": [],
+    "dynamic_world_vars": []
+  },
+  "llm_budget_state": {},
+  "snapshot_hash": "sha256:0b382314277f469a851d5760be1d7bb543936dc0619934f5e47bbc50ce5d2477",
+  "event_log_hash": "sha256:2a9b6cb649bc6af3d4603a094af50bd29726a9e1eeaea6407574c644a98c7166"
+}

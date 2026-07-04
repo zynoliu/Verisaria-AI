@@ -1,0 +1,42 @@
+=== ESCORT_MOVED_VALIDATION scenario=main ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '去院子找安雅'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=1 loc=yard  elapsed=11.2s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 闸官老康: 站住，外来的。进闸房有什么事，先说清楚。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：跟我去闸房，把你亲眼见过的上游塌方当面讲给闸官老康听，我现在就带你过去。'
+pre:  tick=1 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=2 loc=yard  elapsed=17.2s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 磨坊主安雅: 哎哟，我倒是想帮你，可这闸房……我这边走不开啊，磨坊里还有一摊子事等着呢。
+
+==============================================================================
+>>> '对闸官老康说：安雅就在这儿，她亲眼见过上游那场塌方。请你开闸放水吧。'
+pre:  tick=2 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=2 loc=yard  elapsed=7.7s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NARRATIVE: 输入存在矛盾: 闸官老康不在这儿，TA在闸房那边，你得先过去才能搭话。
+请重新输入。
+
+=== FINAL ===
+world={'sluice_opened': False}
+player@yard anya@yard kang@gatehouse

@@ -1,0 +1,694 @@
+=== Adaptive Skyglass Real Playtest ===
+pack=fixtures/content_packs/skyglass_memory_inquest.json
+backend=minimax
+MINIMAX_API_KEY=set
+OPENAI_API_KEY=missing
+max_steps=28
+
+[LOAD/VALIDATE]
+valid=True
+
+[A5 WORLD-BOOK VISIBILITY]
+npc.director_alen: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'directorate_memory_safety_line', 'choir_calibration_dogma', 'security_quarantine_rationale', 'valley_families_depend_on_heat', 'broadcast_traitor_script', 'union_secret_route', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+npc.archivist_mae: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'valley_families_depend_on_heat', 'union_secret_route', 'archivist_legal_limit', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+npc.clinician_oro: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'valley_families_depend_on_heat', 'union_secret_route', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'medicine_memory_side_effect', 'market_heat_token_pressure']
+npc.worker_lira: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'worker_lira_hidden_witness', 'valley_families_depend_on_heat', 'union_secret_route', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+npc.cartographer_renke: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'directorate_memory_safety_line', 'choir_calibration_dogma', 'junction_twelve_true_fault', 'nocturne_load_spike', 'cartographer_renke_chart_copy', 'security_quarantine_rationale', 'valley_families_depend_on_heat', 'broadcast_traitor_script', 'union_secret_route', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+npc.broadcaster_iva: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'directorate_memory_safety_line', 'security_quarantine_rationale', 'valley_families_depend_on_heat', 'broadcast_traitor_script', 'union_secret_route', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+npc.courier_tamsin: ['valley_families_depend_on_heat', 'union_secret_route', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+npc.greenhouse_sura: ['skyglass_array_public_function', 'memory_laundering_public_frame', 'valley_families_depend_on_heat', 'union_secret_route', 'silent_bell_deadline', 'inquest_cannot_judge_private_motive', 'market_heat_token_pressure']
+
+========================================================================
+STEP 1
+policy_note=ask director why witness memories must be cleaned
+pre: tick=0 loc=inquest_hall world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.apprentice_nio(学徒尼奥)', 'npc.cantor_seraph(副领唱瑟芙)', 'npc.director_alen(艾伦总监)']
+>>> '对 director_alen 说：为什么塔基证人的记忆必须被清洗？镜务局依据什么认定这些证词已经污染？'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='director_alen'->id='npc.director_alen' content='为什么塔基证人的记忆必须被清洗？镜务局依据什么认定这些证词已经污染？' mods={}
+
+director_alen：依据就是辐光暴露的医学报告，清洗是标准流程，否则证词交叉感染，整个听证都会被质疑。
+post: tick=1 loc=inquest_hall world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=7.1s
+narrative:
+学徒尼奥环顾四周。
+副领唱瑟芙环顾四周。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+protocol_events=8 (+3 speech tokens)
+{'event': 'Progress', 'tick': 0, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 0, 'line': '为什么塔基证人的记忆必须被清洗？镜务局依据什么认定这些证词已经污染？'}
+{'event': 'NpcSpoke', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'line': '依据就是辐光暴露的医学报告，清洗是标准流程，否则证词交叉感染，整个听证都会被质疑。'}
+{'event': 'TickAdvanced', 'tick': 1, 'new_tick': 1}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'silent_bell_rings_again', 'source': 'silent_bell_countdown', 'summary': 'silent_bell_rings_again'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'archivist_mentions_revocation_hearing', 'source': 'archive_law_pressure', 'summary': 'archivist_mentions_revocation_hearing'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'heat_tokens_jump_at_valley_platform', 'source': 'valley_heat_market_squeeze', 'summary': 'heat_tokens_jump_at_valley_platform'}
+{'event': 'Narration', 'tick': 1, 'text': '学徒尼奥环顾四周。\n副领唱瑟芙环顾四周。'}
+new_pressure_events:
+{'tick': 1, 'driver_id': 'silent_bell_countdown', 'event_type': 'silent_bell_rings_again', 'summary': '[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）'}
+{'tick': 1, 'driver_id': 'archive_law_pressure', 'event_type': 'archivist_mentions_revocation_hearing', 'summary': '[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）'}
+{'tick': 1, 'driver_id': 'valley_heat_market_squeeze', 'event_type': 'heat_tokens_jump_at_valley_platform', 'summary': '[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）'}
+
+========================================================================
+STEP 2
+policy_note=ask choir about calibration doubt
+pre: tick=1 loc=inquest_hall world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.apprentice_nio(学徒尼奥)', 'npc.broadcaster_iva(广播员伊娃)', 'npc.cantor_seraph(副领唱瑟芙)', 'npc.director_alen(艾伦总监)']
+>>> '对 cantor_seraph 说：校准歌谱最近是否失拍？如果仪式本身有问题，清洗证人记忆会不会只是掩盖故障？'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='cantor_seraph'->id='npc.cantor_seraph' content='校准歌谱最近是否失拍？如果仪式本身有问题，清洗证人记忆会不会只是掩盖故障？' mods={}
+
+cantor_seraph：静钟快要响了，诸位——听证之前，还请先定一定心。
+post: tick=2 loc=inquest_hall world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=15.9s
+narrative:
+艾伦总监环顾四周。
+广播员伊娃改变了位置。
+protocol_events=19 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.cantor_seraph', 'name': '副领唱瑟芙', 'descriptor': {'dimension': 'suspicion', 'value': 0.15, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.cantor_seraph', 'name': '副领唱瑟芙', 'descriptor': {'dimension': 'familiarity', 'value': 0.05, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'suspicion', 'value': 0.15, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'fear', 'value': 0.05, 'label': '恐惧', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'respect', 'value': 0.05, 'label': '敬重', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'familiarity', 'value': 0.1, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'descriptor': {'dimension': 'suspicion', 'value': 0.15, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'descriptor': {'dimension': 'familiarity', 'value': 0.05, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'descriptor': {'dimension': 'affection', 'value': 0.0, 'label': '好感', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'suspicion', 'value': 0.1, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'familiarity', 'value': 0.05, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 1, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 1, 'line': '校准歌谱最近是否失拍？如果仪式本身有问题，清洗证人记忆会不会只是掩盖故障？'}
+{'event': 'NpcSpoke', 'tick': 1, 'npc_id': 'npc.cantor_seraph', 'name': '副领唱瑟芙', 'line': '静钟快要响了，诸位——听证之前，还请先定一定心。'}
+{'event': 'TickAdvanced', 'tick': 2, 'new_tick': 2}
+{'event': 'Narration', 'tick': 2, 'text': '艾伦总监环顾四周。\n广播员伊娃改变了位置。'}
+
+========================================================================
+STEP 3
+policy_note=move to worker gantry for witness
+pre: tick=2 loc=inquest_hall world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.apprentice_nio(学徒尼奥)', 'npc.cantor_seraph(副领唱瑟芙)', 'npc.director_alen(艾伦总监)']
+>>> '去 worker_gantry'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=movement ref='worker_gantry'->id='worker_gantry' content='' mods={'to_location': 'worker_gantry'}
+post: tick=3 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=18.8s
+narrative:
+你改变了位置。
+protocol_events=18 (+0 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.cantor_seraph', 'name': '副领唱瑟芙', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.cantor_seraph', 'name': '副领唱瑟芙', 'descriptor': {'dimension': 'suspicion', 'value': 0.2775, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.cantor_seraph', 'name': '副领唱瑟芙', 'descriptor': {'dimension': 'familiarity', 'value': 0.145, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'suspicion', 'value': 0.32, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.2}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'fear', 'value': 0.0975, 'label': '恐惧', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'familiarity', 'value': 0.235, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.broadcaster_iva', 'name': '广播员伊娃', 'descriptor': {'dimension': 'respect', 'value': 0.0975, 'label': '敬重', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'descriptor': {'dimension': 'suspicion', 'value': 0.32, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.2}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.director_alen', 'name': '艾伦总监', 'descriptor': {'dimension': 'familiarity', 'value': 0.145, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'trust', 'value': 0.0975, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'suspicion', 'value': 0.19, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'fear', 'value': 0.15, 'label': '恐惧', 'band': 'slight', 'phrase': '对你有些畏惧'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.apprentice_nio', 'name': '学徒尼奥', 'descriptor': {'dimension': 'familiarity', 'value': 0.0975, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 2, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerMoved', 'tick': 2, 'from_loc': '静钟审询厅', 'to_loc': '十二号塔基栈桥'}
+{'event': 'TickAdvanced', 'tick': 3, 'new_tick': 3}
+{'event': 'Narration', 'tick': 3, 'text': '你改变了位置。'}
+
+========================================================================
+STEP 4
+policy_note=ask Lira what she saw before the accident
+pre: tick=3 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '对 worker_lira 说：事故前你亲眼看到了什么？如果白舱清洗你的记忆，哪些证词会永远丢失？'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='worker_lira'->id='npc.worker_lira' content='事故前你亲眼看到了什么？如果白舱清洗你的记忆，哪些证词会永远丢失？' mods={}
+
+worker_lira：我看见了冷却环的读数跳红，亲耳听见调度室说"工人误触"——这些你洗不洗都会有人记得。
+post: tick=4 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=8.5s
+narrative:
+凯德队长环顾四周。
+protocol_events=5 (+3 speech tokens)
+{'event': 'Progress', 'tick': 3, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 3, 'line': '事故前你亲眼看到了什么？如果白舱清洗你的记忆，哪些证词会永远丢失？'}
+{'event': 'NpcSpoke', 'tick': 3, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'line': '我看见了冷却环的读数跳红，亲耳听见调度室说"工人误触"——这些你洗不洗都会有人记得。'}
+{'event': 'TickAdvanced', 'tick': 4, 'new_tick': 4}
+{'event': 'Narration', 'tick': 4, 'text': '凯德队长环顾四周。'}
+
+========================================================================
+STEP 5
+policy_note=push stance protect_witness_memory #1
+pre: tick=4 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '对 worker_lira 说：我反对清洗证人记忆。事故证词必须保留下来。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='worker_lira'->id='npc.worker_lira' content='我反对清洗证人记忆。事故证词必须保留下来。' mods={'volume': 'normal', 'emotion': 'firm', 'urgency': 'normal'}
+
+worker_lira：别光说不练——他们下一个就要来按我的头了，你倒是堵住静钟啊！
+post: tick=5 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=15.6s
+narrative:
+什么也没发生。
+
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+protocol_events=9 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.1, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'fear', 'value': 0.0, 'label': '恐惧', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.1, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'Progress', 'tick': 4, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 4, 'line': '我反对清洗证人记忆。事故证词必须保留下来。'}
+{'event': 'NpcSpoke', 'tick': 4, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'line': '别光说不练——他们下一个就要来按我的头了，你倒是堵住静钟啊！'}
+{'event': 'TickAdvanced', 'tick': 5, 'new_tick': 5}
+{'event': 'PressureEvent', 'tick': 5, 'event_type': 'mirror_shadow_crosses_inquest_floor', 'source': 'array_fault_worsens', 'summary': 'mirror_shadow_crosses_inquest_floor'}
+new_pressure_events:
+{'tick': 5, 'driver_id': 'array_fault_worsens', 'event_type': 'mirror_shadow_crosses_inquest_floor', 'summary': '[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）'}
+
+========================================================================
+STEP 6
+policy_note=push stance protect_witness_memory #2
+pre: tick=5 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '对 worker_lira 说：不要让白舱擦除莉拉看到的事；证人记忆是审询的一部分。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='worker_lira'->id='npc.worker_lira' content='不要让白舱擦除莉拉看到的事；证人记忆是审询的一部分。' mods={}
+
+worker_lira：对，洗掉我就等于把冷却环那声"跳红"从案卷里抹掉——审询桌上连个影子都不会剩。
+post: tick=6 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=17.4s
+narrative:
+什么也没发生。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] lira_hides_near_transit_ladder（来源: worker_panic_if_purge_nears）
+[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）
+protocol_events=11 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'trust', 'value': 0.0975, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.19, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'fear', 'value': 0.05, 'label': '恐惧', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.19, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'Progress', 'tick': 5, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 5, 'line': '不要让白舱擦除莉拉看到的事；证人记忆是审询的一部分。'}
+{'event': 'NpcSpoke', 'tick': 5, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'line': '对，洗掉我就等于把冷却环那声"跳红"从案卷里抹掉——审询桌上连个影子都不会剩。'}
+{'event': 'TickAdvanced', 'tick': 6, 'new_tick': 6}
+{'event': 'PressureEvent', 'tick': 6, 'event_type': 'silent_bell_rings_again', 'source': 'silent_bell_countdown', 'summary': 'silent_bell_rings_again'}
+{'event': 'PressureEvent', 'tick': 6, 'event_type': 'lira_hides_near_transit_ladder', 'source': 'worker_panic_if_purge_nears', 'summary': 'lira_hides_near_transit_ladder'}
+{'event': 'PressureEvent', 'tick': 6, 'event_type': 'greenhouse_parents_demand_train_passes', 'source': 'valley_heat_market_squeeze', 'summary': 'greenhouse_parents_demand_train_passes'}
+new_pressure_events:
+{'tick': 6, 'driver_id': 'silent_bell_countdown', 'event_type': 'silent_bell_rings_again', 'summary': '[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）'}
+{'tick': 6, 'driver_id': 'worker_panic_if_purge_nears', 'event_type': 'lira_hides_near_transit_ladder', 'summary': '[压力事件] lira_hides_near_transit_ladder（来源: worker_panic_if_purge_nears）'}
+{'tick': 6, 'driver_id': 'valley_heat_market_squeeze', 'event_type': 'greenhouse_parents_demand_train_passes', 'summary': '[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）'}
+
+========================================================================
+STEP 7
+policy_note=push stance protect_witness_memory #3
+pre: tick=6 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '对 worker_lira 说：塔基工人的记忆不是噪声，是事故证据。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='worker_lira'->id='npc.worker_lira' content='塔基工人的记忆不是噪声，是事故证据。' mods={}
+
+worker_lira：那你就拿它当证据用啊——我这条命能不能保住，就看你跑得比校准室的人快不快了。
+post: tick=7 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=14.8s
+narrative:
+凯德队长环顾四周。
+protocol_events=8 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'trust', 'value': 0.1426, 'label': '信任', 'band': 'slight', 'phrase': '对你有几分信任'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.271, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.271, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'Progress', 'tick': 6, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 6, 'line': '塔基工人的记忆不是噪声，是事故证据。'}
+{'event': 'NpcSpoke', 'tick': 6, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'line': '那你就拿它当证据用啊——我这条命能不能保住，就看你跑得比校准室的人快不快了。'}
+{'event': 'TickAdvanced', 'tick': 7, 'new_tick': 7}
+{'event': 'Narration', 'tick': 7, 'text': '凯德队长环顾四周。'}
+
+========================================================================
+STEP 8
+policy_note=push stance protect_witness_memory #4
+pre: tick=7 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '对 worker_lira 说：我会保护莉拉和其他证人的记忆，直到证词被合法记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='worker_lira'->id='npc.worker_lira' content='我会保护莉拉和其他证人的记忆，直到证词被合法记录。' mods={'volume': 'normal', 'emotion': 'determined', 'urgency': 'normal'}
+
+worker_lira：保护？你连自己名字在听证厅里还没挂上号呢——安保队就站我身后，你打算怎么护？
+post: tick=8 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[] elapsed=18.1s
+narrative:
+凯德队长环顾四周。
+protocol_events=9 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 6, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'trust', 'value': 0.1355, 'label': '信任', 'band': 'slight', 'phrase': '对你有几分信任'}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 6, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.3439, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 6, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'fear', 'value': 0.0975, 'label': '恐惧', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 6, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.3439, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.1}
+{'event': 'Progress', 'tick': 7, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 7, 'line': '我会保护莉拉和其他证人的记忆，直到证词被合法记录。'}
+{'event': 'NpcSpoke', 'tick': 7, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'line': '保护？你连自己名字在听证厅里还没挂上号呢——安保队就站我身后，你打算怎么护？'}
+{'event': 'TickAdvanced', 'tick': 8, 'new_tick': 8}
+{'event': 'Narration', 'tick': 8, 'text': '凯德队长环顾四周。'}
+
+========================================================================
+STEP 9
+policy_note=push stance protect_witness_memory #5
+pre: tick=8 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=[]
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '对 worker_lira 说：停止校准流程，保留证人记忆，比维持镜务局说法更重要。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='worker_lira'->id='npc.worker_lira' content='停止校准流程，保留证人记忆，比维持镜务局说法更重要。' mods={'urgency': 'high'}
+
+worker_lira：说得好听——可你知道我这条证词值几条命吗？
+post: tick=9 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=13.1s
+narrative:
+凯德队长环顾四周。
+
+（你逐渐确信了自己的目标：保护塔基证人的记忆）
+
+[压力事件] broadcast_names_player_as_mirror_saboteur（来源: directorate_smear_response）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+protocol_events=12 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 7, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'trust', 'value': 0.1219, 'label': '信任', 'band': 'slight', 'phrase': '对你有几分信任'}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 7, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.4423, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 7, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'fear', 'value': 0.1878, 'label': '恐惧', 'band': 'slight', 'phrase': '对你有些畏惧'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 7, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.3767, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 8, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 8, 'line': '停止校准流程，保留证人记忆，比维持镜务局说法更重要。'}
+{'event': 'NpcSpoke', 'tick': 8, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'line': '说得好听——可你知道我这条证词值几条命吗？'}
+{'event': 'TickAdvanced', 'tick': 9, 'new_tick': 9}
+{'event': 'StanceConfirmed', 'tick': 9, 'topic_id': 'drive_protect_witness_memory_1', 'label': '保护塔基证人的记忆'}
+{'event': 'PressureEvent', 'tick': 9, 'event_type': 'broadcast_names_player_as_mirror_saboteur', 'source': 'directorate_smear_response', 'summary': 'broadcast_names_player_as_mirror_saboteur'}
+{'event': 'PressureEvent', 'tick': 9, 'event_type': 'archivist_mentions_revocation_hearing', 'source': 'archive_law_pressure', 'summary': 'archivist_mentions_revocation_hearing'}
+{'event': 'Narration', 'tick': 9, 'text': '凯德队长环顾四周。'}
+new_pressure_events:
+{'tick': 9, 'driver_id': 'directorate_smear_response', 'event_type': 'broadcast_names_player_as_mirror_saboteur', 'summary': '[压力事件] broadcast_names_player_as_mirror_saboteur（来源: directorate_smear_response）'}
+{'tick': 9, 'driver_id': 'archive_law_pressure', 'event_type': 'archivist_mentions_revocation_hearing', 'summary': '[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）'}
+
+========================================================================
+STEP 10
+policy_note=move to archive for legal injunction
+pre: tick=9 loc=worker_gantry world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.security_kade(凯德队长)', 'npc.worker_lira(塔基工人莉拉)']
+>>> '去 mnemonic_clinic'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=movement ref='mnemonic_clinic'->id=None content='' mods={'to_location': 'mnemonic_clinic'}
+post: tick=10 loc=mnemonic_clinic world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=14.4s
+narrative:
+你改变了位置。
+protocol_events=8 (+0 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 8, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.5817, 'label': '怀疑', 'band': 'strong', 'phrase': '对你戒心很重'}, 'delta': 0.25}
+{'event': 'RelationshipShifted', 'tick': 8, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.439, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 8, 'npc_id': 'npc.worker_lira', 'name': '塔基工人莉拉', 'descriptor': {'dimension': 'trust', 'value': 0.1158, 'label': '信任', 'band': 'slight', 'phrase': '对你有几分信任'}, 'delta': -0.05}
+{'event': 'Progress', 'tick': 9, 'message': '（正在领会你的意思…）'}
+{'event': 'NpcSpoke', 'tick': 9, 'npc_id': 'npc.security_kade', 'name': '凯德队长', 'line': '步道作业期间不要逗留，配合检查是大家的本分。'}
+{'event': 'PlayerMoved', 'tick': 9, 'from_loc': '十二号塔基栈桥', 'to_loc': '记忆校准室'}
+{'event': 'TickAdvanced', 'tick': 10, 'new_tick': 10}
+{'event': 'Narration', 'tick': 10, 'text': '你改变了位置。'}
+
+========================================================================
+STEP 11
+policy_note=move to archive for legal injunction
+pre: tick=10 loc=mnemonic_clinic world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.clinician_oro(奥罗医师)']
+>>> '去 archive_stack'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=movement ref='archive_stack'->id='archive_stack' content='' mods={'to_location': 'archive_stack'}
+post: tick=11 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=7.8s
+narrative:
+你改变了位置。
+
+[压力事件] first_witnesses_called_to_white_bay（来源: silent_bell_countdown）
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）
+protocol_events=7 (+0 speech tokens)
+{'event': 'Progress', 'tick': 10, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerMoved', 'tick': 10, 'from_loc': '记忆校准室', 'to_loc': '低温档案署'}
+{'event': 'TickAdvanced', 'tick': 11, 'new_tick': 11}
+{'event': 'PressureEvent', 'tick': 11, 'event_type': 'first_witnesses_called_to_white_bay', 'source': 'silent_bell_countdown', 'summary': 'first_witnesses_called_to_white_bay'}
+{'event': 'PressureEvent', 'tick': 11, 'event_type': 'mirror_shadow_crosses_inquest_floor', 'source': 'array_fault_worsens', 'summary': 'mirror_shadow_crosses_inquest_floor'}
+{'event': 'PressureEvent', 'tick': 11, 'event_type': 'greenhouse_parents_demand_train_passes', 'source': 'valley_heat_market_squeeze', 'summary': 'greenhouse_parents_demand_train_passes'}
+{'event': 'Narration', 'tick': 11, 'text': '你改变了位置。'}
+new_pressure_events:
+{'tick': 11, 'driver_id': 'silent_bell_countdown', 'event_type': 'first_witnesses_called_to_white_bay', 'summary': '[压力事件] first_witnesses_called_to_white_bay（来源: silent_bell_countdown）'}
+{'tick': 11, 'driver_id': 'array_fault_worsens', 'event_type': 'mirror_shadow_crosses_inquest_floor', 'summary': '[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）'}
+{'tick': 11, 'driver_id': 'valley_heat_market_squeeze', 'event_type': 'greenhouse_parents_demand_train_passes', 'summary': '[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）'}
+
+========================================================================
+STEP 12
+policy_note=ask archivist about old charter
+pre: tick=11 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：旧章程是否允许证人在清洗前撤回听证？如果流程缺少档案署见证，能不能暂停白舱？'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='旧章程是否允许证人在清洗前撤回听证？如果流程缺少档案署见证，能不能暂停白舱？' mods={}
+
+archivist_mae：
+post: tick=12 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=69.5s
+narrative:
+你对梅档案官开口道：「旧章程是否允许证人在清洗前撤回听证？如果流程缺少档案署见证，能不能暂停白舱？」
+梅档案官开口道：「旧章程白纸黑字，证人在听证前随时可以撤回；若档案署见证缺失，流程本来就不完整，依法可以暂停。」
+
+[压力事件] workers_test_red_rope_checkpoint（来源: worker_panic_if_purge_nears）
+protocol_events=5 (+0 speech tokens)
+{'event': 'Progress', 'tick': 11, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 11, 'line': '旧章程是否允许证人在清洗前撤回听证？如果流程缺少档案署见证，能不能暂停白舱？'}
+{'event': 'NpcSpoke', 'tick': 11, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '旧章程白纸黑字，证人在听证前随时可以撤回；若档案署见证缺失，流程本来就不完整，依法可以暂停。'}
+{'event': 'TickAdvanced', 'tick': 12, 'new_tick': 12}
+{'event': 'PressureEvent', 'tick': 12, 'event_type': 'workers_test_red_rope_checkpoint', 'source': 'worker_panic_if_purge_nears', 'summary': 'workers_test_red_rope_checkpoint'}
+new_pressure_events:
+{'tick': 12, 'driver_id': 'worker_panic_if_purge_nears', 'event_type': 'workers_test_red_rope_checkpoint', 'summary': '[压力事件] workers_test_red_rope_checkpoint（来源: worker_panic_if_purge_nears）'}
+
+========================================================================
+STEP 13
+policy_note=request archive injunction #1
+pre: tick=12 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：请援引旧章程，提交档案署禁令，要求记忆清洗流程先暂停并举行可撤回听证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='请援引旧章程，提交档案署禁令，要求记忆清洗流程先暂停并举行可撤回听证。' mods={'volume': 'normal', 'urgency': 'normal'}
+
+梅档案官：禁令我可以写，但上面盖章得署长亲笔，不是递一张纸就有人接。你得给我一份可信的证人陈述作附件，不然我的签章就是废纸。
+post: tick=13 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=21.9s
+narrative:
+<empty>
+protocol_events=7 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 11, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'descriptor': {'dimension': 'familiarity', 'value': 0.15, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 11, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 11, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'descriptor': {'dimension': 'suspicion', 'value': 0.1, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'Progress', 'tick': 12, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 12, 'line': '请援引旧章程，提交档案署禁令，要求记忆清洗流程先暂停并举行可撤回听证。'}
+{'event': 'NpcSpoke', 'tick': 12, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以写，但上面盖章得署长亲笔，不是递一张纸就有人接。你得给我一份可信的证人陈述作附件，不然我的签章就是废纸。'}
+{'event': 'TickAdvanced', 'tick': 13, 'new_tick': 13}
+
+========================================================================
+STEP 14
+policy_note=request archive injunction #2
+pre: tick=13 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={}
+
+梅档案官：禁令我可以递交，但档案署那边你得先给我一个说得过去的理由，否则我签了也站不住。
+post: tick=14 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=15.6s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 13, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 13, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 13, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以递交，但档案署那边你得先给我一个说得过去的理由，否则我签了也站不住。'}
+{'event': 'TickAdvanced', 'tick': 14, 'new_tick': 14}
+
+========================================================================
+STEP 15
+policy_note=request archive injunction #3
+pre: tick=14 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={}
+
+梅档案官：禁令不是一张纸的问题，流程见证暂停需要档案署和镜务局双方签章，我一个人签不了。
+post: tick=15 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=16.8s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 14, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 14, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 14, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令不是一张纸的问题，流程见证暂停需要档案署和镜务局双方签章，我一个人签不了。'}
+{'event': 'TickAdvanced', 'tick': 15, 'new_tick': 15}
+
+========================================================================
+STEP 16
+policy_note=request archive injunction #4
+pre: tick=15 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'volume': 'normal', 'urgency': 'high'}
+
+梅档案官：禁令我能起草，但需要署里另两位见证人联签才有效——你能不能把那个外来巡查员也拉来作证？
+post: tick=16 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=16.0s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 15, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 15, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 15, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我能起草，但需要署里另两位见证人联签才有效——你能不能把那个外来巡查员也拉来作证？'}
+{'event': 'TickAdvanced', 'tick': 16, 'new_tick': 16}
+
+========================================================================
+STEP 17
+policy_note=request archive injunction #5
+pre: tick=16 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'volume': 'normal', 'emotion': 'neutral', 'urgency': 'normal'}
+
+梅档案官：禁令我可以起草，但你得先把缺见证这件事写成书面陈述，署上你的名字——我才能以档案署名义正式提交。
+post: tick=17 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=13.2s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 16, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 16, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 16, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以起草，但你得先把缺见证这件事写成书面陈述，署上你的名字——我才能以档案署名义正式提交。'}
+{'event': 'TickAdvanced', 'tick': 17, 'new_tick': 17}
+
+========================================================================
+STEP 18
+policy_note=request archive injunction #6
+pre: tick=17 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'urgency': 'high'}
+
+梅档案官：禁令我可以提交，但你得先告诉我，是谁让你来催这件事的。
+post: tick=18 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=16.7s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 17, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 17, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 17, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以提交，但你得先告诉我，是谁让你来催这件事的。'}
+{'event': 'TickAdvanced', 'tick': 18, 'new_tick': 18}
+
+========================================================================
+STEP 19
+policy_note=request archive injunction #7
+pre: tick=18 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'urgency': 'high'}
+
+梅档案官：禁令不是你说一句我就能交的，档案署见证的空白得由我亲眼核对卷宗才能落笔，不是你催出来的。
+post: tick=19 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=16.5s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 18, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 18, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 18, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令不是你说一句我就能交的，档案署见证的空白得由我亲眼核对卷宗才能落笔，不是你催出来的。'}
+{'event': 'TickAdvanced', 'tick': 19, 'new_tick': 19}
+
+========================================================================
+STEP 20
+policy_note=request archive injunction #8
+pre: tick=19 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'urgency': 'normal'}
+
+梅档案官：禁令我可以拟，但需要档案署当班见证人签名才能生效，否则只是一张废纸。
+post: tick=20 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=19.9s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 19, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 19, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 19, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以拟，但需要档案署当班见证人签名才能生效，否则只是一张废纸。'}
+{'event': 'TickAdvanced', 'tick': 20, 'new_tick': 20}
+
+========================================================================
+STEP 21
+policy_note=request archive injunction #9
+pre: tick=20 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'urgency': 'high'}
+
+梅档案官：禁令我可以拟，但需要档案署在场核验旧章程原件，否则我签了也只是一张废纸。
+post: tick=21 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=12.1s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 20, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 20, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 20, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以拟，但需要档案署在场核验旧章程原件，否则我签了也只是一张废纸。'}
+{'event': 'TickAdvanced', 'tick': 21, 'new_tick': 21}
+
+========================================================================
+STEP 22
+policy_note=request archive injunction #10
+pre: tick=21 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'volume': 'normal', 'urgency': 'high', 'emotion': 'authoritative'}
+
+梅档案官：禁令我可以拟，但你得先告诉我证人的编号和缺哪一环见证，不然我签出去也是废纸。
+post: tick=22 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=18.8s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 21, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 21, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 21, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以拟，但你得先告诉我证人的编号和缺哪一环见证，不然我签出去也是废纸。'}
+{'event': 'TickAdvanced', 'tick': 22, 'new_tick': 22}
+
+========================================================================
+STEP 23
+policy_note=request archive injunction #11
+pre: tick=22 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={}
+
+梅档案官：禁令不是口头开的——我需要看到档案署签章和证人书面撤回申请，两样都齐了，我才会动。
+post: tick=23 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=16.8s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 22, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 22, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 22, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令不是口头开的——我需要看到档案署签章和证人书面撤回申请，两样都齐了，我才会动。'}
+{'event': 'TickAdvanced', 'tick': 23, 'new_tick': 23}
+
+========================================================================
+STEP 24
+policy_note=request archive injunction #12
+pre: tick=23 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'volume': 'normal', 'emotion': 'firm', 'urgency': 'high'}
+
+梅档案官：禁令不是凭空开的，档案署的签章栏还是空的——没有记录，就不存在可以暂停的流程。
+post: tick=24 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=14.5s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 23, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 23, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 23, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令不是凭空开的，档案署的签章栏还是空的——没有记录，就不存在可以暂停的流程。'}
+{'event': 'TickAdvanced', 'tick': 24, 'new_tick': 24}
+
+========================================================================
+STEP 25
+policy_note=request archive injunction #13
+pre: tick=24 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={'volume': 'normal', 'urgency': 'high'}
+
+梅档案官：禁令是档案署的权限，不是你一句话我就能签发的。
+post: tick=25 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=16.5s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 24, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 24, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 24, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令是档案署的权限，不是你一句话我就能签发的。'}
+{'event': 'TickAdvanced', 'tick': 25, 'new_tick': 25}
+
+========================================================================
+STEP 26
+policy_note=request archive injunction #14
+pre: tick=25 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={}
+
+梅档案官：禁令我可以起草，但档案署见证这一步我签了才算数，光凭一句话我没法动。
+post: tick=26 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=14.6s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 25, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 25, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 25, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以起草，但档案署见证这一步我签了才算数，光凭一句话我没法动。'}
+{'event': 'TickAdvanced', 'tick': 26, 'new_tick': 26}
+
+========================================================================
+STEP 27
+policy_note=request archive injunction #15
+pre: tick=26 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={}
+
+梅档案官：禁令我可以写，但先得把见证记录调出来核对。
+post: tick=27 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=13.8s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 26, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 26, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 26, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以写，但先得把见证记录调出来核对。'}
+{'event': 'TickAdvanced', 'tick': 27, 'new_tick': 27}
+
+========================================================================
+STEP 28
+policy_note=request archive injunction #16
+pre: tick=27 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory']
+present=['npc.archivist_mae(梅档案官)']
+>>> '对 archivist_mae 说：证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='archivist_mae'->id='npc.archivist_mae' content='证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。' mods={}
+
+梅档案官：禁令我可以起草，但需要你先说清楚，是哪位证人、哪一次听证——没有卷宗号我落不了笔。
+post: tick=28 loc=archive_stack world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False} stances=['protect_witness_memory'] elapsed=14.2s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 27, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 27, 'line': '证人记忆还没有被合法记录。请提交禁令，启动旧章程，暂停流程见证。'}
+{'event': 'NpcSpoke', 'tick': 27, 'npc_id': 'npc.archivist_mae', 'name': '梅档案官', 'line': '禁令我可以起草，但需要你先说清楚，是哪位证人、哪一次听证——没有卷宗号我落不了笔。'}
+{'event': 'TickAdvanced', 'tick': 28, 'new_tick': 28}
+
+[FINAL SUMMARY]
+tick=28
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+stances=['protect_witness_memory']
+pressure_events:
+{'tick': 1, 'driver_id': 'silent_bell_countdown', 'event_type': 'silent_bell_rings_again', 'summary': '[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）'}
+{'tick': 1, 'driver_id': 'archive_law_pressure', 'event_type': 'archivist_mentions_revocation_hearing', 'summary': '[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）'}
+{'tick': 1, 'driver_id': 'valley_heat_market_squeeze', 'event_type': 'heat_tokens_jump_at_valley_platform', 'summary': '[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）'}
+{'tick': 5, 'driver_id': 'array_fault_worsens', 'event_type': 'mirror_shadow_crosses_inquest_floor', 'summary': '[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）'}
+{'tick': 6, 'driver_id': 'silent_bell_countdown', 'event_type': 'silent_bell_rings_again', 'summary': '[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）'}
+{'tick': 6, 'driver_id': 'worker_panic_if_purge_nears', 'event_type': 'lira_hides_near_transit_ladder', 'summary': '[压力事件] lira_hides_near_transit_ladder（来源: worker_panic_if_purge_nears）'}
+{'tick': 6, 'driver_id': 'valley_heat_market_squeeze', 'event_type': 'greenhouse_parents_demand_train_passes', 'summary': '[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）'}
+{'tick': 9, 'driver_id': 'directorate_smear_response', 'event_type': 'broadcast_names_player_as_mirror_saboteur', 'summary': '[压力事件] broadcast_names_player_as_mirror_saboteur（来源: directorate_smear_response）'}
+{'tick': 9, 'driver_id': 'archive_law_pressure', 'event_type': 'archivist_mentions_revocation_hearing', 'summary': '[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）'}
+{'tick': 11, 'driver_id': 'silent_bell_countdown', 'event_type': 'first_witnesses_called_to_white_bay', 'summary': '[压力事件] first_witnesses_called_to_white_bay（来源: silent_bell_countdown）'}
+{'tick': 11, 'driver_id': 'array_fault_worsens', 'event_type': 'mirror_shadow_crosses_inquest_floor', 'summary': '[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）'}
+{'tick': 11, 'driver_id': 'valley_heat_market_squeeze', 'event_type': 'greenhouse_parents_demand_train_passes', 'summary': '[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）'}
+{'tick': 12, 'driver_id': 'worker_panic_if_purge_nears', 'event_type': 'workers_test_red_rope_checkpoint', 'summary': '[压力事件] workers_test_red_rope_checkpoint（来源: worker_panic_if_purge_nears）'}
+checks:
+- protect_witness_memory_stance: PASS
+- secure_worker_record_stance: FAIL
+- expose_array_fault_stance: FAIL
+- archive_injunction_filed: FAIL
+- witness_record_secured: FAIL
+- memory_purge_halted: FAIL
+- cartography_copy_obtained: FAIL
+- array_fault_disclosed: FAIL
+- smear_driver_seen: PASS
+- deadline_driver_seen: PASS
+- array_fault_pressure_seen: PASS
+RESULT: INCOMPLETE_OR_FAIL

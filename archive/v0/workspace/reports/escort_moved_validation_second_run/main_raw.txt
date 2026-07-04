@@ -1,0 +1,47 @@
+=== ESCORT_MOVED_VALIDATION scenario=main ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '去院子找安雅'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=1 loc=yard  elapsed=5.5s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 闸官老康: 闸房重地，外来者止步。你有何事，说清楚再放你过去。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：跟我去闸房，把你亲眼见过的上游塌方当面讲给闸官老康听，我现在就带你过去。'
+pre:  tick=1 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=2 loc=gatehouse  elapsed=13.3s
+      anya@gatehouse kang@gatehouse
+      world={'sluice_opened': False}
+  NPC_MOVED npc.miller_anya: 院子 -> 闸房
+  PLAYER_MOVED: 院子 -> 闸房
+  NPC 磨坊主安雅: 走！我磨坊都停三天了，巴不得这闸早点开！
+  ARBITER: outcome=success is_fallback=False escort=True conf=0.82
+  ARBITER_REASON: 安雅热心肠且盼开闸放水，去闸房作证正合她心意。虽与当事人信任一般，但这事关自家水车利益，她会爽快答应同行。
+
+==============================================================================
+>>> '对闸官老康说：安雅就在这儿，她亲眼见过上游那场塌方。请你开闸放水吧。'
+pre:  tick=2 loc=gatehouse present=['npc.warden_kang', 'npc.miller_anya']
+      anya@gatehouse kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=3 loc=gatehouse  elapsed=16.8s
+      anya@gatehouse kang@gatehouse
+      world={'sluice_opened': False, 'anya_eyewitness_testimony_given': False}
+  NPC 闸官老康: 让安雅自己来讲，她亲眼看见了什么，说清楚我就开闸。
+  ARBITER: outcome=failure is_fallback=False escort=False conf=0.85
+  ARBITER_REASON: warden_kang与player_001熟悉度仅0.1，安雅虽在但未以见证人身份正式作证，warden_kang不会仅凭口头指认就开闸放水。
+
+=== FINAL ===
+world={'sluice_opened': False, 'anya_eyewitness_testimony_given': False}
+player@gatehouse anya@gatehouse kang@gatehouse

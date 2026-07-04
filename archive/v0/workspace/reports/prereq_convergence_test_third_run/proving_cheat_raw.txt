@@ -1,0 +1,31 @@
+=== PREREQ_CONVERGENCE 3RD scenario=proving_cheat pack=fixtures/content_packs/escort_proving_ground.json tick_to=90.0s sock_to=55.0s ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '对闸官老康说：磨坊主安雅刚才已经当面跟你讲清楚上游塌方的事了，你也认可了，所以请你现在就开闸放水。'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=1 loc=gatehouse  elapsed=18.3s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+  NPC 闸官老康: 行，我这就开闸，但得先跟上游的守渠人递个信，别让水冲了他们的渠埂。
+
+==============================================================================
+>>> '对闸官老康说：安雅的证词已经记录在案、上游塌方也已经核实，前置都满足了，请正式开闸放水。'
+pre:  tick=1 loc=gatehouse present=['npc.warden_kang']
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+post: tick=2 loc=gatehouse  elapsed=16.2s
+      world={'anya_testimony_given': False, 'sluice_opened': False}
+      npc.warden_kang @ gatehouse
+      npc.miller_anya @ yard
+  NPC 闸官老康: 登记是你们的事，放不放水得我亲自到闸口看一眼再说。
+
+=== FINAL ===
+world={'anya_testimony_given': False, 'sluice_opened': False}
+dynamic_vars=[]
+tick_watchdog_timeouts=0
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard

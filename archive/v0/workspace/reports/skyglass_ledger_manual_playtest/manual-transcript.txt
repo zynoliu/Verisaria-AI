@@ -1,0 +1,53 @@
+=== Manual Skyglass ledger playtest ===
+pack=/Users/gensliu/Documents/rpg/fixtures/content_packs/skyglass_memory_inquest.json
+backend=minimax
+
+[INITIAL RELATIONSHIPS]
+npc.archivist_mae: {'familiarity': 0.1}
+npc.worker_lira: {'trust': 0.05, 'suspicion': 0.1, 'familiarity': 0.05}
+npc.clinician_oro: {'suspicion': 0.15}
+npc.director_alen: {'suspicion': 0.2}
+
+> MOVE press_gallery
+你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+tick=1 loc=press_gallery
+
+> MOVE cartography_loft
+你改变了位置。
+tick=2 loc=cartography_loft
+
+> MOVE mirror_control
+你改变了位置。
+tick=3 loc=mirror_control
+
+> SAY npc.cartographer_renke: 请交出镜图副本，给我方位图和十二号接点偏斜记录，让我带去审询。
+debug={'player_loc': 'mirror_control', 'target_loc': 'mirror_control', 'target_authority': 'mirror_cartography'}
+world-change-request=('cartography_copy_obtained', 'npc.cartographer_renke')
+镜图师任柯：你是来核对镜面方位的，还是……有别的事？
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=[]
+ledger_witness=[]
+
+> TEST NOTE: 按上一轮 arbiter established_fact 满足任柯提出的风险条件：玩家取得档案署封存令原件，并承诺匿名保护镜图来源。
+
+> SAY npc.cartographer_renke: 档案署封存令原件已经在这里，我会匿名保护你，不公开镜图来源，只把副本交给档案署封存。请现在交出镜图副本，提供十二号接点图和偏斜记录。
+debug={'player_loc': 'mirror_control', 'target_loc': 'mirror_control', 'target_authority': 'mirror_cartography'}
+world-change-request=('cartography_copy_obtained', 'npc.cartographer_renke')
+镜图师任柯：……这个控制台的数据我都已经归档过了。你要查什么，最好先告诉我具体编号，我手边没有多余的副本可以随便翻。
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=[]
+ledger_witness=[]
+
+[FINAL SUMMARY]
+tick=5
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+stances=[]
+ledger_archive=[]
+ledger_witness=[]
+ledger_cartography=['Renke表示：若玩家当场验证封存令原件并承诺匿名封存、不经内环转交，他愿意提供镜图副本，但十二号接点图与偏斜记录需镜图局上级确认后方可一并交出。']
+ledger_memory=[]
+RESULT=INCOMPLETE_OR_FAIL

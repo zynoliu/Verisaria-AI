@@ -1,0 +1,79 @@
+=== THIRD-RUN nio ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '对 apprentice_nio 说：我是外来审询员，受命保护程序公正。我知道你害怕镜务局接管唱诗团——我能给你合法的保护。'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='apprentice_nio'->id='npc.apprentice_nio' to_loc=None content='我是外来审询员，受命保护程序公正。我知道你害怕镜务局接管唱诗团——我能给你合法的保护。'
+post: tick=1 loc=inquest_hall  elapsed=8.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 学徒尼奥: 第……第二天了，他们真的把证人都带进校准室了。
+  NARR: 艾伦总监环顾四周。
+副领唱瑟芙环顾四周。
+  NARRATIVE: 艾伦总监环顾四周。
+副领唱瑟芙环顾四周。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 apprentice_nio 说：低温档案署是受旧章程保护的中立场所，到那里你不会被镜务局碰到。我想请你到档案署，把你数到的静钟次数记录在案，这能帮证人争取延期。'
+pre:  tick=1 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.security_kade', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='apprentice_nio'->id='npc.apprentice_nio' to_loc=None content='低温档案署是受旧章程保护的中立场所，到那里你不会被镜务局碰到。我想请你到档案署，把你数到的静钟次数记录在案，这能帮证人争取延期。'
+post: tick=2 loc=inquest_hall  elapsed=17.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 学徒尼奥: 可是……他们说离开听证厅的人，会被当成污染源。我数的那几次静钟，会不会被反过来算成我的罪证？
+  NARR: 艾伦总监环顾四周。
+凯德队长改变了位置。
+  NARRATIVE: 艾伦总监环顾四周。
+凯德队长改变了位置。
+
+==============================================================================
+>>> '对 apprentice_nio 说：跟我一起去低温档案署吧，那里安全，梅档案官会受理你的记录，我现在就带你过去，全程保护你。'
+pre:  tick=2 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='apprentice_nio'->id='npc.apprentice_nio' to_loc=None content='跟我一起去低温档案署吧，那里安全，梅档案官会受理你的记录，我现在就带你过去，全程保护你。'
+post: tick=3 loc=inquest_hall  elapsed=32.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 学徒尼奥: 可是……我师父说离开听证厅的人，会被当成污染源。我要是跟你走，静钟会不会又多响一次？
+
+==============================================================================
+>>> '/look'
+  [/look] loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+  CMD_OUT: Location: inquest_hall
+Zone: audit_dais
+You see:
+  - npc.director_alen (director_bench)
+  - npc.cantor_seraph (choir_rail)
+  - npc.apprentice_nio (choir_rail)
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+player_loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ mirror_control
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

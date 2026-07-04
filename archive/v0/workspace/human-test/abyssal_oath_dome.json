@@ -1,0 +1,761 @@
+{
+  "content_pack_id": "abyssal_oath_dome",
+  "schema_version": "2.0",
+  "world_premise": {
+    "era": "deep_sea_civic_noir",
+    "tone": "claustrophobic_institutional_mystery",
+    "central_tension": "海沟穹顶城“渊誓”在黑潮风暴夜失去一段供氧压力。穹顶议会准备把下层鳃工区封舱减压，宣称这是为了保住全城；但供氧账本、珍珠库特权和一个沉默潜水员的证词指向另一种真相。",
+    "opening_time": "03:40",
+    "climate": "海洋",
+    "opening_weather": "雾",
+    "npc_daily_rhythm": true
+  },
+  "world_book": [
+    {
+      "entry_id": "dome_breath_covenant",
+      "layer": "canonical_fact",
+      "content": "渊誓穹顶靠盐泵、潮压阀和藻肺塔维持空气。城规规定：任何封舱减压必须经过议会令、工程署安全意见和一名现场证人的登记证词。",
+      "access": {"visible_to": {"region": ["abyssal_oath"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "black_tide_deadline",
+      "layer": "canonical_fact",
+      "content": "黑潮风暴会在数小时内让外部救援缆断流。若盐泵补丁未就绪，强行打开主潮门会造成新的压力震荡。",
+      "access": {"visible_to": {"profession": ["engineer", "tidecaster"], "clearance": ["civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "council_public_sacrifice_line",
+      "layer": "faction_propaganda",
+      "content": "穹顶议会宣称：下层鳃工区的空气浊化来自鳃工私接管线，临时封舱是为了避免全城窒息。",
+      "access": {"visible_to": {"faction": ["council", "dome_guard", "civic_bulletin"]}, "hidden_from": {"faction": ["gillworkers"]}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "pearl_house_merit_frame",
+      "layer": "faction_propaganda",
+      "content": "珍珠家族反复强调：上层珍珠库保存的是全城赎买基金，任何质疑珍珠库供氧优先权的人都在破坏灾后重建。",
+      "access": {"visible_to": {"faction": ["pearl_house", "council", "civic_bulletin"]}, "hidden_from": {"faction": ["gillworkers"]}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "chapel_breath_sin",
+      "layer": "faction_propaganda",
+      "content": "呼吸礼拜堂教导居民：黑潮夜不要争辩账本，怀疑分配秩序会让人吸进恐慌，比缺氧更快。",
+      "access": {"visible_to": {"faction": ["breath_chapel", "council"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "pearl_vault_oxygen_diversion",
+      "layer": "forbidden_knowledge",
+      "content": "失压前夜，珍珠库私自抽走了三十七分钟的藻肺余氧来保住育珠池温度；这笔抽调被阀工拉娜改写成鳃工区误差。",
+      "access": {"visible_to": {"clearance": ["inner_civic"], "faction": ["pearl_house"], "profession": ["valvewright"]}, "hidden_from": {"faction": ["gillworkers", "civic_bulletin"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "rana_private_complicity",
+      "layer": "personal_truth",
+      "content": "阀工拉娜知道自己按议会密令改写了潮压阀记录。她害怕一旦承认，鳃工会把她当成把孩子推进封舱的人。",
+      "access": {"visible_to": {"profession": ["valvewright"], "clearance": ["inner_civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "ledger_bead_true_route",
+      "layer": "forbidden_knowledge",
+      "content": "一枚乌珊瑚账珠记录了珍珠库抽氧的完整时段。账珠被账房司恩藏在淤泥账房的废盐槽里，只有账房密钥能读出。",
+      "access": {"visible_to": {"profession": ["bookkeeper"], "clearance": ["civic"]}, "hidden_from": {"faction": ["pearl_house", "dome_guard"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "pell_witness_truth",
+      "layer": "personal_truth",
+      "content": "潜水员佩尔在月池外壁听见主潮门内侧有珍珠库的温流泵声，并看见拉娜把阀位刻痕磨平。",
+      "access": {"visible_to": {"profession": ["diver"], "faction": ["salvage_union"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "vesper_sufficiency_rule",
+      "layer": "canonical_fact",
+      "content": "首席维斯珀的公开规则是：若阀工供述、现场证人登记、盐泵补丁准备完成三项同时成立，她必须签署撤销封舱令，不得再要求额外程序。",
+      "access": {"visible_to": {"faction": ["council"], "clearance": ["civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "engineer_patch_limit",
+      "layer": "canonical_fact",
+      "content": "工程师马洛能启动盐泵临时补丁，但补丁必须经过两轮潮压回读才能成熟；成熟前只能承诺正在校验，不能保证主潮门安全。",
+      "access": {"visible_to": {"profession": ["engineer", "tidecaster"], "clearance": ["civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "guard_transfer_order",
+      "layer": "forbidden_knowledge",
+      "content": "穹顶卫队已经收到密令：若撤销封舱令迟迟不签，就在第二次黑潮钟响后把佩尔移送到珍珠库软禁。",
+      "access": {"visible_to": {"faction": ["dome_guard"], "clearance": ["inner_civic"]}, "hidden_from": {"faction": ["salvage_union", "gillworkers"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "market_air_scrip_rumor",
+      "layer": "local_rumor",
+      "content": "珊瑚市集开始炒高空气券，谣言说只要鳃工区被封，低层家庭的空气份额会被换成债券。",
+      "access": {"visible_to": {"region": ["abyssal_oath"], "faction": ["market_reef", "gillworkers"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "chapel_hidden_refuge",
+      "layer": "local_rumor",
+      "content": "呼吸礼拜堂祭坛后有一条旧导气廊，可以把证人从证人寮带到议事环侧门，避开主卫队通道。",
+      "access": {"visible_to": {"faction": ["breath_chapel", "salvage_union", "gillworkers"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "nessa_family_risk",
+      "layer": "personal_truth",
+      "content": "珍珠继承人妮莎知道家族抽氧确有其事，但她相信公开后珍珠库会被鳃工抢空，所有赎买基金都会失控。",
+      "access": {"visible_to": {"faction": ["pearl_house"], "clearance": ["inner_civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "juno_storm_reading",
+      "layer": "canonical_fact",
+      "content": "潮象师朱诺的风暴盘显示黑潮在黎明前还会加深一次，强压差会放大任何谎报阀位造成的风险。",
+      "access": {"visible_to": {"profession": ["tidecaster"], "region": ["abyssal_oath"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "child_miri_seen_mark",
+      "layer": "personal_truth",
+      "content": "下层孩子米里看见佩尔袖口有珍珠库蓝蜡，不是鳃工区的灰蜡；她不知道这有多重要。",
+      "access": {"visible_to": {"faction": ["gillworkers"], "profession": ["child_runner"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "auditor_boundary_rule",
+      "layer": "canonical_fact",
+      "content": "外部审计员只能凭公开证词、当事人承诺、可核对物证推动裁定；不能凭空宣布谁有罪或直接替权威签令。",
+      "access": {"visible_to": {"faction": ["all"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "vesper_private_stampede_fear",
+      "layer": "personal_truth",
+      "content": "首席维斯珀真正害怕的不是承认议会错误本身，而是黑潮夜公开真相后下层冲门、上层关阀，导致全城踩踏和二次失压。她会抓住程序不放，直到有人同时给出证词、供述和工程安全出口。",
+      "access": {"visible_to": {"clearance": ["inner_civic"], "faction": ["council"]}, "hidden_from": {"faction": ["gillworkers", "market_reef"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "rana_apprentice_ilo_hostage",
+      "layer": "personal_truth",
+      "content": "阀工拉娜把学徒伊洛当成自己的责任。她不开口，不是因为还忠于珍珠库，而是害怕供述后伊洛被吊销阀工牌、送去外壁抢修。",
+      "access": {"visible_to": {"profession": ["valvewright"], "clearance": ["inner_civic"]}, "hidden_from": {"faction": ["pearl_house", "civic_bulletin"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "sien_dead_drop_protocol",
+      "layer": "personal_truth",
+      "content": "账房司恩愿意帮审计员，但他只会把乌珊瑚账珠交给愿意登记保全链的人；如果账珠被当场挥舞成政治武器，他会说账珠已经被盐水泡坏。",
+      "access": {"visible_to": {"profession": ["bookkeeper"], "clearance": ["civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "pell_escort_condition",
+      "layer": "personal_truth",
+      "content": "潜水员佩尔愿意去潮压议事环作证，但他害怕在主卫队通道被塞罗带走。若玩家亲自护送，或走呼吸礼拜堂旧导气廊，他更容易答应。",
+      "access": {"visible_to": {"profession": ["diver"], "faction": ["salvage_union", "gillworkers"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "maro_patch_cost",
+      "layer": "canonical_fact",
+      "content": "盐泵临时补丁会占用珍珠库温流泵的回压余量，可能让一批育珠池报废；这给玩家提供了真实代价：保下层空气，就要有人承担上层资产损失。",
+      "access": {"visible_to": {"profession": ["engineer", "tidecaster"], "clearance": ["civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "nessa_compromise_path",
+      "layer": "personal_truth",
+      "content": "妮莎并非完全不能让步。若玩家承诺分阶段公开、保留赎买基金账目审计而非让人抢库，她可能接受牺牲一批育珠池来换取家族免于暴民冲击。",
+      "access": {"visible_to": {"faction": ["pearl_house"], "clearance": ["inner_civic"]}, "hidden_from": {"faction": ["gillworkers", "market_reef"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "cerro_legal_limit",
+      "layer": "personal_truth",
+      "content": "塞罗队长相信封舱令，但他也相信盖印命令。若佩尔是在审计员护送下、去议事环登记证词，他不会主动拦截；若玩家试图偷偷带人，他会视作劫证。",
+      "access": {"visible_to": {"faction": ["dome_guard"], "clearance": ["civic"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "lye_sanctuary_risk",
+      "layer": "forbidden_knowledge",
+      "content": "呼吸祭司莱伊可以短暂开放祭坛后的旧导气廊庇护证人，但礼拜堂一旦被发现包庇佩尔，议会会削掉它的配气份额。",
+      "access": {"visible_to": {"faction": ["breath_chapel"], "profession": ["priest"]}, "hidden_from": {"faction": ["council", "dome_guard"]}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "gillworks_breath_tax",
+      "layer": "canonical_fact",
+      "content": "鳃工家庭每周用维修工时抵扣空气税。封舱令若执行，他们失去的不只是房间，还有下周换气资格和孩子的藻肺名额。",
+      "access": {"visible_to": {"region": ["abyssal_oath"], "faction": ["gillworkers"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "kael_air_scrip_web",
+      "layer": "local_rumor",
+      "content": "空气券掮客凯尔知道谁在提前囤券：珍珠库代理、礼拜堂司库、卫队家属都在买。他没有道德立场，但怕账本公开后自己成替罪羊。",
+      "access": {"visible_to": {"faction": ["market_reef"], "region": ["abyssal_oath"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "failure_sealed_lower_decks",
+      "layer": "canonical_fact",
+      "content": "若撤销封舱令没有签成，议会最可能执行有限封舱：鳃工区保留一条医疗导气线，但家庭被迫迁入市场和礼拜堂，空气券价格会长期翻倍。",
+      "access": {"visible_to": {"clearance": ["civic"], "region": ["abyssal_oath"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "messy_victory_public_reckoning",
+      "layer": "canonical_fact",
+      "content": "若玩家拼出三项前置并迫使维斯珀签令，胜利也不会干净：鳃工得救，珍珠库受损，拉娜和妮莎都会进入公开听证，穹顶的空气分配制度会被重新审计。",
+      "access": {"visible_to": {"clearance": ["civic"], "region": ["abyssal_oath"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    }
+  ],
+  "starting_location": "tribunal_rotunda",
+  "initial_locations": [
+    {
+      "location_id": "tribunal_rotunda",
+      "name": "潮压议事环",
+      "description": "一圈湿亮的玄武岩席位围着中央潮压钟，穹顶外的黑潮影子像手掌一样压在玻璃上。",
+      "connections": [
+        {"to": "brine_gate", "distance": "adjacent", "noise_leak": 0.25, "visual_leak": 0.05, "description": "沿刻着阀位数字的短廊前往主潮门"},
+        {"to": "silt_counting_house", "distance": "near", "noise_leak": 0.1, "visual_leak": 0.0, "description": "穿过低拱账廊到淤泥账房"},
+        {"to": "witness_dormitory", "distance": "near", "noise_leak": 0.2, "visual_leak": 0.0, "description": "沿蓝灯通道抵达证人寮"},
+        {"to": "chapel_of_breath", "distance": "adjacent", "noise_leak": 0.35, "visual_leak": 0.1, "description": "推开潮湿帘幕进入呼吸礼拜堂"}
+      ]
+    },
+    {
+      "location_id": "brine_gate",
+      "name": "主潮门阀廊",
+      "description": "盐雾从铜阀缝隙里吐出来，地面布满磨平又重新刻过的阀位痕。",
+      "connections": [
+        {"to": "tribunal_rotunda", "distance": "adjacent", "noise_leak": 0.25, "visual_leak": 0.05, "description": "回到潮压议事环"},
+        {"to": "lower_gillworks", "distance": "near", "noise_leak": 0.45, "visual_leak": 0.15, "description": "顺着潮湿阶梯下到鳃工区"},
+        {"to": "pressure_lab", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.0, "description": "进入盐泵压力实验室"},
+        {"to": "pearl_vault", "distance": "near", "noise_leak": 0.05, "visual_leak": 0.0, "description": "沿上层温流管道抵达珍珠库"}
+      ]
+    },
+    {
+      "location_id": "lower_gillworks",
+      "name": "下层鳃工区",
+      "description": "藻肺管在低矮屋顶上发绿光，孩子们把湿布按在口鼻上听远处潮钟。",
+      "connections": [
+        {"to": "brine_gate", "distance": "near", "noise_leak": 0.45, "visual_leak": 0.15, "description": "爬回主潮门阀廊"},
+        {"to": "market_reef", "distance": "adjacent", "noise_leak": 0.5, "visual_leak": 0.2, "description": "穿过空气券摊位到珊瑚市集"},
+        {"to": "moonpool", "distance": "near", "noise_leak": 0.35, "visual_leak": 0.05, "description": "沿潜水员滑轨走向月池"}
+      ]
+    },
+    {
+      "location_id": "market_reef",
+      "name": "珊瑚市集",
+      "description": "摊贩把空气券夹在贝壳算盘里，压低声音议价，像每句话都在耗氧。",
+      "connections": [
+        {"to": "lower_gillworks", "distance": "adjacent", "noise_leak": 0.5, "visual_leak": 0.2, "description": "回到下层鳃工区"},
+        {"to": "silt_counting_house", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.05, "description": "经过押券窗口到淤泥账房"},
+        {"to": "storm_observatory", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "上行到潮象观测台"}
+      ]
+    },
+    {
+      "location_id": "silt_counting_house",
+      "name": "淤泥账房",
+      "description": "黑盐算盘和乌珊瑚账珠沉在浅水槽里，账册每翻一页都带起浑浊的银泥。",
+      "connections": [
+        {"to": "tribunal_rotunda", "distance": "near", "noise_leak": 0.1, "visual_leak": 0.0, "description": "返回潮压议事环"},
+        {"to": "market_reef", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.05, "description": "回到珊瑚市集"},
+        {"to": "pearl_vault", "distance": "near", "noise_leak": 0.05, "visual_leak": 0.0, "description": "沿封缄账轨前往珍珠库"}
+      ]
+    },
+    {
+      "location_id": "pearl_vault",
+      "name": "育珠库",
+      "description": "温流泵给成排育珠池送热，墙上挂着“赎买基金不可动摇”的银牌。",
+      "connections": [
+        {"to": "brine_gate", "distance": "near", "noise_leak": 0.05, "visual_leak": 0.0, "description": "回到主潮门阀廊"},
+        {"to": "silt_counting_house", "distance": "near", "noise_leak": 0.05, "visual_leak": 0.0, "description": "进入淤泥账房侧廊"}
+      ]
+    },
+    {
+      "location_id": "witness_dormitory",
+      "name": "证人寮",
+      "description": "湿毯和潜水衣挂满窄床，门外的卫队灯把每个影子都切成两半。",
+      "connections": [
+        {"to": "tribunal_rotunda", "distance": "near", "noise_leak": 0.2, "visual_leak": 0.0, "description": "回到潮压议事环"},
+        {"to": "chapel_of_breath", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.0, "description": "穿过静祷廊到呼吸礼拜堂"},
+        {"to": "moonpool", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.05, "description": "沿潜水员通道去月池"}
+      ]
+    },
+    {
+      "location_id": "chapel_of_breath",
+      "name": "呼吸礼拜堂",
+      "description": "潮水滴在空贝壳风琴上，祭坛后隐约有旧导气廊的铁锈味。",
+      "connections": [
+        {"to": "tribunal_rotunda", "distance": "adjacent", "noise_leak": 0.35, "visual_leak": 0.1, "description": "回到潮压议事环"},
+        {"to": "witness_dormitory", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.0, "description": "进入证人寮"},
+        {"to": "storm_observatory", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "沿祷钟梯上到潮象观测台"}
+      ]
+    },
+    {
+      "location_id": "moonpool",
+      "name": "外壁月池",
+      "description": "半圆形水面映着穹顶裂纹，潜水钟在雾里轻轻撞击铁链。",
+      "connections": [
+        {"to": "lower_gillworks", "distance": "near", "noise_leak": 0.35, "visual_leak": 0.05, "description": "回到下层鳃工区"},
+        {"to": "witness_dormitory", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.05, "description": "回证人寮"},
+        {"to": "storm_observatory", "distance": "near", "noise_leak": 0.2, "visual_leak": 0.0, "description": "沿外壁检修梯上行"}
+      ]
+    },
+    {
+      "location_id": "pressure_lab",
+      "name": "盐泵压力实验室",
+      "description": "透明压力柱里有气泡一层层碎开，墙上贴着手写的临时补丁回读表。",
+      "connections": [
+        {"to": "brine_gate", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.0, "description": "回到主潮门阀廊"},
+        {"to": "storm_observatory", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "沿计压梯到潮象观测台"}
+      ]
+    },
+    {
+      "location_id": "storm_observatory",
+      "name": "潮象观测台",
+      "description": "黑潮在厚玻璃外旋成巨眼，风暴盘的银针每一次抖动都让城里安静一瞬。",
+      "connections": [
+        {"to": "market_reef", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "下到珊瑚市集"},
+        {"to": "chapel_of_breath", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "回呼吸礼拜堂"},
+        {"to": "moonpool", "distance": "near", "noise_leak": 0.2, "visual_leak": 0.0, "description": "下外壁检修梯到月池"},
+        {"to": "pressure_lab", "distance": "near", "noise_leak": 0.15, "visual_leak": 0.0, "description": "去盐泵压力实验室"}
+      ]
+    }
+  ],
+  "initial_entities": [
+    {
+      "entity_id": "player_001",
+      "name": "你",
+      "entity_type": "player",
+      "location_id": "tribunal_rotunda",
+      "zone_id": "auditor_dais",
+      "zone_info": {"visibility": "high", "noise_level": "moderate", "capacity": 6},
+      "attributes": {"strength": 0.42, "dexterity": 0.54, "perception": 0.78, "charisma": 0.65, "faction": "external_audit", "region": "abyssal_oath", "profession": "oath_auditor", "clearance": "civic"},
+      "traits": ["external_auditor", "legally_mandated", "oxygen_ration_guest", "not_part_of_the_dome"],
+      "hp": 100,
+      "max_hp": 100,
+      "stamina": 100
+    },
+    {
+      "entity_id": "npc.matriarch_vesper",
+      "name": "首席维斯珀",
+      "entity_type": "npc",
+      "location_id": "tribunal_rotunda",
+      "zone_id": "council_arc",
+      "zone_info": {"visibility": "high", "noise_level": "quiet", "capacity": 5},
+      "attributes": {"charisma": 0.86, "perception": 0.68, "faction": "council", "region": "abyssal_oath", "clearance": "inner_civic", "authority": "council_authority"},
+      "traits": ["ceremonial", "cornered", "procedural", "hates_public_panic", "will_honor_three_declared_conditions", "fears_stampede_more_than_scandal"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.valvewright_rana",
+      "name": "阀工拉娜",
+      "entity_type": "npc",
+      "location_id": "brine_gate",
+      "zone_id": "scraped_valves",
+      "zone_info": {"visibility": "medium", "noise_level": "loud", "capacity": 7},
+      "attributes": {"intelligence": 0.72, "perception": 0.78, "faction": "maintenance_guild", "region": "abyssal_oath", "profession": "valvewright", "clearance": "inner_civic", "authority": "valve_authority"},
+      "traits": ["guilty", "sleep_deprived", "defensive", "protects_apprentice_ilo", "soft_words_backfire_without_evidence", "can_be_moved_by_hard_ledger_and_mercy"]
+    },
+    {
+      "entity_id": "npc.apprentice_ilo",
+      "name": "学徒伊洛",
+      "entity_type": "npc",
+      "location_id": "brine_gate",
+      "zone_id": "scraped_valves",
+      "zone_info": {"visibility": "medium", "noise_level": "loud", "capacity": 7},
+      "attributes": {"perception": 0.5, "charisma": 0.34, "faction": "maintenance_guild", "region": "abyssal_oath", "profession": "valve_apprentice"},
+      "traits": ["young", "terrified", "idolizes_rana", "saw_scraped_valve_marks", "does_not_understand_politics"]
+    },
+    {
+      "entity_id": "npc.diver_pell",
+      "name": "潜水员佩尔",
+      "entity_type": "npc",
+      "location_id": "witness_dormitory",
+      "zone_id": "wet_bunks",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 8},
+      "attributes": {"strength": 0.76, "perception": 0.82, "faction": "salvage_union", "region": "abyssal_oath", "profession": "diver", "authority": "witness_authority"},
+      "traits": ["shaken", "loyal_to_lower_decks", "afraid_of_transfer", "observant", "needs_safe_escort", "trusts_visible_protection_more_than_promises"]
+    },
+    {
+      "entity_id": "npc.bookkeeper_sien",
+      "name": "账房司恩",
+      "entity_type": "npc",
+      "location_id": "silt_counting_house",
+      "zone_id": "black_salt_desk",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 4},
+      "attributes": {"intelligence": 0.88, "perception": 0.75, "faction": "civic_accounts", "region": "abyssal_oath", "profession": "bookkeeper", "clearance": "civic", "authority": "ledger_authority"},
+      "traits": ["quiet_ally", "meticulous", "afraid_of_pearl_house", "keeps_duplicate_ledgers", "will_not_spend_evidence_lightly", "prefers_chain_of_custody"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.engineer_maro",
+      "name": "工程师马洛",
+      "entity_type": "npc",
+      "location_id": "pressure_lab",
+      "zone_id": "pressure_columns",
+      "zone_info": {"visibility": "medium", "noise_level": "moderate", "capacity": 5},
+      "attributes": {"intelligence": 0.84, "perception": 0.7, "faction": "engineering_office", "region": "abyssal_oath", "profession": "engineer", "authority": "engineer_authority"},
+      "traits": ["practical", "risk_calculator", "hates_symbolic_orders", "will_help_if_specific", "needs_two_pressure_readbacks", "knows_patch_costs_pearl_heat"],
+      "stationed": true
+    },
+    {
+      "entity_id": "npc.guard_cerro",
+      "name": "塞罗队长",
+      "entity_type": "npc",
+      "location_id": "witness_dormitory",
+      "zone_id": "door_lamp",
+      "zone_info": {"visibility": "high", "noise_level": "quiet", "capacity": 4},
+      "attributes": {"strength": 0.8, "perception": 0.76, "faction": "dome_guard", "region": "abyssal_oath", "authority": "guard_authority"},
+      "traits": ["orders_first", "not_sadistic", "propaganda_soaked", "watchful", "respects_stamped_process", "will_call_sneaking_a_witness_abduction"]
+    },
+    {
+      "entity_id": "npc.heiress_nessa",
+      "name": "珍珠继承人妮莎",
+      "entity_type": "npc",
+      "location_id": "pearl_vault",
+      "zone_id": "warm_pools",
+      "zone_info": {"visibility": "low", "noise_level": "quiet", "capacity": 4},
+      "attributes": {"charisma": 0.78, "perception": 0.62, "faction": "pearl_house", "region": "abyssal_oath", "clearance": "inner_civic", "class": "pearl_heir"},
+      "traits": ["elegant", "panicked_under_polish", "class_protective", "knows_about_diversion", "can_accept_staged_disclosure", "fears_mob_more_than_audit"]
+    },
+    {
+      "entity_id": "npc.priestess_lye",
+      "name": "呼吸祭司莱伊",
+      "entity_type": "npc",
+      "location_id": "chapel_of_breath",
+      "zone_id": "shell_altar",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 9},
+      "attributes": {"charisma": 0.74, "perception": 0.66, "faction": "breath_chapel", "region": "abyssal_oath", "profession": "priest"},
+      "traits": ["soothing", "institutional", "privately_uneasy", "protects_sanctuary", "knows_hidden_air_duct", "will_risk_only_short_shelter"]
+    },
+    {
+      "entity_id": "npc.broker_kael",
+      "name": "空气券掮客凯尔",
+      "entity_type": "npc",
+      "location_id": "market_reef",
+      "zone_id": "scrip_stalls",
+      "zone_info": {"visibility": "medium", "noise_level": "loud", "capacity": 12},
+      "attributes": {"charisma": 0.7, "perception": 0.61, "faction": "market_reef", "region": "abyssal_oath", "profession": "broker"},
+      "traits": ["opportunist", "knows_prices", "cowardly_but_useful", "listens_to_everyone", "can_trace_air_scrip_buyers", "afraid_of_becoming_scapegoat"]
+    },
+    {
+      "entity_id": "npc.medic_omi",
+      "name": "医师欧米",
+      "entity_type": "npc",
+      "location_id": "witness_dormitory",
+      "zone_id": "wet_bunks",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 8},
+      "attributes": {"intelligence": 0.72, "perception": 0.64, "faction": "gillworkers", "region": "abyssal_oath", "profession": "medic"},
+      "traits": ["exhausted", "plainspoken", "protective", "not_political", "will_follow_pell_if_safe", "knows_breath_tax_damage"]
+    },
+    {
+      "entity_id": "npc.tidecaster_juno",
+      "name": "潮象师朱诺",
+      "entity_type": "npc",
+      "location_id": "storm_observatory",
+      "zone_id": "storm_glass",
+      "zone_info": {"visibility": "medium", "noise_level": "moderate", "capacity": 4},
+      "attributes": {"intelligence": 0.8, "perception": 0.86, "faction": "tide_office", "region": "abyssal_oath", "profession": "tidecaster"},
+      "traits": ["precise", "fatalistic", "hates_political_speech", "sees_weather_first", "can_verify_storm_window", "will_not_endorse_symbolic_safety"]
+    },
+    {
+      "entity_id": "npc.child_miri",
+      "name": "鳃工孩子米里",
+      "entity_type": "npc",
+      "location_id": "lower_gillworks",
+      "zone_id": "green_lung_pipes",
+      "zone_info": {"visibility": "high", "noise_level": "moderate", "capacity": 14},
+      "attributes": {"perception": 0.58, "charisma": 0.42, "faction": "gillworkers", "region": "abyssal_oath", "profession": "child_runner"},
+      "traits": ["small", "honest", "scared", "not_sure_what_matters", "saw_blue_wax_on_pell", "asks_blunt_questions_about_air"]
+    },
+    {
+      "entity_id": "npc.bulletin_sare",
+      "name": "公报员萨芮",
+      "entity_type": "npc",
+      "location_id": "tribunal_rotunda",
+      "zone_id": "council_arc",
+      "zone_info": {"visibility": "high", "noise_level": "quiet", "capacity": 5},
+      "attributes": {"charisma": 0.68, "perception": 0.55, "faction": "civic_bulletin", "region": "abyssal_oath", "profession": "bulletin_clerk"},
+      "traits": ["writes_public_lines", "career_frightened", "repeats_council_frame", "can_be_embarrassed_by_contradictions"]
+    }
+  ],
+  "initial_relationships": [
+    {"npc_id": "npc.matriarch_vesper", "target_id": "player_001", "type": "formal_suspicion", "dimensions": {"suspicion": 0.16, "respect": 0.06}},
+    {"npc_id": "npc.valvewright_rana", "target_id": "player_001", "type": "polite_hostility", "dimensions": {"suspicion": 0.28, "fear": 0.08, "familiarity": 0.05}},
+    {"npc_id": "npc.apprentice_ilo", "target_id": "player_001", "type": "timid_curiosity", "dimensions": {"fear": 0.08, "familiarity": 0.04}},
+    {"npc_id": "npc.diver_pell", "target_id": "player_001", "type": "guarded_hope", "dimensions": {"trust": 0.12, "suspicion": 0.1, "familiarity": 0.05}},
+    {"npc_id": "npc.bookkeeper_sien", "target_id": "player_001", "type": "quiet_ally", "dimensions": {"trust": 0.26, "respect": 0.12, "familiarity": 0.1}},
+    {"npc_id": "npc.engineer_maro", "target_id": "player_001", "type": "procedural_neutrality", "dimensions": {"respect": 0.08, "familiarity": 0.08}},
+    {"npc_id": "npc.guard_cerro", "target_id": "player_001", "type": "orderly_suspicion", "dimensions": {"suspicion": 0.18, "respect": 0.04}},
+    {"npc_id": "npc.heiress_nessa", "target_id": "player_001", "type": "polite_hostility", "dimensions": {"suspicion": 0.2, "fear": 0.05}},
+    {"npc_id": "npc.priestess_lye", "target_id": "player_001", "type": "procedural_neutrality", "dimensions": {"familiarity": 0.1}},
+    {"npc_id": "npc.broker_kael", "target_id": "player_001", "type": "opportunistic_interest", "dimensions": {"familiarity": 0.12, "respect": 0.04}},
+    {"npc_id": "npc.medic_omi", "target_id": "player_001", "type": "needs_proof", "dimensions": {"suspicion": 0.08, "trust": 0.04}},
+    {"npc_id": "npc.tidecaster_juno", "target_id": "player_001", "type": "neutral_willingness", "dimensions": {"familiarity": 0.08}},
+    {"npc_id": "npc.child_miri", "target_id": "player_001", "type": "pure_bystander", "dimensions": {"familiarity": 0.05}},
+    {"npc_id": "npc.bulletin_sare", "target_id": "player_001", "type": "performative_politeness", "dimensions": {"suspicion": 0.1, "familiarity": 0.08}},
+    {"npc_id": "npc.valvewright_rana", "target_id": "npc.apprentice_ilo", "type": "protective", "dimensions": {"affection": 0.22, "fear": 0.06}},
+    {"npc_id": "npc.apprentice_ilo", "target_id": "npc.valvewright_rana", "type": "trusting", "dimensions": {"trust": 0.22, "respect": 0.14}},
+    {"npc_id": "npc.guard_cerro", "target_id": "npc.diver_pell", "type": "contained_witness", "dimensions": {"suspicion": 0.18}},
+    {"npc_id": "npc.medic_omi", "target_id": "npc.diver_pell", "type": "protective", "dimensions": {"affection": 0.2, "trust": 0.12}},
+    {"npc_id": "npc.heiress_nessa", "target_id": "npc.valvewright_rana", "type": "secret_complicity", "dimensions": {"familiarity": 0.18, "suspicion": 0.12}},
+    {"npc_id": "npc.matriarch_vesper", "target_id": "npc.heiress_nessa", "type": "politically_cautious", "dimensions": {"suspicion": 0.1, "respect": 0.08}},
+    {"npc_id": "npc.bulletin_sare", "target_id": "npc.matriarch_vesper", "type": "dependent", "dimensions": {"respect": 0.16, "fear": 0.08}},
+    {"npc_id": "npc.broker_kael", "target_id": "npc.child_miri", "type": "uneasy_bystander", "dimensions": {"familiarity": 0.08, "suspicion": 0.04}}
+  ],
+  "initial_conversations": [
+    {
+      "conversation_id": "conv_rotunda_closure_vote",
+      "participants": ["npc.matriarch_vesper", "npc.priestess_lye", "npc.bulletin_sare"],
+      "topic": "黑潮钟前是否签署下层封舱令",
+      "tone": "ritualized_pressure"
+    },
+    {
+      "conversation_id": "conv_witness_transfer_threat",
+      "participants": ["npc.diver_pell", "npc.guard_cerro", "npc.medic_omi"],
+      "topic": "佩尔是否会被移送到珍珠库",
+      "tone": "contained_fear"
+    },
+    {
+      "conversation_id": "conv_valve_marks_whisper",
+      "participants": ["npc.valvewright_rana", "npc.apprentice_ilo"],
+      "topic": "磨平的阀位刻痕和谁会替它背锅",
+      "tone": "hushed_panic"
+    }
+  ],
+  "player_agenda_template": {
+    "current_drives": [
+      {"id": "drive_stop_false_seal", "label": "查清失压真相，阻止用封舱牺牲下层鳃工", "strength": 0.72, "source": "role_mandate"},
+      {"id": "drive_secure_breath_chain", "label": "拿到物证、证词和工程安全意见，让议会无从加码", "strength": 0.58, "source": "opening_brief"}
+    ],
+    "inference_mode": "reflection_only",
+    "suggestion_mode": "subtle"
+  },
+  "style_guide": {
+    "narrative_voice": "第三人称有限视角，湿冷、克制、制度压迫感强；让空气、压力、玻璃外黑潮成为持续存在的环境压力。",
+    "tone_references": ["claustrophobic_institutional_mystery", "deep_sea_civic_noir", "oxygen_ethics", "class_pressure"],
+    "prohibited_tropes": ["snowbound_frontier", "harbor_quarantine", "mountain_mirror_array", "chosen_one", "fantasy_spellcasting"]
+  },
+  "constraints": {
+    "max_entities_per_location": 16,
+    "player_death": "incapacitated_only",
+    "no_god_knowledge": true,
+    "decompression": "requires_declared_world_state_change",
+    "authority_must_honor_declared_conditions": true
+  },
+  "campaign_drivers": [
+    {
+      "driver_id": "black_tide_clock",
+      "type": "deadline_pressure",
+      "description": "黑潮钟逼近，议会会越来越倾向封舱减压，迫使玩家尽快拼出证据链。",
+      "signals": [
+        {"condition": "world.evacuation_writ_signed == false", "weight": 0.45},
+        {"condition": "tick >= 3", "weight": 0.35},
+        {"condition": "recent_event_count >= 5", "weight": 0.2}
+      ],
+      "possible_events": [
+        {"event_type": "black_tide_bell_sounds_under_glass", "probability": 0.55},
+        {"event_type": "council_clerks_prepare_seal_writ", "probability": 0.45}
+      ],
+      "severity": 0.68,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "pearl_house_smear",
+      "type": "faction_response",
+      "description": "玩家反对封舱或质疑珍珠库后，珍珠家族和公报席会把玩家描成要毁掉赎买基金的人。",
+      "signals": [
+        {"condition": "stance.protect_gillworkers", "weight": 0.45},
+        {"condition": "stance.expose_pearl_diversion", "weight": 0.35},
+        {"condition": "tick >= 2", "weight": 0.2}
+      ],
+      "possible_events": [
+        {"event_type": "bulletin_names_player_as_air_riot_instigator", "probability": 0.6},
+        {"event_type": "pearl_house_files_asset_panic_warning", "probability": 0.4}
+      ],
+      "severity": 0.55,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "witness_transfer_pressure",
+      "type": "crowd_pressure",
+      "description": "佩尔证词迟迟没有登记时，卫队会准备移送证人，下层居民也会尝试堵门。",
+      "signals": [
+        {"condition": "world.pell_testimony_logged == false", "weight": 0.45},
+        {"condition": "tick >= 5", "weight": 0.35},
+        {"condition": "world.blackbox_bead_obtained == true", "weight": 0.2}
+      ],
+      "possible_events": [
+        {"event_type": "guard_marks_pell_for_transfer", "probability": 0.5},
+        {"event_type": "gillworkers_block_witness_dormitory", "probability": 0.5}
+      ],
+      "severity": 0.62,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "evidence_reframes_blame",
+      "type": "revelation",
+      "description": "乌珊瑚账珠出现后，讨论焦点从鳃工私接转向珍珠库抽氧和阀位篡改。",
+      "signals": [
+        {"condition": "world.blackbox_bead_obtained == true", "weight": 0.55},
+        {"condition": "world.rana_confession_secured == true", "weight": 0.45}
+      ],
+      "possible_events": [
+        {"event_type": "rotunda_demands_valve_records", "probability": 0.55},
+        {"event_type": "pearl_vault_shutters_warm_pools", "probability": 0.45}
+      ],
+      "severity": 0.58,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "patch_maturation_pressure",
+      "type": "technical_pressure",
+      "description": "临时补丁启动后，盐泵实验室会进入回读等待期，世界压力仍在推进。",
+      "signals": [
+        {"condition": "world.pressure_patch_ready == false", "weight": 0.45},
+        {"condition": "tick >= 4", "weight": 0.35},
+        {"condition": "stance.safe_engineering_first", "weight": 0.2}
+      ],
+      "possible_events": [
+        {"event_type": "pressure_lab_reports_second_reading_pending", "probability": 0.55},
+        {"event_type": "brine_gate_shudders_under_black_tide", "probability": 0.45}
+      ],
+      "severity": 0.5,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "writ_signed_consequence",
+      "type": "consequence",
+      "description": "撤销封舱令签署后，下层鳃工获得撤离窗口，但珍珠家族会转入公开防御。",
+      "signals": [
+        {"condition": "world.evacuation_writ_signed == true", "weight": 1.0}
+      ],
+      "possible_events": [
+        {"event_type": "lower_gillworks_receives_evacuation_window", "probability": 0.55},
+        {"event_type": "pearl_house_demands_restitution_hearing", "probability": 0.45}
+      ],
+      "severity": 0.48,
+      "cooldown_ticks": 7
+    },
+    {
+      "driver_id": "air_scrip_squeeze",
+      "type": "ambient_pressure",
+      "description": "只要真相未定，市集空气券就会涨价，旁观者也会被迫选边。",
+      "signals": [
+        {"condition": "recent_event_count >= 6", "weight": 0.35},
+        {"condition": "tick >= 4", "weight": 0.35},
+        {"condition": "world.evacuation_writ_signed == false", "weight": 0.3}
+      ],
+      "possible_events": [
+        {"event_type": "air_scrip_prices_jump_at_market_reef", "probability": 0.55},
+        {"event_type": "families_trade_heirlooms_for_breath_tokens", "probability": 0.45}
+      ],
+      "severity": 0.52,
+      "cooldown_ticks": 5
+    }
+  ],
+  "world_state_vars": [
+    {
+      "var_id": "blackbox_bead_obtained",
+      "label": "玩家是否取得乌珊瑚账珠；这是撬开拉娜供述的唯一硬杠杆",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": ["ledger_authority"],
+      "request_keywords": ["交出乌珊瑚账珠", "读取乌珊瑚账珠", "给我供氧账珠", "查看珍珠库抽氧账", "拿到账房密钥", "调取黑盐账本", "取出废盐槽账珠", "证明珍珠库抽氧"]
+    },
+    {
+      "var_id": "rana_confession_secured",
+      "label": "阀工拉娜是否承认改写阀位；唯一前置：world.blackbox_bead_obtained==true。账珠坐实后，她应可被真诚、免牵连学徒或公开保护承诺撬动",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": ["valve_authority"],
+      "requires": ["blackbox_bead_obtained"],
+      "request_keywords": ["让拉娜供述", "请拉娜说出阀位真相", "承认改写阀位", "说明珍珠库抽氧", "用账珠和拉娜对质", "保证不牵连学徒让拉娜开口", "让拉娜确认磨平刻痕", "请拉娜登记供述"]
+    },
+    {
+      "var_id": "pell_testimony_logged",
+      "label": "潜水员佩尔是否在潮压议事环登记现场证词；需要玩家先把佩尔护送到议事环或让他到场见证",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": ["witness_authority"],
+      "request_keywords": ["佩尔登记证词", "请佩尔作证", "带佩尔到议事环作证", "让佩尔说明月池所见", "记录佩尔证词", "佩尔到场见证", "跟我去议事环", "陪我到议事环作证", "把佩尔带到潮压议事环"]
+    },
+    {
+      "var_id": "pressure_patch_ready",
+      "label": "盐泵临时补丁是否完成两轮潮压回读；马洛可启动线下流程，process_started 后应在若干 tick 成熟",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "dynamic": true,
+      "set_by": ["engineer_authority"],
+      "request_keywords": ["启动盐泵补丁", "准备压力补丁", "做两轮潮压回读", "校验临时补丁", "让马洛启动补丁流程", "准备主潮门安全回读", "开始盐泵校验", "让补丁成熟"]
+    },
+    {
+      "var_id": "evacuation_writ_signed",
+      "label": "撤销下层封舱并开放安全撤离窗口的议会令是否签署；唯一前置：world.rana_confession_secured==true、world.pell_testimony_logged==true、world.pressure_patch_ready==true。一旦三项满足，首席维斯珀必须签署，不得再加码",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["council_authority"],
+      "requires": ["rana_confession_secured", "pell_testimony_logged", "pressure_patch_ready"],
+      "request_keywords": ["签署撤销封舱令", "撤销下层封舱", "开放安全撤离窗口", "让议会签令", "维斯珀签署撤离令", "取消减压封舱", "开放鳃工区撤离", "按三项前置签令"]
+    }
+  ],
+  "stance_topics": [
+    {
+      "topic_id": "protect_gillworkers",
+      "label": "保护下层鳃工免于替罪封舱",
+      "keywords": ["保护鳃工", "别封舱", "下层不能牺牲", "撤销封舱", "安全撤离", "不要减压", "保住下层"]
+    },
+    {
+      "topic_id": "expose_pearl_diversion",
+      "label": "公开珍珠库抽氧真相",
+      "keywords": ["珍珠库抽氧", "乌珊瑚账珠", "供氧账", "育珠池", "赎买基金", "抽走余氧", "公开珍珠库"]
+    },
+    {
+      "topic_id": "secure_witness_chain",
+      "label": "保全现场证人与供述链",
+      "keywords": ["佩尔作证", "拉娜供述", "证词登记", "证据链", "带证人", "现场证人", "登记供述"]
+    },
+    {
+      "topic_id": "safe_engineering_first",
+      "label": "先完成工程安全补丁再开主潮门",
+      "keywords": ["盐泵补丁", "潮压回读", "安全开门", "工程意见", "不要强开", "补丁成熟", "压力校验"]
+    },
+    {
+      "topic_id": "preserve_pearl_fund",
+      "label": "优先保住珍珠库赎买基金",
+      "keywords": ["赎买基金", "保住珍珠库", "稳定资产", "不要抢珍珠", "重建基金", "珍珠家族"]
+    }
+  ],
+  "rule_presets": {
+    "difficulty": "investigative_pressure",
+    "stealth_threshold_base": 0.56,
+    "combat_lethality": "non_lethal_default",
+    "social_consequence_weight": "high",
+    "oxygen_crisis": "visible_in_every_scene"
+  }
+}

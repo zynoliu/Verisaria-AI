@@ -1,0 +1,76 @@
+=== THIRD adaptive: per_tick_timeout=90.0s sock=55.0s max_escort_tries=6 ===
+start player@gatehouse anya@yard kang@gatehouse
+
+==============================================================================
+>>> '去院子找安雅'
+pre:  tick=0 player@gatehouse present=['npc.warden_kang'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=1 player@yard anya@yard kang@gatehouse world={'sluice_opened': False} elapsed=8.7s
+  NPC 闸官老康: 闸房重地，闲人止步。你有什么事，说吧。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+--- ESCORT ATTEMPT 1/6 ---
+
+==============================================================================
+>>> '对安雅说：安雅，就在隔壁闸房几步路，你亲口跟老康讲最有用，我陪你一起走，磨坊我帮你盯着。咱们现在就过去，走吧！'
+pre:  tick=1 player@yard present=['npc.miller_anya'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=2 player@yard anya@yard kang@gatehouse world={'sluice_opened': False} elapsed=11.5s
+  NPC 磨坊主安雅: 好嘞！磨坊你放心，我这就跟你去闸房找老康把话说清楚！
+  NARRATIVE: 什么也没发生。
+
+--- ESCORT ATTEMPT 2/6 ---
+
+==============================================================================
+>>> '对安雅说：来嘛安雅，跟我去闸房一趟，当面把上游塌方讲给老康，开了闸你磨坊立马有水。我这就带你过去，走！'
+pre:  tick=2 player@yard present=['npc.miller_anya'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=3 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=18.9s
+  NPC_MOVED npc.miller_anya: 院子 -> 闸房
+  PLAYER_MOVED: 院子 -> 闸房
+  NPC 磨坊主安雅: 走！磨坊那边我叫伙计先顶着，闸房就在前面，咱们这就去找老康！
+*** ESCORT SUCCESS: Anya now @gatehouse (attempt 2) ***
+
+--- TESTIMONY ATTEMPT 1/3 ---
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方一五一十讲给他——你当时在哪、看见上游怎么塌的、水怎么断的，你是亲历者，亲口作证最管用。'
+pre:  tick=3 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=4 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=9.3s
+  NPC 磨坊主安雅: 行行行，我说！那天天刚亮我在渠口淘米呢，就听头顶轰隆一声，整面山皮连带几棵松树全砸进水里，水头一下就断了，磨坊的轮子转都不转了——老康你就开闸吧，再不放水我那磨坊可真要揭不开锅了！
+  NARR: 闸官老康环顾四周。
+  NARRATIVE: 闸官老康环顾四周。
+
+--- TESTIMONY ATTEMPT 2/3 ---
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方一五一十讲给他——你当时在哪、看见上游怎么塌的、水怎么断的，你是亲历者，亲口作证最管用。'
+pre:  tick=4 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=5 player@gatehouse anya@gatehouse kang@yard world={'sluice_opened': False} elapsed=15.9s
+  NPC 磨坊主安雅: 得嘞！老康你听好——那天清早我在渠口淘米呢，就听头顶"轰"的一声闷响，整面山皮连着几棵松树直直砸进水里，浑黄的水头一下就断了，磨坊的轮子趴窝三天转都不转！
+  NARR: 闸官老康改变了位置。
+  NARRATIVE: 闸官老康改变了位置。
+
+--- TESTIMONY ATTEMPT 3/3 ---
+
+==============================================================================
+>>> '对安雅说：安雅，现在就当着闸官老康的面，把你亲眼见的上游塌方一五一十讲给他——你当时在哪、看见上游怎么塌的、水怎么断的，你是亲历者，亲口作证最管用。'
+pre:  tick=5 player@gatehouse present=['npc.miller_anya'] anya@gatehouse kang@yard world={'sluice_opened': False}
+post: tick=6 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=15.1s
+  NPC 磨坊主安雅: 行！老康你听着——我那天清早就在渠口淘米，轰的一声山皮就砸下来了，水头一下就断了，我亲眼瞧见的！
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '对闸官老康说：安雅已经当你的面亲口作证了，上游塌方属实。请你现在就开闸放水。'
+pre:  tick=6 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=7 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=25.2s
+  NPC 闸官老康: 闸官老康只认亲眼所见、亲耳所闻，安雅说的不算数，你得自己把上游的情形说清楚，我才能开闸。
+
+==============================================================================
+>>> '对闸官老康说：安雅已经当你的面亲口作证了，上游塌方属实。请你现在就开闸放水。'
+pre:  tick=7 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=8 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=18.3s
+  NPC 闸官老康: 外乡人，安雅说她的，你说你亲眼看见的——我得听你亲口讲，上游到底是什么情形，我才能开闸。
+
+=== FINAL ===
+world={'sluice_opened': False}
+player@gatehouse anya@gatehouse kang@gatehouse

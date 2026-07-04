@@ -1,0 +1,61 @@
+=== ESCORT_MOVED_VALIDATION scenario=retry ===
+start player@gatehouse
+  npc.warden_kang @ gatehouse
+  npc.miller_anya @ yard
+
+==============================================================================
+>>> '去院子找安雅'
+pre:  tick=0 loc=gatehouse present=['npc.warden_kang']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=1 loc=yard  elapsed=6.4s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 闸官老康: 站住，闸房重地，外人不得随意走动。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对安雅说：安雅，你磨坊都停三天了，闸官老康是个讲道理的人，只要有亲历者当面讲清上游塌方他就肯放水。你跟我走几步到闸房，把你亲眼见的讲给他，水今天就能来。走吧？'
+pre:  tick=1 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=2 loc=yard  elapsed=16.0s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 磨坊主安雅: 安雅心里急得跟什么似的，可这会儿当真走不开——磨坊那头还有几户人家等着买粮呢，你先去跟老康说一声，我随后就到！
+
+==============================================================================
+>>> '对安雅说：就在隔壁闸房，几步路。你亲口讲最有用，我陪你一起去。咱们现在就去。'
+pre:  tick=2 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=3 loc=yard  elapsed=16.6s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 磨坊主安雅: 哎呀，你自己去不就行了嘛！我磨坊还一堆活儿等着呢。
+
+==============================================================================
+>>> '对安雅说：安雅，磨坊的事我帮你盯着，你先跟我去闸房把话说了，开了闸大家都好。走吧，我带你过去。'
+pre:  tick=3 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=4 loc=yard  elapsed=13.7s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 磨坊主安雅: 磨坊没人盯着我不放心，你先让我回去安排一下再说！
+
+==============================================================================
+>>> '对安雅说：来嘛，跟我去闸房一趟，当面跟老康讲清楚，你不是一直盼着放水么？'
+pre:  tick=4 loc=yard present=['npc.miller_anya']
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+post: tick=5 loc=yard  elapsed=15.6s
+      anya@yard kang@gatehouse
+      world={'sluice_opened': False}
+  NPC 磨坊主安雅: 磨坊还停着呢，我可走不开，要不你帮我把情况跟老康说一声？
+
+=== FINAL ===
+world={'sluice_opened': False}
+player@yard anya@yard kang@gatehouse

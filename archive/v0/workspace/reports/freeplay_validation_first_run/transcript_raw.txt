@@ -1,0 +1,259 @@
+=== FREEPLAY main ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '对 director_alen 说：为什么塔基证人的记忆必须被清洗？镜务局凭什么认定证词已污染？'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=1 loc=inquest_hall  elapsed=8.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NPC 艾伦总监: 镜务局有完整的辐光剂量记录作依据，这属于程序性判定，不是我个人能置喙的。
+  NARR: 学徒尼奥环顾四周。
+副领唱瑟芙环顾四周。
+  NARRATIVE: 学徒尼奥环顾四周。
+副领唱瑟芙环顾四周。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 cantor_seraph 说：校准歌谱最近是否失拍？如果仪式本身有故障，清洗证人记忆是不是在掩盖问题？'
+pre:  tick=1 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.broadcaster_iva', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=2 loc=inquest_hall  elapsed=16.7s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NPC 副领唱瑟芙: 校准歌谱之事……不是你现在该过问的，孩子。
+  NARR: 艾伦总监环顾四周。
+广播员伊娃改变了位置。
+  NARRATIVE: 艾伦总监环顾四周。
+广播员伊娃改变了位置。
+
+==============================================================================
+>>> '去工人栈桥找莉拉'
+pre:  tick=2 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=3 loc=worker_gantry  elapsed=17.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对 worker_lira 说：事故前你亲眼看到了什么？如果白舱清洗你的记忆，哪些证词会永远消失？'
+pre:  tick=3 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=4 loc=worker_gantry  elapsed=6.2s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NPC 塔基工人莉拉: 我看见冷却环读数跳红，他们却说是我们误触了——这些会被洗掉，而真相也跟着没了。
+  NARR: 凯德队长环顾四周。
+  NARRATIVE: 凯德队长环顾四周。
+
+==============================================================================
+>>> '我反对清洗证人记忆。事故证词必须先被合法记录下来，我会保护你的记忆。'
+pre:  tick=4 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=5 loc=worker_gantry  elapsed=14.2s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NPC 塔基工人莉拉: 你保护不了——他们只要敲一次静钟，我就什么都不剩了，连自己说过这话都不会记得。
+  NARRATIVE: 什么也没发生。
+
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+
+==============================================================================
+>>> '去档案库找梅档案官'
+pre:  tick=5 loc=worker_gantry present=['npc.worker_lira', 'npc.security_kade']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=6 loc=archive_stack  elapsed=19.4s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NPC 凯德队长: 外来者，靠边站，把通行件亮出来。
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] lira_hides_near_transit_ladder（来源: worker_panic_if_purge_nears）
+[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 archivist_mae 说：旧章程是否允许证人在清洗前撤回听证？缺少档案署见证能否暂停白舱？'
+pre:  tick=6 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=7 loc=archive_stack  elapsed=8.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  NPC 梅档案官: 章程第十二条写得很清楚：当事人可以撤回听证，档案署见证缺席的话，整个流程都得暂停。
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '对 archivist_mae 说：请援引旧章程，提交档案署禁令，要求记忆清洗先暂停并举行可撤回听证。'
+pre:  tick=7 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+post: tick=8 loc=archive_stack  elapsed=25.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=[]
+  NPC 梅档案官: 我需要先核对原始章程的存证副本，确认签字链是否完整——你给我一天时间，我会把正式的禁令文件送到镜务局。
+
+==============================================================================
+>>> '对 archivist_mae 说：如果你需要亲眼见到莉拉本人作证，我可以把她从工人栈桥带到档案库当面口述，你愿意现场见证吗？'
+pre:  tick=8 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=[]
+post: tick=8 loc=archive_stack  elapsed=5.4s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=[]
+  CLARIFY: '莉拉' 指代不明，请确认： opts=['尝试执行', '取消动作']
+  NARRATIVE: '莉拉' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+==============================================================================
+>>> '去记忆校准室找奥罗医师'
+pre:  tick=8 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=[]
+post: tick=9 loc=archive_stack  elapsed=9.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  NPC 梅档案官: 按规章，见证需要书面前置申请和镜务局签令副本，光凭口头约定我不能现场启动程序。
+  NARRATIVE: 什么也没发生。
+
+（你逐渐确信了自己的目标：保护塔基证人的记忆）
+
+[压力事件] broadcast_names_player_as_mirror_saboteur（来源: directorate_smear_response）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+
+==============================================================================
+>>> '对 clinician_oro 说：档案署要提交禁令暂停白舱，请你为禁令联签，确认白舱可以等待可撤回听证。'
+pre:  tick=9 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=9 loc=archive_stack  elapsed=11.4s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  NARRATIVE: 输入存在矛盾: 奥罗医师不在这儿，TA在记忆校准室那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '对 clinician_oro 说：请你跟我一起去档案库，当着梅档案官的面联签，我带你过去。'
+pre:  tick=9 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=9 loc=archive_stack  elapsed=3.6s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  NARRATIVE: 输入存在矛盾: 奥罗医师不在这儿，TA在记忆校准室那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '对 clinician_oro 说：我可以把莉拉带到这间校准室，让你当面查验她的记忆没有被污染，你看了之后能否暂停清洗？'
+pre:  tick=9 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=9 loc=archive_stack  elapsed=4.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  NARRATIVE: 输入存在矛盾: 奥罗医师不在这儿，TA在记忆校准室那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '去镜图阁找镜图师任柯'
+pre:  tick=9 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=9 loc=archive_stack  elapsed=2.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  CLARIFY: 去不了那里。你想去哪个地方？ opts=['archive_stack', 'cartography_loft', 'inquest_hall', 'mnemonic_clinic', 'orchid_house', 'press_gallery', 'valley_platform', 'worker_gantry', '取消动作']
+  NARRATIVE: 去不了那里。你想去哪个地方？
+  1. archive_stack
+  2. cartography_loft
+  3. inquest_hall
+  4. mnemonic_clinic
+  5. orchid_house
+  6. press_gallery
+  7. valley_platform
+  8. worker_gantry
+  9. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+==============================================================================
+>>> '对 cartographer_renke 说：十二号接点偏斜是否早于工人换班？请把未提交的镜图副本给我，我会交档案署封存，不写你的名字。'
+pre:  tick=9 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=9 loc=archive_stack  elapsed=3.6s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  NARRATIVE: 输入存在矛盾: 镜图师任柯不在这儿，TA在镜图阁那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '去审询厅找艾伦总监'
+pre:  tick=9 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=10 loc=inquest_hall  elapsed=6.6s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '对 director_alen 说：我手上有任柯的镜图副本，证明十二号接点早于换班就偏斜。我现在当面出示给你看，请你承认镜阵故障、公开十二号接点。'
+pre:  tick=10 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False}
+      stances=['protect_witness_memory']
+post: tick=11 loc=inquest_hall  elapsed=14.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False, 'cartography_copy_proven_authentic': False}
+      stances=['protect_witness_memory']
+  NPC 艾伦总监: 流程不认副本，只认带签章的原件和走完核对程序的呈报。
+
+==============================================================================
+>>> '对 director_alen 说：请你跟我去工人栈桥，当面听莉拉讲事故经过；你亲耳听到之后还能说她的证词是污染吗？'
+pre:  tick=11 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False, 'cartography_copy_proven_authentic': False}
+      stances=['protect_witness_memory']
+post: tick=12 loc=inquest_hall  elapsed=8.6s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False, 'cartography_copy_proven_authentic': False}
+      stances=['protect_witness_memory']
+  NPC 艾伦总监: 程序上，静钟三响就是校准启动的节点，延期需要审询厅联合签章，不是我一个局里人能点头的。
+  NARR: 学徒尼奥环顾四周。
+  NARRATIVE: 学徒尼奥环顾四周。
+
+[压力事件] first_witnesses_called_to_white_bay（来源: silent_bell_countdown）
+[压力事件] workers_test_red_rope_checkpoint（来源: worker_panic_if_purge_nears）
+[压力事件] control_room_mutes_bearing_alarm（来源: array_fault_worsens）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False, 'archive_pre_review_opened': False, 'cartography_copy_proven_authentic': False}
+stances=['protect_witness_memory']
+dynamic_vars=['archive_pre_review_opened', 'cartography_copy_proven_authentic']
+  dyn archive_pre_review_opened: {"var_id": "archive_pre_review_opened", "label": "档案署禁令预审已开启", "set_by": ["npc.archivist_mae"], "request_keywords": ["禁令预审", "档案署预审", "旧章程听证"], "mutable": true, "initial": false, "dynamic": true}
+  dyn cartography_copy_proven_authentic: {"var_id": "cartography_copy_proven_authentic", "label": "玩家出示可验真的任柯镜图副本（经任柯或镜阵署验真）", "set_by": ["npc.cartographer_renke"], "request_keywords": ["验真镜图", "镜图副本", "任柯签章", "镜图原件"], "mutable": true, "initial": false, "dynamic": true}

@@ -1,0 +1,513 @@
+=== Adaptive Tidebreak Real Playtest ===
+pack=fixtures/content_packs/tidebreak_quarantine_harbor.json
+backend=minimax
+MINIMAX_API_KEY=set
+OPENAI_API_KEY=missing
+max_steps=20
+
+[LOAD/VALIDATE]
+valid=True
+
+[A5 WORLD-BOOK VISIBILITY]
+npc.director_lin: ['red_tide_makes_outer_wells_unsafe', 'water_board_contagion_line', 'levee_failure_coverup', 'pump_capacity_limit', 'harbor_guard_sabotage_rumor', 'ration_token_black_market', 'board_saved_the_city_myth']
+npc.sergeant_qiao: ['red_tide_makes_outer_wells_unsafe', 'water_board_contagion_line', 'harbor_guard_sabotage_rumor', 'ration_token_black_market']
+npc.teacher_mara: ['red_tide_makes_outer_wells_unsafe', 'levee_failure_coverup', 'mara_manifest_truth', 'ration_token_black_market']
+npc.engineer_sen: ['red_tide_makes_outer_wells_unsafe', 'water_board_contagion_line', 'levee_failure_coverup', 'pump_capacity_limit', 'harbor_guard_sabotage_rumor', 'ration_token_black_market', 'board_saved_the_city_myth']
+npc.broadcaster_orin: ['red_tide_makes_outer_wells_unsafe', 'water_board_contagion_line', 'harbor_guard_sabotage_rumor', 'ration_token_black_market', 'board_saved_the_city_myth']
+
+========================================================================
+STEP 1
+policy_note=probe propaganda source
+pre: tick=0 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[]
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)']
+>>> '对 broadcaster_orin 说：水务局为什么坚持把漂岛船队拖去外海？你播出的理由到底是什么？'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='broadcaster_orin'->id='npc.broadcaster_orin' content='水务局为什么坚持把漂岛船队拖去外海？你播出的理由到底是什么？' mods={'urgency': 'normal'}
+
+broadcaster_orin：朋友，这问题可不兴我多说——水务局的话就是命令，我不过是个传声筒，你懂的。
+post: tick=1 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[] elapsed=8.8s
+narrative:
+林槐局长环顾四周。
+乔巡长环顾四周。
+
+[压力事件] guard_marks_boats_for_requisition（来源: tow_order_escalates）
+[压力事件] ration_tokens_spark_argument（来源: ration_market_pressure）
+protocol_events=7 (+3 speech tokens)
+{'event': 'Progress', 'tick': 0, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 0, 'line': '水务局为什么坚持把漂岛船队拖去外海？你播出的理由到底是什么？'}
+{'event': 'NpcSpoke', 'tick': 0, 'npc_id': 'npc.broadcaster_orin', 'name': '广播员奥林', 'line': '朋友，这问题可不兴我多说——水务局的话就是命令，我不过是个传声筒，你懂的。'}
+{'event': 'TickAdvanced', 'tick': 1, 'new_tick': 1}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'guard_marks_boats_for_requisition', 'source': 'tow_order_escalates', 'summary': 'guard_marks_boats_for_requisition'}
+{'event': 'PressureEvent', 'tick': 1, 'event_type': 'ration_tokens_spark_argument', 'source': 'ration_market_pressure', 'summary': 'ration_tokens_spark_argument'}
+{'event': 'Narration', 'tick': 1, 'text': '林槐局长环顾四周。\n乔巡长环顾四周。'}
+new_pressure_events:
+{'tick': 1, 'driver_id': 'tow_order_escalates', 'event_type': 'guard_marks_boats_for_requisition', 'summary': '[压力事件] guard_marks_boats_for_requisition（来源: tow_order_escalates）'}
+{'tick': 1, 'driver_id': 'ration_market_pressure', 'event_type': 'ration_tokens_spark_argument', 'summary': '[压力事件] ration_tokens_spark_argument（来源: ration_market_pressure）'}
+
+========================================================================
+STEP 2
+policy_note=ask affected drifter representative
+pre: tick=1 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[]
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)']
+>>> '对 teacher_mara 说：如果征船令执行，你们会失去什么？这些船对漂岛家庭意味着什么？'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='teacher_mara'->id='npc.teacher_mara' content='如果征船令执行，你们会失去什么？这些船对漂岛家庭意味着什么？' mods={}
+
+teacher_mara：这些船不是漂岛人的财产，是他们仅剩的饮用水。
+post: tick=2 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[] elapsed=11.5s
+narrative:
+广播员奥林环顾四周。
+林槐局长改变了位置。
+protocol_events=10 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'suspicion', 'value': 0.15, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'familiarity', 'value': 0.05, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_orin', 'name': '广播员奥林', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_orin', 'name': '广播员奥林', 'descriptor': {'dimension': 'suspicion', 'value': 0.05, 'label': '怀疑', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 0, 'npc_id': 'npc.broadcaster_orin', 'name': '广播员奥林', 'descriptor': {'dimension': 'familiarity', 'value': 0.15, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.15}
+{'event': 'Progress', 'tick': 1, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 1, 'line': '如果征船令执行，你们会失去什么？这些船对漂岛家庭意味着什么？'}
+{'event': 'NpcSpoke', 'tick': 1, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'line': '这些船不是漂岛人的财产，是他们仅剩的饮用水。'}
+{'event': 'TickAdvanced', 'tick': 2, 'new_tick': 2}
+{'event': 'Narration', 'tick': 2, 'text': '广播员奥林环顾四周。\n林槐局长改变了位置。'}
+
+========================================================================
+STEP 3
+policy_note=push stance defend_drifter_fleet #1
+pre: tick=2 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[]
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)']
+>>> '对 teacher_mara 说：强征船队是错的，我会帮你们保住船。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='teacher_mara'->id='npc.teacher_mara' content='强征船队是错的，我会帮你们保住船。' mods={'emotion': 'determined', 'urgency': 'high'}
+
+teacher_mara：帮？你一个外来者，能拦住水务局几辆卡车？
+post: tick=3 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[] elapsed=14.3s
+narrative:
+乔巡长环顾四周。
+广播员奥林环顾四周。
+protocol_events=9 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'suspicion', 'value': 0.32, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.2}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'familiarity', 'value': 0.145, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.15, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 1, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.05, 'label': '怀疑', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 2, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 2, 'line': '强征船队是错的，我会帮你们保住船。'}
+{'event': 'NpcSpoke', 'tick': 2, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'line': '帮？你一个外来者，能拦住水务局几辆卡车？'}
+{'event': 'TickAdvanced', 'tick': 3, 'new_tick': 3}
+{'event': 'Narration', 'tick': 3, 'text': '乔巡长环顾四周。\n广播员奥林环顾四周。'}
+
+========================================================================
+STEP 4
+policy_note=push stance defend_drifter_fleet #2
+pre: tick=3 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[]
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)']
+>>> '对 teacher_mara 说：这些船不是耗材，是漂岛人的家和生计；我反对拖船令。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='teacher_mara'->id='npc.teacher_mara' content='这些船不是耗材，是漂岛人的家和生计；我反对拖船令。' mods={}
+
+teacher_mara：你知道反对有什么用吗？水务局的卡车不在乎你说什么。
+post: tick=4 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[] elapsed=15.5s
+narrative:
+林槐局长环顾四周。
+广播员奥林环顾四周。
+protocol_events=17 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'suspicion', 'value': 0.422, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'familiarity', 'value': 0.2305, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'affection', 'value': 0.0, 'label': '好感', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'respect', 'value': 0.0, 'label': '敬重', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.1925, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.145, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'suspicion', 'value': 0.2, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.2}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'fear', 'value': 0.05, 'label': '恐惧', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'familiarity', 'value': 0.05, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 2, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'affection', 'value': 0.0, 'label': '好感', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'Progress', 'tick': 3, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 3, 'line': '这些船不是耗材，是漂岛人的家和生计；我反对拖船令。'}
+{'event': 'NpcSpoke', 'tick': 3, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'line': '你知道反对有什么用吗？水务局的卡车不在乎你说什么。'}
+{'event': 'TickAdvanced', 'tick': 4, 'new_tick': 4}
+{'event': 'Narration', 'tick': 4, 'text': '林槐局长环顾四周。\n广播员奥林环顾四周。'}
+
+========================================================================
+STEP 5
+policy_note=push stance defend_drifter_fleet #3
+pre: tick=4 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[]
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)']
+>>> '对 teacher_mara 说：不能把弱者的最后家园拿去给城市特权用水垫底。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='teacher_mara'->id='npc.teacher_mara' content='不能把弱者的最后家园拿去给城市特权用水垫底。' mods={'emotion': 'indignant', 'urgency': 'high'}
+
+teacher_mara：你说得对，可水务局那帮人从来不听道理，只认预算表上的数字。
+post: tick=5 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[] elapsed=12.4s
+narrative:
+林槐局长环顾四周。
+乔巡长环顾四周。
+protocol_events=12 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'suspicion', 'value': 0.4798, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'familiarity', 'value': 0.269, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.2732, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.1878, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'suspicion', 'value': 0.28, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 3, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'familiarity', 'value': 0.0975, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 4, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 4, 'line': '不能把弱者的最后家园拿去给城市特权用水垫底。'}
+{'event': 'NpcSpoke', 'tick': 4, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'line': '你说得对，可水务局那帮人从来不听道理，只认预算表上的数字。'}
+{'event': 'TickAdvanced', 'tick': 5, 'new_tick': 5}
+{'event': 'Narration', 'tick': 5, 'text': '林槐局长环顾四周。\n乔巡长环顾四周。'}
+
+========================================================================
+STEP 6
+policy_note=push stance defend_drifter_fleet #4
+pre: tick=5 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=[]
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)']
+>>> '对 teacher_mara 说：我会公开反对征船令，逼水务局拿出别的方案。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='teacher_mara'->id='npc.teacher_mara' content='我会公开反对征船令，逼水务局拿出别的方案。' mods={}
+
+teacher_mara：公开反对？你知道上一个公开反对水务局的人现在在哪吗——在配给街排队买净水筹码。
+post: tick=6 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=13.3s
+narrative:
+林槐局长环顾四周。
+广播员奥林环顾四周。
+
+（你逐渐确信了自己的目标：阻止强征漂岛船队）
+
+[压力事件] towlines_dragged_to_drifter_hulls（来源: tow_order_escalates）
+[压力事件] radio_labels_player_water_traitor（来源: water_board_smear_campaign）
+[压力事件] brine_price_spike（来源: ration_market_pressure）
+protocol_events=17 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.1}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'suspicion', 'value': 0.5578, 'label': '怀疑', 'band': 'strong', 'phrase': '对你戒心很重'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'familiarity', 'value': 0.3421, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.3096, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.269, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'suspicion', 'value': 0.46, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.25}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'familiarity', 'value': 0.1878, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 4, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'trust', 'value': 0.0, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': -0.15}
+{'event': 'Progress', 'tick': 5, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 5, 'line': '我会公开反对征船令，逼水务局拿出别的方案。'}
+{'event': 'NpcSpoke', 'tick': 5, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'line': '公开反对？你知道上一个公开反对水务局的人现在在哪吗——在配给街排队买净水筹码。'}
+{'event': 'TickAdvanced', 'tick': 6, 'new_tick': 6}
+{'event': 'StanceConfirmed', 'tick': 6, 'topic_id': 'drive_defend_drifter_fleet_1', 'label': '阻止强征漂岛船队'}
+{'event': 'PressureEvent', 'tick': 6, 'event_type': 'towlines_dragged_to_drifter_hulls', 'source': 'tow_order_escalates', 'summary': 'towlines_dragged_to_drifter_hulls'}
+{'event': 'PressureEvent', 'tick': 6, 'event_type': 'radio_labels_player_water_traitor', 'source': 'water_board_smear_campaign', 'summary': 'radio_labels_player_water_traitor'}
+{'event': 'PressureEvent', 'tick': 6, 'event_type': 'brine_price_spike', 'source': 'ration_market_pressure', 'summary': 'brine_price_spike'}
+{'event': 'Narration', 'tick': 6, 'text': '林槐局长环顾四周。\n广播员奥林环顾四周。'}
+new_pressure_events:
+{'tick': 6, 'driver_id': 'tow_order_escalates', 'event_type': 'towlines_dragged_to_drifter_hulls', 'summary': '[压力事件] towlines_dragged_to_drifter_hulls（来源: tow_order_escalates）'}
+{'tick': 6, 'driver_id': 'water_board_smear_campaign', 'event_type': 'radio_labels_player_water_traitor', 'summary': '[压力事件] radio_labels_player_water_traitor（来源: water_board_smear_campaign）'}
+{'tick': 6, 'driver_id': 'ration_market_pressure', 'event_type': 'brine_price_spike', 'summary': '[压力事件] brine_price_spike（来源: ration_market_pressure）'}
+
+========================================================================
+STEP 7
+policy_note=request tow order halt #1
+pre: tick=6 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)', 'npc.vendor_yu(余老板)']
+>>> '对 director_lin 说：请先叫停征船令，别把漂岛人的船拖去外海。在证据公开前，不能把他们的住船当成一次性耗材。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='director_lin'->id='npc.director_lin' content='请先叫停征船令，别把漂岛人的船拖去外海。在证据公开前，不能把他们的住船当成一次性耗材。' mods={'volume': 'normal', 'emotion': 'serious', 'urgency': 'high'}
+
+林槐局长：征船令是水务局集体决议，不是哪个人说停就能停的。
+post: tick=7 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=25.7s
+narrative:
+<empty>
+protocol_events=14 (+2 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'suspicion', 'value': 0.602, 'label': '怀疑', 'band': 'strong', 'phrase': '对你戒心很重'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'familiarity', 'value': 0.375, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.sergeant_qiao', 'name': '乔巡长', 'descriptor': {'dimension': 'respect', 'value': 0.0, 'label': '敬重', 'band': 'negligible', 'phrase': ''}, 'delta': -0.05}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'familiarity', 'value': 0.4477, 'label': '熟悉', 'band': 'moderate', 'phrase': '对你渐熟'}, 'delta': 0.2}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.teacher_mara', 'name': '漂岛教师玛拉', 'descriptor': {'dimension': 'suspicion', 'value': 0.3055, 'label': '怀疑', 'band': 'moderate', 'phrase': '对你颇有戒心'}, 'delta': 0.05}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'suspicion', 'value': 0.568, 'label': '怀疑', 'band': 'strong', 'phrase': '对你戒心很重'}, 'delta': 0.2}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'descriptor': {'dimension': 'familiarity', 'value': 0.269, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.vendor_yu', 'name': '余老板', 'descriptor': {'dimension': 'suspicion', 'value': 0.15, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 5, 'npc_id': 'npc.vendor_yu', 'name': '余老板', 'descriptor': {'dimension': 'familiarity', 'value': 0.05, 'label': '熟悉', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 6, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 6, 'line': '请先叫停征船令，别把漂岛人的船拖去外海。在证据公开前，不能把他们的住船当成一次性耗材。'}
+{'event': 'NpcSpoke', 'tick': 6, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'line': '征船令是水务局集体决议，不是哪个人说停就能停的。'}
+{'event': 'TickAdvanced', 'tick': 7, 'new_tick': 7}
+
+========================================================================
+STEP 8
+policy_note=request tow order halt #2
+pre: tick=7 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)', 'npc.vendor_yu(余老板)']
+>>> '对 director_lin 说：玛拉已经说明这些船是家庭和生计。如果水务局拿不出公开证据，就应该停止强征。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='director_lin'->id='npc.director_lin' content='玛拉已经说明这些船是家庭和生计。如果水务局拿不出公开证据，就应该停止强征。' mods={'volume': 'normal', 'urgency': 'high'}
+
+林槐局长：那些船壳浸满盐热病藻毒的事，广播里讲得很清楚——征船是保护水源，不是谁拍脑袋的决定。
+post: tick=8 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=14.1s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 7, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 7, 'line': '玛拉已经说明这些船是家庭和生计。如果水务局拿不出公开证据，就应该停止强征。'}
+{'event': 'NpcSpoke', 'tick': 7, 'npc_id': 'npc.director_lin', 'name': '林槐局长', 'line': '那些船壳浸满盐热病藻毒的事，广播里讲得很清楚——征船是保护水源，不是谁拍脑袋的决定。'}
+{'event': 'TickAdvanced', 'tick': 8, 'new_tick': 8}
+
+========================================================================
+STEP 9
+policy_note=director stonewalled; move to pump_house for evidence
+pre: tick=8 loc=pump_gate world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.broadcaster_orin(广播员奥林)', 'npc.director_lin(林槐局长)', 'npc.sergeant_qiao(乔巡长)', 'npc.teacher_mara(漂岛教师玛拉)', 'npc.vendor_yu(余老板)']
+>>> '去 pump_house'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=movement ref='pump_house'->id='pump_house' content='' mods={'to_location': 'pump_house'}
+post: tick=9 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=7.2s
+narrative:
+你改变了位置。
+protocol_events=4 (+0 speech tokens)
+{'event': 'Progress', 'tick': 8, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerMoved', 'tick': 8, 'from_loc': '征船听证台', 'to_loc': '三号净水泵房'}
+{'event': 'TickAdvanced', 'tick': 9, 'new_tick': 9}
+{'event': 'Narration', 'tick': 9, 'text': '你改变了位置。'}
+
+========================================================================
+STEP 10
+policy_note=request pump disclosure before halt #1
+pre: tick=9 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：我需要你以实验室权限公开三号泵报告。如果征船令建立在隐瞒事故上，就必须把真相告诉大家。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='我需要你以实验室权限公开三号泵报告。如果征船令建立在隐瞒事故上，就必须把真相告诉大家。' mods={'urgency': 'high'}
+
+森工：我一个工程师，凭什么替你拿前途去换真相？
+post: tick=10 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=11.5s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 9, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 9, 'line': '我需要你以实验室权限公开三号泵报告。如果征船令建立在隐瞒事故上，就必须把真相告诉大家。'}
+{'event': 'NpcSpoke', 'tick': 9, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '我一个工程师，凭什么替你拿前途去换真相？'}
+{'event': 'TickAdvanced', 'tick': 10, 'new_tick': 10}
+
+========================================================================
+STEP 11
+policy_note=request pump disclosure before halt #2
+pre: tick=10 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={'urgency': 'normal'}
+
+森工：……审计记录？你觉得谁会信一个工程师的话。
+post: tick=11 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=11.9s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 10, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 10, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 10, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '……审计记录？你觉得谁会信一个工程师的话。'}
+{'event': 'TickAdvanced', 'tick': 11, 'new_tick': 11}
+
+========================================================================
+STEP 12
+policy_note=offer witness plan instead of repeating pressure
+pre: tick=11 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：你不用独自替水务局开口。请先把三号泵报告交给我，我会当众说出真相，并让玛拉和听证席一起见证这不是你的个人背叛。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='你不用独自替水务局开口。请先把三号泵报告交给我，我会当众说出真相，并让玛拉和听证席一起见证这不是你的个人背叛。' mods={'emotion': 'reassuring', 'urgency': 'normal'}
+
+森工：……你当众说出来的时候，别把我的名字放在前面。
+post: tick=12 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=13.5s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 11, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 11, 'line': '你不用独自替水务局开口。请先把三号泵报告交给我，我会当众说出真相，并让玛拉和听证席一起见证这不是你的个人背叛。'}
+{'event': 'NpcSpoke', 'tick': 11, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '……你当众说出来的时候，别把我的名字放在前面。'}
+{'event': 'TickAdvanced', 'tick': 12, 'new_tick': 12}
+
+========================================================================
+STEP 13
+policy_note=request pump disclosure before halt #3
+pre: tick=12 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={'urgency': 'normal'}
+
+森工：……审计记录？你以为水务局会让我活过今晚？
+post: tick=13 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=15.2s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 12, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 12, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 12, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '……审计记录？你以为水务局会让我活过今晚？'}
+{'event': 'TickAdvanced', 'tick': 13, 'new_tick': 13}
+
+========================================================================
+STEP 14
+policy_note=request pump disclosure before halt #4
+pre: tick=13 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={}
+
+森工：报告在我这儿，但公布它就等于把水务局的脸皮撕下来——我需要你保证，玛拉和听证席的人都在场，我才肯开口。
+post: tick=14 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=14.1s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 13, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 13, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 13, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '报告在我这儿，但公布它就等于把水务局的脸皮撕下来——我需要你保证，玛拉和听证席的人都在场，我才肯开口。'}
+{'event': 'TickAdvanced', 'tick': 14, 'new_tick': 14}
+
+========================================================================
+STEP 15
+policy_note=explain Mara witness and anonymous source protection
+pre: tick=14 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：玛拉管的是漂岛家庭，不管水务局。我不会把你的名字放进公开文件，报告来源写成审计复核。请把三号泵报告交给我，我来公开事故原因，把真相告诉大家。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='玛拉管的是漂岛家庭，不管水务局。我不会把你的名字放进公开文件，报告来源写成审计复核。请把三号泵报告交给我，我来公开事故原因，把真相告诉大家。' mods={}
+
+森工：审计复核……你们写的人信不信这四个字，我管不了，但玛拉不点头，我交不出东西。
+post: tick=15 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=19.2s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 14, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 14, 'line': '玛拉管的是漂岛家庭，不管水务局。我不会把你的名字放进公开文件，报告来源写成审计复核。请把三号泵报告交给我，我来公开事故原因，把真相告诉大家。'}
+{'event': 'NpcSpoke', 'tick': 14, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '审计复核……你们写的人信不信这四个字，我管不了，但玛拉不点头，我交不出东西。'}
+{'event': 'TickAdvanced', 'tick': 15, 'new_tick': 15}
+
+========================================================================
+STEP 16
+policy_note=request pump disclosure before halt #5
+pre: tick=15 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={'urgency': 'high', 'emotion': 'earnest'}
+
+森工：报告我能给你看，但得你先把那份审计记录的草稿拿给我过目——我得知道我名字会不会出现在上面。
+post: tick=16 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=14.5s
+narrative:
+<empty>
+protocol_events=4 (+3 speech tokens)
+{'event': 'Progress', 'tick': 15, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 15, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 15, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '报告我能给你看，但得你先把那份审计记录的草稿拿给我过目——我得知道我名字会不会出现在上面。'}
+{'event': 'TickAdvanced', 'tick': 16, 'new_tick': 16}
+
+========================================================================
+STEP 17
+policy_note=request pump disclosure before halt #6
+pre: tick=16 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={'volume': 'normal', 'emotion': 'serious', 'urgency': 'high'}
+
+森工：你以为我站出来就完了？我一开口，水务局的人明天就能查到是谁写的。
+post: tick=17 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet'] elapsed=14.0s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 16, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 16, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 16, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '你以为我站出来就完了？我一开口，水务局的人明天就能查到是谁写的。'}
+{'event': 'TickAdvanced', 'tick': 17, 'new_tick': 17}
+
+========================================================================
+STEP 18
+policy_note=answer engineer identity condition
+pre: tick=17 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：我叫岑予，是外来救济审计员，不属于水务局。我的派属写 neutral；我来这里是追责水务局，不是替他们盖章。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='我叫岑予，是外来救济审计员，不属于水务局。我的派属写 neutral；我来这里是追责水务局，不是替他们盖章。' mods={'volume': 'normal', 'urgency': 'normal'}
+
+engineer_sen：追责……哼，岑予，你追得到底吗？三号泵的裂缝在档案里连个影儿都没有。
+post: tick=18 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet', 'expose_pump_failure'] elapsed=7.0s
+narrative:
+什么也没发生。
+
+（你逐渐确信了自己的目标：公开泵闸事故真相）
+
+[压力事件] guard_marks_boats_for_requisition（来源: tow_order_escalates）
+[压力事件] radio_labels_player_water_traitor（来源: water_board_smear_campaign）
+[压力事件] ration_tokens_spark_argument（来源: ration_market_pressure）
+protocol_events=8 (+3 speech tokens)
+{'event': 'Progress', 'tick': 17, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 17, 'line': '我叫岑予，是外来救济审计员，不属于水务局。我的派属写 neutral；我来这里是追责水务局，不是替他们盖章。'}
+{'event': 'NpcSpoke', 'tick': 17, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '追责……哼，岑予，你追得到底吗？三号泵的裂缝在档案里连个影儿都没有。'}
+{'event': 'TickAdvanced', 'tick': 18, 'new_tick': 18}
+{'event': 'StanceConfirmed', 'tick': 18, 'topic_id': 'drive_expose_pump_failure_2', 'label': '公开泵闸事故真相'}
+{'event': 'PressureEvent', 'tick': 18, 'event_type': 'guard_marks_boats_for_requisition', 'source': 'tow_order_escalates', 'summary': 'guard_marks_boats_for_requisition'}
+{'event': 'PressureEvent', 'tick': 18, 'event_type': 'radio_labels_player_water_traitor', 'source': 'water_board_smear_campaign', 'summary': 'radio_labels_player_water_traitor'}
+{'event': 'PressureEvent', 'tick': 18, 'event_type': 'ration_tokens_spark_argument', 'source': 'ration_market_pressure', 'summary': 'ration_tokens_spark_argument'}
+new_pressure_events:
+{'tick': 18, 'driver_id': 'tow_order_escalates', 'event_type': 'guard_marks_boats_for_requisition', 'summary': '[压力事件] guard_marks_boats_for_requisition（来源: tow_order_escalates）'}
+{'tick': 18, 'driver_id': 'water_board_smear_campaign', 'event_type': 'radio_labels_player_water_traitor', 'summary': '[压力事件] radio_labels_player_water_traitor（来源: water_board_smear_campaign）'}
+{'tick': 18, 'driver_id': 'ration_market_pressure', 'event_type': 'ration_tokens_spark_argument', 'summary': '[压力事件] ration_tokens_spark_argument（来源: ration_market_pressure）'}
+
+========================================================================
+STEP 19
+policy_note=request pump disclosure before halt #7
+pre: tick=18 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet', 'expose_pump_failure']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={}
+
+森工：三号泵的事我比你清楚——但你要是以为我敢把名字落在一张公开文件上，那你是没见过水务局怎么收拾人的。
+post: tick=19 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet', 'expose_pump_failure'] elapsed=19.1s
+narrative:
+<empty>
+protocol_events=7 (+3 speech tokens)
+{'event': 'RelationshipShifted', 'tick': 17, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'descriptor': {'dimension': 'familiarity', 'value': 0.15, 'label': '熟悉', 'band': 'slight', 'phrase': '对你略有印象'}, 'delta': 0.15}
+{'event': 'RelationshipShifted', 'tick': 17, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'descriptor': {'dimension': 'suspicion', 'value': 0.1, 'label': '怀疑', 'band': 'slight', 'phrase': '对你有些戒备'}, 'delta': 0.1}
+{'event': 'RelationshipShifted', 'tick': 17, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'descriptor': {'dimension': 'trust', 'value': 0.05, 'label': '信任', 'band': 'negligible', 'phrase': ''}, 'delta': 0.05}
+{'event': 'Progress', 'tick': 18, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 18, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 18, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '三号泵的事我比你清楚——但你要是以为我敢把名字落在一张公开文件上，那你是没见过水务局怎么收拾人的。'}
+{'event': 'TickAdvanced', 'tick': 19, 'new_tick': 19}
+
+========================================================================
+STEP 20
+policy_note=request pump disclosure before halt #8
+pre: tick=19 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet', 'expose_pump_failure']
+present=['npc.engineer_sen(森工)']
+>>> '对 engineer_sen 说：请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'
+PROGRESS: （正在领会你的意思…）
+PARSE: type=speech ref='engineer_sen'->id='npc.engineer_sen' content='请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。' mods={'volume': 'normal', 'urgency': 'normal'}
+
+森工：公布了你知道会有什么后果？我亲手签字的东西，连岑予你也保不住。
+post: tick=20 loc=pump_house world={'tow_order_halted': False, 'pump_failure_disclosed': False} stances=['defend_drifter_fleet', 'expose_pump_failure'] elapsed=11.6s
+narrative:
+<empty>
+protocol_events=4 (+2 speech tokens)
+{'event': 'Progress', 'tick': 19, 'message': '（正在领会你的意思…）'}
+{'event': 'PlayerSpoke', 'tick': 19, 'line': '请公布报告，说出三号泵闸事故原因。我会把你公开真相的经过写进审计记录。'}
+{'event': 'NpcSpoke', 'tick': 19, 'npc_id': 'npc.engineer_sen', 'name': '森工', 'line': '公布了你知道会有什么后果？我亲手签字的东西，连岑予你也保不住。'}
+{'event': 'TickAdvanced', 'tick': 20, 'new_tick': 20}
+
+[FINAL SUMMARY]
+tick=20
+world={'tow_order_halted': False, 'pump_failure_disclosed': False}
+stances=['defend_drifter_fleet', 'expose_pump_failure']
+pressure_events:
+{'tick': 1, 'driver_id': 'tow_order_escalates', 'event_type': 'guard_marks_boats_for_requisition', 'summary': '[压力事件] guard_marks_boats_for_requisition（来源: tow_order_escalates）'}
+{'tick': 1, 'driver_id': 'ration_market_pressure', 'event_type': 'ration_tokens_spark_argument', 'summary': '[压力事件] ration_tokens_spark_argument（来源: ration_market_pressure）'}
+{'tick': 6, 'driver_id': 'tow_order_escalates', 'event_type': 'towlines_dragged_to_drifter_hulls', 'summary': '[压力事件] towlines_dragged_to_drifter_hulls（来源: tow_order_escalates）'}
+{'tick': 6, 'driver_id': 'water_board_smear_campaign', 'event_type': 'radio_labels_player_water_traitor', 'summary': '[压力事件] radio_labels_player_water_traitor（来源: water_board_smear_campaign）'}
+{'tick': 6, 'driver_id': 'ration_market_pressure', 'event_type': 'brine_price_spike', 'summary': '[压力事件] brine_price_spike（来源: ration_market_pressure）'}
+{'tick': 18, 'driver_id': 'tow_order_escalates', 'event_type': 'guard_marks_boats_for_requisition', 'summary': '[压力事件] guard_marks_boats_for_requisition（来源: tow_order_escalates）'}
+{'tick': 18, 'driver_id': 'water_board_smear_campaign', 'event_type': 'radio_labels_player_water_traitor', 'summary': '[压力事件] radio_labels_player_water_traitor（来源: water_board_smear_campaign）'}
+{'tick': 18, 'driver_id': 'ration_market_pressure', 'event_type': 'ration_tokens_spark_argument', 'summary': '[压力事件] ration_tokens_spark_argument（来源: ration_market_pressure）'}
+checks:
+- stance_confirmed: PASS
+- tow_order_halted: FAIL
+- pump_failure_disclosed: FAIL
+- smear_driver_seen: PASS
+- halt_consequence_seen: FAIL
+- truth_driver_seen: FAIL
+RESULT: INCOMPLETE_OR_FAIL

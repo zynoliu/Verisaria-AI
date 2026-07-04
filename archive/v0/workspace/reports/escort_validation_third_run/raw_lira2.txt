@@ -1,0 +1,99 @@
+=== ESCORT-3RD lira2 ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去十二号塔基栈桥'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE type=movement ref='十二号塔基栈桥'->id=None content=''
+post: tick=1 loc=valley_platform  elapsed=8.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 各位，审询流程已经启动，请按照证物清单依次陈述。
+  NPC 学徒尼奥: 静钟还没响，可我数过了——他们已经带进去三个塔基的人了。
+  *** PLAYER MOVED: 静钟审询厅 -> 低谷列车站台
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 worker_lira 说：我不是安保队的。我已经当众反对清洗证人记忆，这话听证厅里所有人都听见了。你说冷却环跳红、调度室回你『误触、归档』——我信你，你想让谁听？'
+pre:  tick=1 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE clarify amb='coherence_error' q=''
+post: tick=1 loc=valley_platform  elapsed=5.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NARRATIVE: 输入存在矛盾: 塔基工人莉拉不在这儿，TA在十二号塔基栈桥那边，你得先过去才能搭话。
+请重新输入。
+
+==============================================================================
+>>> '对 worker_lira 说：你说得对，证词要当众念才作数。那我们就去听证厅侧门，你走在前面，我跟在你后面，路线你定，我绝不把你往校准室带。到了那儿你当着所有人把调度室的录音念出来，没人能在公开场合动你。'
+pre:  tick=1 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE clarify amb='generic' q=''
+post: tick=1 loc=valley_platform  elapsed=7.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  CLARIFY: '听证厅侧门' 指代不明，请确认： opts=['尝试执行', '取消动作']
+  NARRATIVE: '听证厅侧门' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+==============================================================================
+>>> '对 worker_lira 说：跟我去听证厅，你走前面，我在你身后替你挡着安保。我们一起去，现在就走，你把录音当众念出来。'
+pre:  tick=1 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE clarify amb='generic' q=''
+post: tick=1 loc=valley_platform  elapsed=3.8s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  CLARIFY: '听证厅' 指代不明，请确认： opts=['尝试执行', '取消动作']
+  NARRATIVE: '听证厅' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+==============================================================================
+>>> '对 worker_lira 说：我们一起去静钟审询厅，你领路，我护着你，到了你就开口。走。'
+pre:  tick=1 loc=valley_platform present=['npc.courier_tamsin', 'npc.valley_mother_june']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+      stances=[]
+  PARSE clarify amb='coherence_error' q=''
+post: tick=1 loc=valley_platform  elapsed=4.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NARRATIVE: 输入存在矛盾: 塔基工人莉拉不在这儿，TA在十二号塔基栈桥那边，你得先过去才能搭话。
+请重新输入。
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+stances=[]
+player_loc=valley_platform
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ mirror_control
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ inquest_hall
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

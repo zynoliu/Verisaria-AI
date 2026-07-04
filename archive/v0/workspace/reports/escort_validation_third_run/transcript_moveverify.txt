@@ -1,0 +1,170 @@
+=== THIRD-RUN moveverify ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去镜阵调度室'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='镜阵调度室'->id='mirror_control' to_loc='mirror_control' content=''
+post: tick=1 loc=mirror_control  elapsed=10.9s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 听证厅秩序由镜务局统筹，请各位按程序发言，不要让预算外的话题占用我们的时间。
+  NPC 学徒尼奥: 静钟响过两次了……还要多久才会叫我们进去？
+  PLAYER_MOVED: 静钟审询厅 -> 镜阵调度室
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '/look'
+  [/look] loc=mirror_control present=['npc.cartographer_renke']
+  CMD_OUT: Location: mirror_control
+Zone: audit_dais
+You see:
+  - npc.cartographer_renke (tilt_table)
+
+==============================================================================
+>>> '去上层兰房'
+pre:  tick=1 loc=mirror_control present=['npc.cartographer_renke']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='上层兰房'->id=None to_loc='orchid_house' content=''
+post: tick=2 loc=orchid_house  elapsed=7.9s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 镜图师任柯: 这里的光线校准参数昨晚偏差了零点三度，但没人来签过这份变更单……你要是也注意到了，麻烦别写在任何我能被追查到的地方。
+  PLAYER_MOVED: 镜阵调度室 -> 上层兰房
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '/look'
+  [/look] loc=orchid_house present=[]
+  CMD_OUT: Location: orchid_house
+Zone: heat_valves
+You are alone.
+
+==============================================================================
+>>> '去镜阵调度室'
+pre:  tick=2 loc=orchid_house present=[]
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='镜阵调度室'->id='mirror_control' to_loc='mirror_control' content=''
+post: tick=3 loc=mirror_control  elapsed=8.0s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PLAYER_MOVED: 上层兰房 -> 镜阵调度室
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '去镜图阁'
+pre:  tick=3 loc=mirror_control present=['npc.greenhouse_sura']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='镜图阁'->id=None to_loc='cartography_loft' content=''
+post: tick=4 loc=cartography_loft  elapsed=8.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PLAYER_MOVED: 镜阵调度室 -> 镜图阁
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '去低温档案署'
+pre:  tick=4 loc=cartography_loft present=['npc.cartographer_renke']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='低温档案署'->id='archive_stack' to_loc='archive_stack' content=''
+post: tick=5 loc=archive_stack  elapsed=7.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PLAYER_MOVED: 镜图阁 -> 低温档案署
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+
+==============================================================================
+>>> '去记忆校准室'
+pre:  tick=5 loc=archive_stack present=['npc.archivist_mae']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='记忆校准室'->id='mnemonic_clinic' to_loc='mnemonic_clinic' content=''
+post: tick=6 loc=mnemonic_clinic  elapsed=8.9s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PLAYER_MOVED: 低温档案署 -> 记忆校准室
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] lira_hides_near_transit_ladder（来源: worker_panic_if_purge_nears）
+[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '去十二号塔基栈桥'
+pre:  tick=6 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE clarify amb='parse_failed' q='我没理解你的意思，能再描述一下吗？'
+post: tick=6 loc=mnemonic_clinic  elapsed=3.7s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NARRATIVE: 我没理解你的意思，能再描述一下吗？
+请重新输入。
+
+==============================================================================
+>>> '/look'
+  [/look] loc=mnemonic_clinic present=['npc.clinician_oro']
+  CMD_OUT: Location: mnemonic_clinic
+Zone: white_bay
+You see:
+  - npc.clinician_oro (white_bay)
+
+==============================================================================
+>>> '对 security_kade 说：跟我一起去旧检修梯吧，我带你过去看看那条旧路。'
+pre:  tick=6 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE clarify amb='parse_failed' q='我没理解你的意思，能再描述一下吗？'
+post: tick=6 loc=mnemonic_clinic  elapsed=3.7s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NARRATIVE: 我没理解你的意思，能再描述一下吗？
+请重新输入。
+
+==============================================================================
+>>> '去旧检修梯'
+pre:  tick=6 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='旧检修梯'->id='transit_ladder' to_loc='transit_ladder' content=''
+post: tick=7 loc=transit_ladder  elapsed=13.6s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PLAYER_MOVED: 记忆校准室 -> 旧检修梯
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+==============================================================================
+>>> '/look'
+  [/look] loc=transit_ladder present=[]
+  CMD_OUT: Location: transit_ladder
+Zone: white_bay
+You are alone.
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+player_loc=transit_ladder
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ worker_gantry
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ valley_platform
+  npc.courier_tamsin @ press_gallery
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

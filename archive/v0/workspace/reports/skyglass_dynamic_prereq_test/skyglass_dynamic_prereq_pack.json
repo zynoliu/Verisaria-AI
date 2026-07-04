@@ -1,0 +1,1571 @@
+{
+  "content_pack_id": "skyglass_memory_inquest",
+  "schema_version": "2.0",
+  "world_premise": {
+    "era": "near_future_mountain_arcology",
+    "tone": "austere_techno_mystery",
+    "central_tension": "A high-altitude mirror-array city plans to erase the worksite memories of accident witnesses to preserve public trust in its weather-control system, while rival factions hide that the array's cooling calculus is already failing."
+  },
+  "world_book": [
+    {
+      "entry_id": "skyglass_array_public_function",
+      "layer": "canonical_fact",
+      "content": "天镜城的高空镜阵把日照反射到山谷农带，并在夜间为冰脊蓄热。没有镜阵调度，山谷不会立刻毁灭，但两周内会出现霜害、粮价暴涨和交通封锁。",
+      "access": {
+        "visible_to": {
+          "region": [
+            "skyglass"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "memory_laundering_public_frame",
+      "layer": "public_belief",
+      "content": "许多居民相信记忆校准是一种治疗流程：把事故目击者的恐慌片段洗掉，可以防止群体性幻听和镜阵恐慌。",
+      "access": {
+        "visible_to": {
+          "region": [
+            "skyglass"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "directorate_memory_safety_line",
+      "layer": "faction_propaganda",
+      "content": "镜务局反复宣称：塔基工人的记忆已经被辐光噪声污染，若不统一清洗，就会把错误证词扩散成全城谣言。",
+      "access": {
+        "visible_to": {
+          "faction": [
+            "mirror_directorate",
+            "civic_broadcast",
+            "security"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "gantry_workers",
+            "valley_families"
+          ]
+        }
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "choir_calibration_dogma",
+      "layer": "faction_propaganda",
+      "content": "校准唱诗团教导学徒：镜阵只会回应无杂念的城市，公开质疑会污染校准歌谱，导致镜面偏斜。",
+      "access": {
+        "visible_to": {
+          "faction": [
+            "calibration_choir",
+            "mirror_directorate"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "gantry_workers"
+          ]
+        }
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "junction_twelve_true_fault",
+      "layer": "forbidden_knowledge",
+      "content": "十二号接点的低温轴承三周前已经开裂，真正原因是镜务局推迟更换冷却环并伪造了夜间负载曲线。",
+      "access": {
+        "visible_to": {
+          "clearance": [
+            "audit",
+            "inner_ring"
+          ],
+          "profession": [
+            "array_mechanic",
+            "mirror_cartographer"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "civic_broadcast",
+            "security"
+          ]
+        }
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "nocturne_load_spike",
+      "layer": "canonical_fact",
+      "content": "事故当夜的镜面负载峰值来自上层温室私自抽调热能，而不是塔基工人操作错误。",
+      "access": {
+        "visible_to": {
+          "clearance": [
+            "audit",
+            "inner_ring"
+          ],
+          "profession": [
+            "array_mechanic",
+            "mirror_cartographer"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "worker_lira_hidden_witness",
+      "layer": "personal_truth",
+      "content": "塔基工人莉拉在事故前看见冷却环读数跳红，并听见调度室要求把警报归类为工人误触。",
+      "access": {
+        "visible_to": {
+          "profession": [
+            "gantry_rigger"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "cartographer_renke_chart_copy",
+      "layer": "personal_truth",
+      "content": "镜图师任柯保存了一份未提交的方位图副本，上面能看出十二号接点偏斜早于工人换班。",
+      "access": {
+        "visible_to": {
+          "profession": [
+            "mirror_cartographer"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "security_quarantine_rationale",
+      "layer": "public_belief",
+      "content": "安保队声称限制塔基工人行动是为了防止恐慌扩散，不是为了扣押证人。",
+      "access": {
+        "visible_to": {
+          "faction": [
+            "security",
+            "mirror_directorate",
+            "civic_broadcast"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "valley_families_depend_on_heat",
+      "layer": "canonical_fact",
+      "content": "山谷家庭依赖镜阵余热保住夜间幼苗；若镜阵突然停摆，谷地需要临时燃料、列车通行证和温棚优先权。",
+      "access": {
+        "visible_to": {
+          "region": [
+            "skyglass",
+            "low_valley"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "orchid_house_power_diversion",
+      "layer": "forbidden_knowledge",
+      "content": "上层兰房为了保住珍稀植株，在事故前夜绕过配给协议抽走了额外热能；这笔热能转移被记入塔基误差。",
+      "access": {
+        "visible_to": {
+          "clearance": [
+            "inner_ring"
+          ],
+          "class": [
+            "upper_arcade"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "gantry_workers",
+            "valley_families",
+            "security"
+          ]
+        }
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "broadcast_traitor_script",
+      "layer": "faction_propaganda",
+      "content": "城市广播准备把反对记忆清洗的人称为破镜派，说他们宁愿让山谷冻死也要保护几段不可靠的工人记忆。",
+      "access": {
+        "visible_to": {
+          "faction": [
+            "civic_broadcast",
+            "mirror_directorate"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "gantry_workers"
+          ]
+        }
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "choir_private_doubt",
+      "layer": "personal_truth",
+      "content": "唱诗团副领唱瑟芙知道校准歌谱最近频繁失拍，但她害怕承认仪式无效会让学徒被镜务局接管。",
+      "access": {
+        "visible_to": {
+          "profession": [
+            "choir_cantor"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "union_secret_route",
+      "layer": "local_rumor",
+      "content": "传送廊下方有一条旧检修梯，可以绕过安保队把证人从塔基带到听证厅侧门。",
+      "access": {
+        "visible_to": {
+          "faction": [
+            "gantry_workers",
+            "courier_union"
+          ],
+          "region": [
+            "skyglass"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "archivist_legal_limit",
+      "layer": "canonical_fact",
+      "content": "根据天镜城旧章程，记忆清洗必须经过档案署见证、镜务局签令和当事人可撤回听证；任一环节缺失都可暂停流程。",
+      "access": {
+        "visible_to": {
+          "profession": [
+            "archivist"
+          ],
+          "clearance": [
+            "audit",
+            "inner_ring"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "silent_bell_deadline",
+      "layer": "public_belief",
+      "content": "静钟三响后，记忆校准室会开始接收第一批塔基证人。居民知道静钟是流程节点，却不知道可以被合法延期。",
+      "access": {
+        "visible_to": {
+          "region": [
+            "skyglass"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "inquest_cannot_judge_private_motive",
+      "layer": "canonical_fact",
+      "content": "审询员只能用公开证词、可核对记录和当场承诺推动裁定，不能凭空断言 NPC 的隐藏动机。",
+      "access": {
+        "visible_to": {
+          "faction": [
+            "all"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "medicine_memory_side_effect",
+      "layer": "forbidden_knowledge",
+      "content": "记忆校准药剂会削弱最近七十二小时内的空间判断力，工人被清洗后很难再准确描述事故现场。",
+      "access": {
+        "visible_to": {
+          "profession": [
+            "mnemonic_clinician"
+          ],
+          "clearance": [
+            "audit"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "civic_broadcast"
+          ]
+        }
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "market_heat_token_pressure",
+      "layer": "local_rumor",
+      "content": "热筹市场已经开始囤积山谷温棚用燃料；如果镜阵事故被证实，低谷家庭会先被涨价吞掉。",
+      "access": {
+        "visible_to": {
+          "region": [
+            "skyglass",
+            "low_valley"
+          ],
+          "faction": [
+            "courier_union"
+          ]
+        },
+        "hidden_from": {}
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "director_alen_private_risk",
+      "layer": "personal_truth",
+      "content": "艾伦总监知道承认冷却环故障会牵连兰房热能转移和镜务局预算欺瞒；他会要求完整证据链才可能暂停清洗。",
+      "access": {
+        "visible_to": {
+          "clearance": [
+            "inner_ring"
+          ]
+        },
+        "hidden_from": {
+          "faction": [
+            "gantry_workers",
+            "civic_broadcast"
+          ]
+        }
+      },
+      "confidence_policy": "fact"
+    }
+  ],
+  "starting_location": "inquest_hall",
+  "initial_locations": [
+    {
+      "location_id": "inquest_hall",
+      "name": "静钟审询厅",
+      "connections": [
+        {
+          "to": "mirror_control",
+          "distance": "adjacent",
+          "noise_leak": 0.25,
+          "visual_leak": 0.05,
+          "description": "穿过青铜隔门进入镜阵调度室"
+        },
+        {
+          "to": "mnemonic_clinic",
+          "distance": "near",
+          "noise_leak": 0.15,
+          "visual_leak": 0.0,
+          "description": "沿白灯走廊前往记忆校准室"
+        },
+        {
+          "to": "worker_gantry",
+          "distance": "near",
+          "noise_leak": 0.35,
+          "visual_leak": 0.1,
+          "description": "经检修栈桥抵达塔基工人区"
+        },
+        {
+          "to": "press_gallery",
+          "distance": "adjacent",
+          "noise_leak": 0.5,
+          "visual_leak": 0.25,
+          "description": "登上挂满录音钟的媒体席"
+        }
+      ]
+    },
+    {
+      "location_id": "mirror_control",
+      "name": "镜阵调度室",
+      "connections": [
+        {
+          "to": "inquest_hall",
+          "distance": "adjacent",
+          "noise_leak": 0.25,
+          "visual_leak": 0.05,
+          "description": "回到静钟审询厅"
+        },
+        {
+          "to": "cartography_loft",
+          "distance": "near",
+          "noise_leak": 0.2,
+          "visual_leak": 0.0,
+          "description": "沿旋梯上到镜图阁"
+        },
+        {
+          "to": "orchid_house",
+          "distance": "near",
+          "noise_leak": 0.05,
+          "visual_leak": 0.0,
+          "description": "进入上层温室的热能阀廊"
+        }
+      ]
+    },
+    {
+      "location_id": "mnemonic_clinic",
+      "name": "记忆校准室",
+      "connections": [
+        {
+          "to": "inquest_hall",
+          "distance": "near",
+          "noise_leak": 0.15,
+          "visual_leak": 0.0,
+          "description": "回到审询厅"
+        },
+        {
+          "to": "archive_stack",
+          "distance": "adjacent",
+          "noise_leak": 0.1,
+          "visual_leak": 0.0,
+          "description": "推开档案署侧门"
+        },
+        {
+          "to": "worker_gantry",
+          "distance": "near",
+          "noise_leak": 0.25,
+          "visual_leak": 0.0,
+          "description": "穿过候诊廊抵达塔基工人区"
+        }
+      ]
+    },
+    {
+      "location_id": "worker_gantry",
+      "name": "十二号塔基栈桥",
+      "connections": [
+        {
+          "to": "inquest_hall",
+          "distance": "near",
+          "noise_leak": 0.35,
+          "visual_leak": 0.1,
+          "description": "沿检修栈桥返回审询厅"
+        },
+        {
+          "to": "mnemonic_clinic",
+          "distance": "near",
+          "noise_leak": 0.25,
+          "visual_leak": 0.0,
+          "description": "进入校准室候诊廊"
+        },
+        {
+          "to": "transit_ladder",
+          "distance": "adjacent",
+          "noise_leak": 0.2,
+          "visual_leak": 0.0,
+          "description": "钻入旧检修梯"
+        }
+      ]
+    },
+    {
+      "location_id": "archive_stack",
+      "name": "低温档案署",
+      "connections": [
+        {
+          "to": "mnemonic_clinic",
+          "distance": "adjacent",
+          "noise_leak": 0.1,
+          "visual_leak": 0.0,
+          "description": "回到记忆校准室"
+        },
+        {
+          "to": "cartography_loft",
+          "distance": "near",
+          "noise_leak": 0.05,
+          "visual_leak": 0.0,
+          "description": "沿档案传送轨抵达镜图阁"
+        }
+      ]
+    },
+    {
+      "location_id": "cartography_loft",
+      "name": "镜图阁",
+      "connections": [
+        {
+          "to": "mirror_control",
+          "distance": "near",
+          "noise_leak": 0.2,
+          "visual_leak": 0.0,
+          "description": "下到镜阵调度室"
+        },
+        {
+          "to": "archive_stack",
+          "distance": "near",
+          "noise_leak": 0.05,
+          "visual_leak": 0.0,
+          "description": "进入低温档案署"
+        },
+        {
+          "to": "press_gallery",
+          "distance": "near",
+          "noise_leak": 0.2,
+          "visual_leak": 0.1,
+          "description": "沿外廊前往媒体席"
+        }
+      ]
+    },
+    {
+      "location_id": "press_gallery",
+      "name": "城市广播席",
+      "connections": [
+        {
+          "to": "inquest_hall",
+          "distance": "adjacent",
+          "noise_leak": 0.5,
+          "visual_leak": 0.25,
+          "description": "下到审询厅"
+        },
+        {
+          "to": "cartography_loft",
+          "distance": "near",
+          "noise_leak": 0.2,
+          "visual_leak": 0.1,
+          "description": "沿外廊前往镜图阁"
+        },
+        {
+          "to": "valley_platform",
+          "distance": "near",
+          "noise_leak": 0.3,
+          "visual_leak": 0.15,
+          "description": "走向山谷列车站台"
+        }
+      ]
+    },
+    {
+      "location_id": "valley_platform",
+      "name": "低谷列车站台",
+      "connections": [
+        {
+          "to": "press_gallery",
+          "distance": "near",
+          "noise_leak": 0.3,
+          "visual_leak": 0.15,
+          "description": "回到城市广播席"
+        },
+        {
+          "to": "transit_ladder",
+          "distance": "near",
+          "noise_leak": 0.2,
+          "visual_leak": 0.0,
+          "description": "进入旧检修梯下口"
+        }
+      ]
+    },
+    {
+      "location_id": "transit_ladder",
+      "name": "旧检修梯",
+      "connections": [
+        {
+          "to": "worker_gantry",
+          "distance": "adjacent",
+          "noise_leak": 0.2,
+          "visual_leak": 0.0,
+          "description": "爬回十二号塔基栈桥"
+        },
+        {
+          "to": "valley_platform",
+          "distance": "near",
+          "noise_leak": 0.2,
+          "visual_leak": 0.0,
+          "description": "下到低谷列车站台"
+        }
+      ]
+    },
+    {
+      "location_id": "orchid_house",
+      "name": "上层兰房",
+      "connections": [
+        {
+          "to": "mirror_control",
+          "distance": "near",
+          "noise_leak": 0.05,
+          "visual_leak": 0.0,
+          "description": "回到镜阵调度室"
+        }
+      ]
+    }
+  ],
+  "initial_entities": [
+    {
+      "entity_id": "player_001",
+      "name": "你",
+      "entity_type": "player",
+      "location_id": "inquest_hall",
+      "zone_id": "audit_dais",
+      "zone_info": {
+        "visibility": "high",
+        "noise_level": "moderate",
+        "capacity": 6
+      },
+      "attributes": {
+        "strength": 0.42,
+        "dexterity": 0.5,
+        "perception": 0.76,
+        "charisma": 0.64,
+        "faction": "neutral",
+        "region": "skyglass",
+        "profession": "external_inquest_agent",
+        "clearance": "audit"
+      },
+      "traits": [
+        "outsider",
+        "legally_mandated",
+        "patient_listener",
+        "not_trusted_by_anyone"
+      ],
+      "hp": 100,
+      "max_hp": 100,
+      "stamina": 100
+    },
+    {
+      "entity_id": "npc.director_alen",
+      "name": "艾伦总监",
+      "entity_type": "npc",
+      "location_id": "inquest_hall",
+      "zone_id": "director_bench",
+      "zone_info": {
+        "visibility": "high",
+        "noise_level": "quiet",
+        "capacity": 4
+      },
+      "attributes": {
+        "charisma": 0.82,
+        "perception": 0.66,
+        "faction": "mirror_directorate",
+        "region": "skyglass",
+        "clearance": "inner_ring",
+        "authority": "mirror_authority"
+      },
+      "traits": [
+        "polished",
+        "budget_guardian",
+        "cornered",
+        "procedural"
+      ]
+    },
+    {
+      "entity_id": "npc.archivist_mae",
+      "name": "梅档案官",
+      "entity_type": "npc",
+      "location_id": "archive_stack",
+      "zone_id": "sealed_reader",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "quiet",
+        "capacity": 5
+      },
+      "attributes": {
+        "intelligence": 0.84,
+        "perception": 0.73,
+        "faction": "archive_office",
+        "region": "skyglass",
+        "profession": "archivist",
+        "authority": "archive_authority"
+      },
+      "traits": [
+        "literal",
+        "rule_bound",
+        "quietly_brave",
+        "slow_to_trust"
+      ]
+    },
+    {
+      "entity_id": "npc.clinician_oro",
+      "name": "奥罗医师",
+      "entity_type": "npc",
+      "location_id": "mnemonic_clinic",
+      "zone_id": "white_bay",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "quiet",
+        "capacity": 6
+      },
+      "attributes": {
+        "intelligence": 0.8,
+        "perception": 0.69,
+        "faction": "mnemonic_clinic",
+        "region": "skyglass",
+        "profession": "mnemonic_clinician",
+        "authority": "memory_authority"
+      },
+      "traits": [
+        "clinical",
+        "defensive",
+        "guilt_prone",
+        "sleep_deprived"
+      ]
+    },
+    {
+      "entity_id": "npc.worker_lira",
+      "name": "塔基工人莉拉",
+      "entity_type": "npc",
+      "location_id": "worker_gantry",
+      "zone_id": "red_rope",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "loud",
+        "capacity": 12
+      },
+      "attributes": {
+        "strength": 0.68,
+        "perception": 0.72,
+        "charisma": 0.48,
+        "faction": "gantry_workers",
+        "region": "skyglass",
+        "profession": "gantry_rigger"
+      },
+      "traits": [
+        "injured",
+        "furious",
+        "protective_of_crew",
+        "afraid_of_erasure"
+      ]
+    },
+    {
+      "entity_id": "npc.cartographer_renke",
+      "name": "镜图师任柯",
+      "entity_type": "npc",
+      "location_id": "cartography_loft",
+      "zone_id": "tilt_table",
+      "zone_info": {
+        "visibility": "low",
+        "noise_level": "quiet",
+        "capacity": 4
+      },
+      "attributes": {
+        "intelligence": 0.9,
+        "perception": 0.82,
+        "faction": "mirror_directorate",
+        "region": "skyglass",
+        "profession": "mirror_cartographer",
+        "clearance": "inner_ring",
+        "authority": "mirror_cartography"
+      },
+      "traits": [
+        "precise",
+        "conflicted",
+        "paper_trail_hoarder",
+        "risk_averse"
+      ]
+    },
+    {
+      "entity_id": "npc.cantor_seraph",
+      "name": "副领唱瑟芙",
+      "entity_type": "npc",
+      "location_id": "inquest_hall",
+      "zone_id": "choir_rail",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "quiet",
+        "capacity": 8
+      },
+      "attributes": {
+        "charisma": 0.76,
+        "perception": 0.62,
+        "faction": "calibration_choir",
+        "region": "skyglass",
+        "profession": "choir_cantor"
+      },
+      "traits": [
+        "ceremonial",
+        "protective_of_apprentices",
+        "doubting",
+        "careful_with_words"
+      ]
+    },
+    {
+      "entity_id": "npc.security_kade",
+      "name": "凯德队长",
+      "entity_type": "npc",
+      "location_id": "worker_gantry",
+      "zone_id": "checkpoint",
+      "zone_info": {
+        "visibility": "high",
+        "noise_level": "loud",
+        "capacity": 8
+      },
+      "attributes": {
+        "strength": 0.78,
+        "perception": 0.77,
+        "faction": "security",
+        "region": "skyglass",
+        "authority": "security_authority"
+      },
+      "traits": [
+        "disciplined",
+        "propaganda_soaked",
+        "not_cruel",
+        "orders_first"
+      ]
+    },
+    {
+      "entity_id": "npc.broadcaster_iva",
+      "name": "广播员伊娃",
+      "entity_type": "npc",
+      "location_id": "press_gallery",
+      "zone_id": "recording_bells",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "moderate",
+        "capacity": 5
+      },
+      "attributes": {
+        "charisma": 0.86,
+        "perception": 0.58,
+        "faction": "civic_broadcast",
+        "region": "skyglass",
+        "profession": "broadcast_host",
+        "authority": "broadcast_authority"
+      },
+      "traits": [
+        "smooth",
+        "headline_hungry",
+        "fearful_of_blacklist",
+        "quick_to_pivot"
+      ]
+    },
+    {
+      "entity_id": "npc.courier_tamsin",
+      "name": "信使塔姆辛",
+      "entity_type": "npc",
+      "location_id": "valley_platform",
+      "zone_id": "freight_gate",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "loud",
+        "capacity": 10
+      },
+      "attributes": {
+        "dexterity": 0.74,
+        "perception": 0.7,
+        "charisma": 0.6,
+        "faction": "courier_union",
+        "region": "low_valley",
+        "authority": "union_authority"
+      },
+      "traits": [
+        "practical",
+        "smuggler_adjacent",
+        "loyal_to_valley",
+        "deal_maker"
+      ]
+    },
+    {
+      "entity_id": "npc.greenhouse_sura",
+      "name": "兰房管事苏拉",
+      "entity_type": "npc",
+      "location_id": "orchid_house",
+      "zone_id": "heat_valves",
+      "zone_info": {
+        "visibility": "low",
+        "noise_level": "quiet",
+        "capacity": 4
+      },
+      "attributes": {
+        "charisma": 0.72,
+        "perception": 0.65,
+        "faction": "upper_arcade",
+        "region": "skyglass",
+        "class": "upper_arcade",
+        "clearance": "inner_ring"
+      },
+      "traits": [
+        "elegant",
+        "deniable",
+        "class_protective",
+        "knows_too_much"
+      ]
+    },
+    {
+      "entity_id": "npc.valley_mother_june",
+      "name": "谷地母亲琼",
+      "entity_type": "npc",
+      "location_id": "valley_platform",
+      "zone_id": "blanket_line",
+      "zone_info": {
+        "visibility": "high",
+        "noise_level": "moderate",
+        "capacity": 12
+      },
+      "attributes": {
+        "charisma": 0.62,
+        "perception": 0.56,
+        "faction": "valley_families",
+        "region": "low_valley",
+        "profession": "greenhouse_parent"
+      },
+      "traits": [
+        "exhausted",
+        "direct",
+        "protective",
+        "suspicious_of_city"
+      ]
+    },
+    {
+      "entity_id": "npc.apprentice_nio",
+      "name": "学徒尼奥",
+      "entity_type": "npc",
+      "location_id": "inquest_hall",
+      "zone_id": "choir_rail",
+      "zone_info": {
+        "visibility": "medium",
+        "noise_level": "quiet",
+        "capacity": 8
+      },
+      "attributes": {
+        "perception": 0.5,
+        "charisma": 0.35,
+        "faction": "calibration_choir",
+        "region": "skyglass",
+        "profession": "choir_apprentice"
+      },
+      "traits": [
+        "young",
+        "terrified",
+        "observant",
+        "keeps_count"
+      ]
+    }
+  ],
+  "initial_relationships": [
+    {
+      "npc_id": "npc.director_alen",
+      "target_id": "player_001",
+      "type": "formal_suspicion"
+    },
+    {
+      "npc_id": "npc.archivist_mae",
+      "target_id": "player_001",
+      "type": "procedural_neutrality"
+    },
+    {
+      "npc_id": "npc.clinician_oro",
+      "target_id": "player_001",
+      "type": "professional_defensiveness"
+    },
+    {
+      "npc_id": "npc.worker_lira",
+      "target_id": "player_001",
+      "type": "testing_desperation"
+    },
+    {
+      "npc_id": "npc.cartographer_renke",
+      "target_id": "player_001",
+      "type": "avoidant_curiosity"
+    },
+    {
+      "npc_id": "npc.cantor_seraph",
+      "target_id": "player_001",
+      "type": "guarded_hope"
+    },
+    {
+      "npc_id": "npc.security_kade",
+      "target_id": "player_001",
+      "type": "orderly_suspicion"
+    },
+    {
+      "npc_id": "npc.broadcaster_iva",
+      "target_id": "player_001",
+      "type": "opportunistic_interest"
+    },
+    {
+      "npc_id": "npc.courier_tamsin",
+      "target_id": "player_001",
+      "type": "transactional_trust"
+    },
+    {
+      "npc_id": "npc.greenhouse_sura",
+      "target_id": "player_001",
+      "type": "polite_hostility"
+    },
+    {
+      "npc_id": "npc.valley_mother_june",
+      "target_id": "player_001",
+      "type": "needs_proof"
+    },
+    {
+      "npc_id": "npc.director_alen",
+      "target_id": "npc.worker_lira",
+      "type": "liability"
+    },
+    {
+      "npc_id": "npc.clinician_oro",
+      "target_id": "npc.worker_lira",
+      "type": "case_file"
+    },
+    {
+      "npc_id": "npc.security_kade",
+      "target_id": "npc.worker_lira",
+      "type": "contained_witness"
+    },
+    {
+      "npc_id": "npc.cantor_seraph",
+      "target_id": "npc.apprentice_nio",
+      "type": "protective_mentor"
+    },
+    {
+      "npc_id": "npc.courier_tamsin",
+      "target_id": "npc.valley_mother_june",
+      "type": "valley_solidarity"
+    }
+  ],
+  "initial_conversations": [
+    {
+      "conversation_id": "conv_silent_bell_prehearing",
+      "participants": [
+        "npc.director_alen",
+        "npc.cantor_seraph",
+        "npc.apprentice_nio"
+      ],
+      "topic": "静钟前是否继续校准仪式",
+      "tone": "ritualized_tension"
+    },
+    {
+      "conversation_id": "conv_worker_checkpoint_argument",
+      "participants": [
+        "npc.worker_lira",
+        "npc.security_kade"
+      ],
+      "topic": "塔基工人是否能离开红绳区域",
+      "tone": "contained_anger"
+    }
+  ],
+  "player_agenda_template": {
+    "current_drives": [
+      {
+        "id": "drive_inquest_truth",
+        "label": "查清事故证词为何要被清洗",
+        "strength": 0.7,
+        "source": "player_declared"
+      },
+      {
+        "id": "drive_prevent_false_closure",
+        "label": "阻止把技术事故包装成工人恐慌",
+        "strength": 0.55,
+        "source": "role_mandate"
+      }
+    ],
+    "inference_mode": "reflection_only",
+    "suggestion_mode": "subtle"
+  },
+  "style_guide": {
+    "narrative_voice": "第三人称有限视角，冷峻、克制，带高海拔技术神秘感；避免宏大独白，优先呈现制度压力和人际缝隙",
+    "tone_references": [
+      "austere_techno_mystery",
+      "institutional_pressure",
+      "memory_ethics",
+      "mountain_arcology"
+    ],
+    "prohibited_tropes": [
+      "harbor_quarantine",
+      "boat_requisition",
+      "chosen_one",
+      "fantasy_magic",
+      "demon_war",
+      "snowbound_frontier"
+    ]
+  },
+  "constraints": {
+    "max_entities_per_location": 18,
+    "player_death": "incapacitated_only",
+    "memory_erasure": "requires_declared_world_state_change",
+    "no_god_knowledge": true
+  },
+  "campaign_drivers": [
+    {
+      "driver_id": "silent_bell_countdown",
+      "type": "deadline_pressure",
+      "description": "静钟接近三响时，记忆校准流程会向前推进，迫使玩家尽快争取延期或证词保护。",
+      "signals": [
+        {
+          "condition": "world.memory_purge_halted == false",
+          "weight": 0.55
+        },
+        {
+          "condition": "tick >= 3",
+          "weight": 0.3
+        },
+        {
+          "condition": "recent_event_count >= 5",
+          "weight": 0.15
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "first_witnesses_called_to_white_bay",
+          "probability": 0.55
+        },
+        {
+          "event_type": "silent_bell_rings_again",
+          "probability": 0.45
+        }
+      ],
+      "severity": 0.65,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "directorate_smear_response",
+      "type": "faction_response",
+      "description": "玩家持续反对记忆清洗后，镜务局和广播席会把玩家描成破坏镜阵稳定的外来搅局者。",
+      "signals": [
+        {
+          "condition": "stance.protect_witness_memory",
+          "weight": 0.7
+        },
+        {
+          "condition": "tick >= 2",
+          "weight": 0.3
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "broadcast_names_player_as_mirror_saboteur",
+          "probability": 0.6
+        },
+        {
+          "event_type": "directorate_files_procedural_objection",
+          "probability": 0.4
+        }
+      ],
+      "severity": 0.55,
+      "cooldown_ticks": 7
+    },
+    {
+      "driver_id": "worker_panic_if_purge_nears",
+      "type": "crowd_pressure",
+      "description": "若证人保护迟迟没有结果，塔基工人会试图冲破红绳或通过旧检修梯逃离。",
+      "signals": [
+        {
+          "condition": "world.memory_purge_halted == false",
+          "weight": 0.4
+        },
+        {
+          "condition": "tick >= 6",
+          "weight": 0.3
+        },
+        {
+          "condition": "stance.protect_witness_memory",
+          "weight": 0.3
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "workers_test_red_rope_checkpoint",
+          "probability": 0.55
+        },
+        {
+          "event_type": "lira_hides_near_transit_ladder",
+          "probability": 0.45
+        }
+      ],
+      "severity": 0.6,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "array_fault_worsens",
+      "type": "technical_pressure",
+      "description": "若镜阵故障没有被公开承认，十二号接点会继续偏斜，造成新的公开异常。",
+      "signals": [
+        {
+          "condition": "world.array_fault_disclosed == false",
+          "weight": 0.55
+        },
+        {
+          "condition": "tick >= 5",
+          "weight": 0.35
+        },
+        {
+          "condition": "recent_event_count >= 8",
+          "weight": 0.1
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "mirror_shadow_crosses_inquest_floor",
+          "probability": 0.5
+        },
+        {
+          "event_type": "control_room_mutes_bearing_alarm",
+          "probability": 0.5
+        }
+      ],
+      "severity": 0.7,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "archive_law_pressure",
+      "type": "legal_opportunity",
+      "description": "若玩家保护证人记忆，档案署旧章程会成为暂停清洗的可用法律缝隙。",
+      "signals": [
+        {
+          "condition": "stance.protect_witness_memory",
+          "weight": 0.45
+        },
+        {
+          "condition": "world.archive_injunction_filed == false",
+          "weight": 0.35
+        },
+        {
+          "condition": "tick >= 4",
+          "weight": 0.2
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "archivist_mentions_revocation_hearing",
+          "probability": 1.0
+        }
+      ],
+      "severity": 0.35,
+      "cooldown_ticks": 8
+    },
+    {
+      "driver_id": "truth_leak_reorders_city",
+      "type": "revelation",
+      "description": "镜阵故障被公开后，舆论焦点会从工人记忆转向镜务局预算欺瞒和兰房热能转移。",
+      "signals": [
+        {
+          "condition": "world.array_fault_disclosed == true",
+          "weight": 0.7
+        },
+        {
+          "condition": "world.witness_record_secured == true",
+          "weight": 0.3
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "gallery_demands_bearing_logs",
+          "probability": 0.55
+        },
+        {
+          "event_type": "orchid_house_denies_heat_diversion",
+          "probability": 0.45
+        }
+      ],
+      "severity": 0.6,
+      "cooldown_ticks": 7
+    },
+    {
+      "driver_id": "valley_heat_market_squeeze",
+      "type": "ambient_pressure",
+      "description": "镜阵不稳定和广播恐慌会推高低谷燃料和热筹价格。",
+      "signals": [
+        {
+          "condition": "entity_count >= 10",
+          "weight": 0.25
+        },
+        {
+          "condition": "recent_event_count >= 6",
+          "weight": 0.35
+        },
+        {
+          "condition": "tick >= 4",
+          "weight": 0.3
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "heat_tokens_jump_at_valley_platform",
+          "probability": 0.5
+        },
+        {
+          "event_type": "greenhouse_parents_demand_train_passes",
+          "probability": 0.5
+        }
+      ],
+      "severity": 0.55,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "injunction_consequence",
+      "type": "consequence",
+      "description": "档案署禁令提交后，记忆校准会暂停，但镜务局会转而施压档案署和审询员。",
+      "signals": [
+        {
+          "condition": "world.archive_injunction_filed == true",
+          "weight": 1.0
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "clinic_locks_white_bay_pending_review",
+          "probability": 0.55
+        },
+        {
+          "event_type": "directorate_questions_archivist_authority",
+          "probability": 0.45
+        }
+      ],
+      "severity": 0.45,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "secured_record_consequence",
+      "type": "consequence",
+      "description": "证词记录被保全后，安保队不能再简单带走莉拉，广播席也必须面对可核对证据。",
+      "signals": [
+        {
+          "condition": "world.witness_record_secured == true",
+          "weight": 1.0
+        }
+      ],
+      "possible_events": [
+        {
+          "event_type": "security_pauses_red_rope_transfer",
+          "probability": 0.5
+        },
+        {
+          "event_type": "broadcast_requests_counter_statement",
+          "probability": 0.5
+        }
+      ],
+      "severity": 0.45,
+      "cooldown_ticks": 6
+    }
+  ],
+  "world_state_vars": [
+    {
+      "var_id": "memory_purge_halted",
+      "label": "塔基证人的记忆清洗是否暂停",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": [
+        "memory_authority"
+      ],
+      "request_keywords": [
+        "暂停记忆清洗",
+        "停止校准流程",
+        "不要清洗证人记忆",
+        "延期校准",
+        "关闭白舱",
+        "停止擦除",
+        "暂停白舱接收",
+        "保留证人记忆"
+      ]
+    },
+    {
+      "var_id": "archive_injunction_filed",
+      "label": "档案署是否提交暂停清洗禁令",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": [
+        "archive_authority"
+      ],
+      "request_keywords": [
+        "提交禁令",
+        "启动旧章程",
+        "申请撤回听证",
+        "暂停流程见证",
+        "档案署禁令",
+        "援引旧章程",
+        "要求可撤回听证"
+      ]
+    },
+    {
+      "var_id": "witness_record_secured",
+      "label": "莉拉的事故证词是否被保全",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": [
+        "archive_authority",
+        "union_authority"
+      ],
+      "request_keywords": [
+        "保全证词",
+        "记录莉拉证词",
+        "保存事故证词",
+        "带证人走旧检修梯",
+        "保护莉拉",
+        "把证词交给档案署",
+        "封存证词"
+      ]
+    },
+    {
+      "var_id": "array_fault_disclosed",
+      "label": "十二号接点故障是否被公开承认",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": [
+        "mirror_authority"
+      ],
+      "request_keywords": [
+        "公开十二号接点故障",
+        "承认镜阵故障",
+        "公布冷却环裂缝",
+        "公开负载曲线",
+        "承认轴承开裂",
+        "说明事故真相",
+        "公布镜阵记录"
+      ]
+    },
+    {
+      "var_id": "cartography_copy_obtained",
+      "label": "玩家是否获得镜图副本",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": false,
+      "set_by": [
+        "mirror_cartography"
+      ],
+      "request_keywords": [
+        "交出镜图副本",
+        "给我方位图",
+        "让我查看未提交镜图",
+        "复制偏斜记录",
+        "提供十二号接点图",
+        "把镜图交给审询"
+      ]
+    },
+    {
+      "var_id": "valley_heat_passes_released",
+      "label": "低谷家庭是否获得临时热能和列车通行",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": [
+        "union_authority"
+      ],
+      "request_keywords": [
+        "发放热能通行证",
+        "释放低谷列车通行",
+        "给山谷家庭燃料",
+        "开放温棚优先权",
+        "调拨热筹",
+        "保障低谷家庭"
+      ]
+    },
+    {
+      "var_id": "broadcast_retraction_issued",
+      "label": "城市广播是否撤回破镜派宣传",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": [
+        "broadcast_authority"
+      ],
+      "request_keywords": [
+        "撤回破镜派说法",
+        "更正广播",
+        "停止污名化证人",
+        "公开反驳宣传",
+        "播出更正",
+        "停止叫我们破镜派"
+      ]
+    }
+  ],
+  "stance_topics": [
+    {
+      "topic_id": "protect_witness_memory",
+      "label": "保护塔基证人的记忆",
+      "keywords": [
+        "证人记忆",
+        "保留记忆",
+        "不要清洗",
+        "停止校准",
+        "暂停白舱",
+        "莉拉",
+        "事故证词",
+        "别擦除"
+      ]
+    },
+    {
+      "topic_id": "trust_directorate_order",
+      "label": "相信镜务局秩序优先",
+      "keywords": [
+        "相信镜务局",
+        "秩序优先",
+        "统一调度",
+        "清洗是治疗",
+        "不要扩散恐慌",
+        "先稳定镜阵"
+      ]
+    },
+    {
+      "topic_id": "expose_array_fault",
+      "label": "公开十二号接点故障",
+      "keywords": [
+        "十二号接点",
+        "冷却环",
+        "轴承",
+        "负载曲线",
+        "镜阵故障",
+        "公开故障",
+        "事故真相"
+      ]
+    },
+    {
+      "topic_id": "secure_worker_record",
+      "label": "保全工人证词链",
+      "keywords": [
+        "保全证词",
+        "记录莉拉",
+        "证据链",
+        "档案署",
+        "镜图副本",
+        "封存",
+        "见证"
+      ]
+    },
+    {
+      "topic_id": "protect_valley_families",
+      "label": "保障低谷家庭热能",
+      "keywords": [
+        "低谷",
+        "山谷家庭",
+        "热筹",
+        "温棚",
+        "列车通行",
+        "燃料",
+        "幼苗"
+      ]
+    },
+    {
+      "topic_id": "challenge_broadcast_propaganda",
+      "label": "挑战破镜派宣传",
+      "keywords": [
+        "破镜派",
+        "污名化",
+        "更正广播",
+        "广播宣传",
+        "城市广播",
+        "谣言",
+        "撤回说法"
+      ]
+    }
+  ],
+  "rule_presets": {
+    "difficulty": "investigative_tense",
+    "stealth_threshold_base": 0.55,
+    "combat_lethality": "non_lethal_default",
+    "social_consequence_weight": "high",
+    "memory_ethics": "explicit_consent_required"
+  }
+}

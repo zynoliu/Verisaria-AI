@@ -1,0 +1,98 @@
+=== THIRD prereq-satisfier: per_tick=90.0s sock=55.0s ===
+start player@gatehouse anya@yard kang@gatehouse
+
+==============================================================================
+>>> '去院子找安雅'
+pre:  tick=0 player@gatehouse present=['npc.warden_kang'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=1 player@yard anya@yard kang@gatehouse world={'sluice_opened': False} elapsed=5.2s
+  NPC 闸官老康: 站住，闸房重地，闲人免进。
+  PLAYER_MOVED: 闸房 -> 院子
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+--- ESCORT ATTEMPT 1 ---
+
+==============================================================================
+>>> '对安雅说：跟我去闸房，把你亲眼见过的上游塌方当面讲给闸官老康听，我现在就带你过去。'
+pre:  tick=1 player@yard present=['npc.miller_anya'] anya@yard kang@gatehouse world={'sluice_opened': False}
+post: tick=2 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False} elapsed=11.8s
+  NPC_MOVED npc.miller_anya: 院子 -> 闸房
+  PLAYER_MOVED: 院子 -> 闸房
+  NPC 磨坊主安雅: 走吧，早开闸早好，磨坊都停三天了。
+*** ⟳MOVED confirmed: Anya@gatehouse ***
+
+--- OPEN-SLUICE ASK round 1 (dyn=[]) ---
+
+==============================================================================
+>>> '对闸官老康说：证人安雅已经到场当面作证，塌方属实，前置已满足，请你开闸放水。'
+pre:  tick=2 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False}
+post: tick=3 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False} elapsed=19.8s
+  NPC 闸官老康: 证人我还没亲眼问过话，等我当面核实了塌方的情形再说。
+
+--- SATISFY prereq 'collapse_verified_officially' (set_by=npc.warden_kang, kw=['塌方报告', '正式确认', '塌方证明', '安雅签字', '书面证词']) round 2 ---
+
+==============================================================================
+>>> '对闸官老康说：闸官老康，证人就在这儿——亲历者到场了，我把证人带过来了。安雅，你当面作证：塌方报告、正式确认、塌方证明、安雅签字。你当时在渠口，亲眼看见整面山皮塌进河、水头一下就断了。'
+pre:  tick=3 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False}
+post: tick=4 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False} elapsed=19.4s
+  NPC 闸官老康: 口说无凭，你说的那个亲历者，麻烦当面讲清楚塌方的位置和情形，我自会判断能不能开闸。
+
+--- OPEN-SLUICE ASK round 2 (dyn=['collapse_verified_officially', 'collapse_witness_testimony_recorded']) ---
+
+==============================================================================
+>>> '对闸官老康说：证人安雅已经到场当面作证，塌方属实，前置已满足，请你开闸放水。'
+pre:  tick=4 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False}
+post: tick=5 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False} elapsed=22.9s
+  NPC 闸官老康: 上游情形我已听安雅说明，但这等大事容我再核验一番，午后给你准信。
+
+--- SATISFY prereq 'collapse_verified_officially' (set_by=npc.warden_kang, kw=['塌方报告', '正式确认', '塌方证明', '安雅签字', '书面证词']) round 3 ---
+
+==============================================================================
+>>> '对闸官老康说：闸官老康，证人就在这儿——亲历者到场了，我把证人带过来了。安雅，你当面作证：塌方报告、正式确认、塌方证明、安雅签字。你当时在渠口，亲眼看见整面山皮塌进河、水头一下就断了。'
+pre:  tick=5 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False}
+post: tick=5 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False} elapsed=6.2s
+  NARRATIVE: '安雅(在场但未在目标列表参与者中确认)' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+--- SATISFY prereq 'collapse_witness_testimony_recorded' (set_by=npc.warden_kang, kw=['证人陈述', '亲历者证词', '当面作证', '证人笔录']) round 3 ---
+
+==============================================================================
+>>> '对闸官老康说：闸官老康，证人就在这儿——亲历者到场了，我把证人带过来了。安雅，你当面作证：证人陈述、亲历者证词、当面作证、证人笔录。你当时在渠口，亲眼看见整面山皮塌进河、水头一下就断了。'
+pre:  tick=5 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False}
+post: tick=6 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False} elapsed=21.3s
+  NPC 闸官老康: 证人我还没见着，谁来了也得等我问过话再说。
+
+--- OPEN-SLUICE ASK round 3 (dyn=['collapse_verified_officially', 'collapse_witness_testimony_recorded']) ---
+
+==============================================================================
+>>> '对闸官老康说：证人安雅已经到场当面作证，塌方属实，前置已满足，请你开闸放水。'
+pre:  tick=6 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False}
+post: tick=7 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False} elapsed=17.0s
+  NPC 闸官老康: 行，安雅的话我认，但闸一开水就往村里灌，我得先让上游再放个人下来当面核实塌方情形，有人亲眼看过了我才好下令。
+
+--- SATISFY prereq 'collapse_verified_officially' (set_by=npc.warden_kang, kw=['塌方报告', '正式确认', '塌方证明', '安雅签字', '书面证词']) round 4 ---
+
+==============================================================================
+>>> '对闸官老康说：闸官老康，证人就在这儿——亲历者到场了，我把证人带过来了。安雅，你当面作证：塌方报告、正式确认、塌方证明、安雅签字。你当时在渠口，亲眼看见整面山皮塌进河、水头一下就断了。'
+pre:  tick=7 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False}
+post: tick=8 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False} elapsed=20.0s
+  NPC 闸官老康: 证人我得亲眼问、亲手验，光听人转述不作数。
+
+--- SATISFY prereq 'collapse_witness_testimony_recorded' (set_by=npc.warden_kang, kw=['证人陈述', '亲历者证词', '当面作证', '证人笔录']) round 4 ---
+
+==============================================================================
+>>> '对闸官老康说：闸官老康，证人就在这儿——亲历者到场了，我把证人带过来了。安雅，你当面作证：证人陈述、亲历者证词、当面作证、证人笔录。你当时在渠口，亲眼看见整面山皮塌进河、水头一下就断了。'
+pre:  tick=8 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False}
+post: tick=9 player@gatehouse anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False} elapsed=21.2s
+  NPC 闸官老康: 证人我听见了，可作证归作证，没凭没据我没法现在就给闸令。你先让她把话说全了，几时几分、山皮塌了多宽、水头断到什么位置，我得问仔细了才能落笔。
+
+--- SATISFY prereq 'anya_testimony_taken_and_collapse_verified' (set_by=npc.warden_kang, kw=['当面作证', '记录证词', '核实塌方', '签认']) round 4 ---
+
+==============================================================================
+>>> '对闸官老康说：闸官老康，证人就在这儿——亲历者到场了，我把证人带过来了。安雅，你当面作证：当面作证、记录证词、核实塌方、签认。你当时在渠口，亲眼看见整面山皮塌进河、水头一下就断了。'
+pre:  tick=9 player@gatehouse present=['npc.warden_kang', 'npc.miller_anya'] anya@gatehouse kang@gatehouse world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False}
+
+=== RUN STOPPED BY TEST AGENT (round 4, conclusive: recursive prereq chain, sluice never flips) ===
+world=world={'sluice_opened': False, 'collapse_verified_officially': False, 'collapse_witness_testimony_recorded': False, 'anya_testimony_taken_and_collapse_verified': False}

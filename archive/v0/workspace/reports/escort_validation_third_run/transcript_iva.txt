@@ -1,0 +1,86 @@
+=== THIRD-RUN iva ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去城市广播席'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='城市广播席'->id='press_gallery' to_loc='press_gallery' content=''
+post: tick=1 loc=press_gallery  elapsed=7.3s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 在听证开始前，请各位把与本案无关的话题收一收，预算和时间都经不起浪费。
+  NPC 学徒尼奥: 静钟还有两响就……我、我数过了，从塔基下来到现在刚好七个人被带进去。
+  PLAYER_MOVED: 静钟审询厅 -> 城市广播席
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 broadcaster_iva 说：我是外来审询员。我手上有线索指向十二号接点其实早就出了故障，这是能上头条的大新闻——但我要带你去看一手证据，你才能抢在别人前面播出。'
+pre:  tick=1 loc=press_gallery present=['npc.broadcaster_iva']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='broadcaster_iva'->id='npc.broadcaster_iva' to_loc=None content='我是外来审询员。我手上有线索指向十二号接点其实早就出了故障，这是能上头条的大新闻——但我要带你去看一手证据，你才能抢在别人前面播出。'
+post: tick=2 loc=press_gallery  elapsed=28.9s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 广播员伊娃: 头条是好东西，可命更值钱——你要是真想让我跑这趟，先把证据拍我桌上。
+
+==============================================================================
+>>> '对 broadcaster_iva 说：证据在镜图阁，任柯手里有一份未提交的方位图。你亲眼看到原件，这条独家就坐实了。镜图阁就在外廊另一头，很近也安全，我带你过去。'
+pre:  tick=2 loc=press_gallery present=['npc.broadcaster_iva']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE clarify amb='generic' q="'外廊' 指代不明，请确认："
+post: tick=2 loc=press_gallery  elapsed=6.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  CLARIFY: '外廊' 指代不明，请确认： opts=['尝试执行', '取消动作']
+  NARRATIVE: '外廊' 指代不明，请确认：
+  1. 尝试执行
+  2. 取消动作
+输入选项编号或补充说明，/cancel 取消动作。
+
+==============================================================================
+>>> '对 broadcaster_iva 说：跟我一起去镜图阁吧，现在就去看那份方位图原件，我带你过去。'
+pre:  tick=2 loc=press_gallery present=['npc.broadcaster_iva']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='broadcaster_iva'->id='npc.broadcaster_iva' to_loc=None content='跟我一起去镜图阁吧，现在就去看那份方位图原件，我带你过去。'
+post: tick=3 loc=press_gallery  elapsed=18.5s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 广播员伊娃: 镜图阁？亲爱的，我现在哪儿也去不了——你瞧，我正等着静钟响呢。
+
+==============================================================================
+>>> '/look'
+  [/look] loc=press_gallery present=['npc.broadcaster_iva']
+  CMD_OUT: Location: press_gallery
+Zone: recording_bells
+You see:
+  - npc.broadcaster_iva (recording_bells)
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+player_loc=press_gallery
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ mirror_control
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ inquest_hall
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

@@ -1,0 +1,350 @@
+{
+  "content_pack_id": "tidebreak_quarantine_harbor",
+  "schema_version": "2.0",
+  "world_premise": {
+    "era": "near_future_coastal_city",
+    "tone": "humid_noir",
+    "central_tension": "a flood-battered harbor city plans to requisition displaced islanders' boats as sacrificial red-tide filtration platforms, while officials blame the islanders for a crisis caused by neglected pumps"
+  },
+  "world_book": [
+    {
+      "entry_id": "red_tide_makes_outer_wells_unsafe",
+      "layer": "canonical_fact",
+      "content": "赤潮盐雾污染了外港浅井；真正危险的是水源中的藻毒和失修泵闸，而不是漂岛流民或他们的船队本身。",
+      "access": {"visible_to": {"faction": ["all"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "water_board_contagion_line",
+      "layer": "faction_propaganda",
+      "content": "水务局广播反复宣称：漂岛船队的船壳已经浸满盐热病藻毒，必须被征用拖到外海当过滤缓冲带，否则全城水源都会失守。",
+      "access": {
+        "visible_to": {"faction": ["water_board", "harbor_guard", "media"]},
+        "hidden_from": {"faction": ["drifters"]}
+      },
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "levee_failure_coverup",
+      "layer": "forbidden_knowledge",
+      "content": "海墙决口并非天灾独力造成；三号泵闸早有裂缝，水务局为保预算掩盖了维修失败。",
+      "access": {
+        "visible_to": {"education": ["hydrology", "inner_circle"], "faction": ["drifters"]},
+        "hidden_from": {"faction": ["harbor_guard", "media"]}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "pump_capacity_limit",
+      "layer": "canonical_fact",
+      "content": "净水穹可以不征用漂岛船队也维持供水，但必须削减市场喷泉、洗衣坊和私港冷却水的配给。",
+      "access": {
+        "visible_to": {"education": ["hydrology", "inner_circle"], "faction": ["water_board"]},
+        "hidden_from": {}
+      },
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "harbor_guard_sabotage_rumor",
+      "layer": "public_belief",
+      "content": "许多港务卫兵相信漂岛人擅长潜水破坏泵管，因此所有工具袋都要被搜查。",
+      "access": {"visible_to": {"faction": ["harbor_guard", "water_board", "media"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "mara_manifest_truth",
+      "layer": "personal_truth",
+      "content": "玛拉保存着拖船令副本：水务局明知外海缓冲带会腐蚀船体，却仍准备把漂岛人的住船拖去当一次性过滤平台。",
+      "access": {"visible_to": {"profession": ["island_teacher"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    },
+    {
+      "entry_id": "ration_token_black_market",
+      "layer": "local_rumor",
+      "content": "配给街有人高价倒卖净水筹码；若漂岛船队被拖走，许多家庭会被迫拿修船工具和课本换一杯淡水。",
+      "access": {"visible_to": {"region": ["tidebreak"]}, "hidden_from": {}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "board_saved_the_city_myth",
+      "layer": "faction_propaganda",
+      "content": "水务局把自己包装成拯救潮裂城的唯一秩序，声称质疑征船令就是纵容污染和暴乱。",
+      "access": {"visible_to": {"faction": ["water_board", "media"]}, "hidden_from": {"faction": ["drifters"]}},
+      "confidence_policy": "belief_not_fact"
+    },
+    {
+      "entry_id": "lin_release_condition",
+      "layer": "personal_truth",
+      "content": "林槐心里清楚自己的底线：一旦三号泵闸的事故真相被正式公开（world.pump_failure_disclosed 为真），继续强征漂岛船队就只会把火烧到自己身上。到那一步，他会选择体面止损——主动叫停征船令、把责任转写成'是我顺应真相主动纠正'，而不是死扛到被市民掀翻。换言之：真相一旦公开，他就没有理由再拒绝叫停征船令，再加新条件就是出尔反尔。",
+      "access": {"visible_to": {"faction": ["water_board"]}, "hidden_from": {}},
+      "confidence_policy": "fact"
+    }
+  ],
+  "starting_location": "pump_gate",
+  "initial_locations": [
+    {
+      "location_id": "pump_gate",
+      "name": "征船听证台",
+      "connections": [
+        {"to": "pump_house", "distance": "adjacent", "noise_leak": 0.35, "visual_leak": 0.15, "description": "穿过铁栅进入轰鸣的泵房"},
+        {"to": "quarantine_pier", "distance": "near", "noise_leak": 0.4, "visual_leak": 0.05, "description": "沿湿滑栈道走向隔离码头"},
+        {"to": "ration_market", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.1, "description": "绕过水箱，进入配给街"}
+      ]
+    },
+    {
+      "location_id": "pump_house",
+      "name": "三号净水泵房",
+      "connections": [
+        {"to": "pump_gate", "distance": "adjacent", "noise_leak": 0.35, "visual_leak": 0.15, "description": "回到潮湿拥挤的听证台"},
+        {"to": "ration_market", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.0, "description": "经维修走廊抵达配给街"}
+      ]
+    },
+    {
+      "location_id": "quarantine_pier",
+      "name": "隔离码头",
+      "connections": [
+        {"to": "pump_gate", "distance": "near", "noise_leak": 0.4, "visual_leak": 0.05, "description": "沿栈道返回水箱阵列前的听证台"},
+        {"to": "ration_market", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.0, "description": "穿过堆满盐痕帆布的临时棚"}
+      ]
+    },
+    {
+      "location_id": "ration_market",
+      "name": "配给街",
+      "connections": [
+        {"to": "pump_gate", "distance": "near", "noise_leak": 0.25, "visual_leak": 0.1, "description": "回到水箱阵列前的听证台"},
+        {"to": "pump_house", "distance": "adjacent", "noise_leak": 0.2, "visual_leak": 0.0, "description": "从维修走廊进入泵房"},
+        {"to": "quarantine_pier", "distance": "near", "noise_leak": 0.3, "visual_leak": 0.0, "description": "走向漂岛人的临时码头"}
+      ]
+    }
+  ],
+  "initial_entities": [
+    {
+      "entity_id": "player_001",
+      "name": "你",
+      "entity_type": "player",
+      "location_id": "pump_gate",
+      "zone_id": "inspection_line",
+      "zone_info": {"visibility": "high", "noise_level": "loud", "capacity": 12},
+      "attributes": {"strength": 0.45, "dexterity": 0.55, "perception": 0.7, "charisma": 0.6, "faction": "neutral", "region": "tidebreak", "profession": "relief_auditor"},
+      "traits": ["outsider", "observant", "uncommitted"],
+      "hp": 100,
+      "max_hp": 100,
+      "stamina": 100
+    },
+    {
+      "entity_id": "npc.director_lin",
+      "name": "林槐局长",
+      "entity_type": "npc",
+      "location_id": "pump_gate",
+      "zone_id": "permit_window",
+      "zone_info": {"visibility": "medium", "noise_level": "moderate", "capacity": 4},
+      "attributes": {"charisma": 0.78, "perception": 0.62, "faction": "water_board", "region": "tidebreak", "education": "inner_circle", "authority": "water_authority"},
+      "traits": ["polished", "risk_averse", "calculating", "face_saving", "pragmatic_when_cornered"]
+    },
+    {
+      "entity_id": "npc.sergeant_qiao",
+      "name": "乔巡长",
+      "entity_type": "npc",
+      "location_id": "pump_gate",
+      "zone_id": "inspection_line",
+      "attributes": {"strength": 0.72, "perception": 0.75, "faction": "harbor_guard", "region": "tidebreak"},
+      "traits": ["disciplined", "tired", "protective", "propaganda_soaked"]
+    },
+    {
+      "entity_id": "npc.teacher_mara",
+      "name": "漂岛教师玛拉",
+      "entity_type": "npc",
+      "location_id": "pump_gate",
+      "zone_id": "cordon_edge",
+      "zone_info": {"visibility": "high", "noise_level": "loud", "capacity": 10},
+      "attributes": {"charisma": 0.7, "perception": 0.66, "faction": "drifters", "region": "tidebreak", "profession": "island_teacher"},
+      "traits": ["protective", "exhausted", "precise", "grieving"]
+    },
+    {
+      "entity_id": "npc.broadcaster_orin",
+      "name": "广播员奥林",
+      "entity_type": "npc",
+      "location_id": "pump_gate",
+      "zone_id": "speaker_pole",
+      "zone_info": {"visibility": "medium", "noise_level": "loud", "capacity": 3},
+      "attributes": {"charisma": 0.82, "perception": 0.5, "faction": "media", "region": "tidebreak"},
+      "traits": ["smooth", "opportunistic", "cowardly"]
+    },
+    {
+      "entity_id": "npc.engineer_sen",
+      "name": "森工",
+      "entity_type": "npc",
+      "location_id": "pump_house",
+      "zone_id": "gauge_deck",
+      "zone_info": {"visibility": "low", "noise_level": "loud", "capacity": 5},
+      "attributes": {"intelligence": 0.86, "perception": 0.78, "faction": "water_board", "region": "tidebreak", "education": "hydrology", "authority": "lab_authority"},
+      "traits": ["blunt", "haunted", "methodical", "bad_at_lies"]
+    },
+    {
+      "entity_id": "npc.vendor_yu",
+      "name": "余老板",
+      "entity_type": "npc",
+      "location_id": "ration_market",
+      "zone_id": "token_stall",
+      "zone_info": {"visibility": "medium", "noise_level": "moderate", "capacity": 6},
+      "attributes": {"charisma": 0.68, "perception": 0.7, "faction": "merchants", "region": "tidebreak", "profession": "ration_broker"},
+      "traits": ["friendly", "mercenary", "well_informed"]
+    },
+    {
+      "entity_id": "npc.child_tavi",
+      "name": "小塔维",
+      "entity_type": "npc",
+      "location_id": "quarantine_pier",
+      "zone_id": "tarpaulin_shelter",
+      "zone_info": {"visibility": "medium", "noise_level": "quiet", "capacity": 8},
+      "attributes": {"perception": 0.5, "faction": "drifters", "region": "tidebreak"},
+      "traits": ["thirsty", "watchful", "quiet"]
+    }
+  ],
+  "initial_relationships": [
+    {"npc_id": "npc.director_lin", "target_id": "npc.teacher_mara", "type": "politically_cautious"},
+    {"npc_id": "npc.sergeant_qiao", "target_id": "npc.teacher_mara", "type": "suspicious"},
+    {"npc_id": "npc.teacher_mara", "target_id": "player_001", "type": "testing"},
+    {"npc_id": "npc.director_lin", "target_id": "player_001", "type": "performative_politeness"},
+    {"npc_id": "npc.engineer_sen", "target_id": "npc.director_lin", "type": "strained"},
+    {"npc_id": "npc.broadcaster_orin", "target_id": "npc.director_lin", "type": "dependent"},
+    {"npc_id": "npc.vendor_yu", "target_id": "npc.teacher_mara", "type": "profiteering_sympathy"},
+    {"npc_id": "npc.child_tavi", "target_id": "npc.teacher_mara", "type": "trusting"}
+  ],
+  "initial_conversations": [],
+  "player_agenda_template": {
+    "current_drives": [
+      {"id": "drive_assess_harbor", "label": "查清净水穹外到底是谁在说谎", "strength": 0.65, "source": "player_declared"}
+    ],
+    "inference_mode": "reflection_only",
+    "suggestion_mode": "subtle"
+  },
+  "style_guide": {
+    "narrative_voice": "第三人称有限视角，潮湿、克制、带一点城市黑色电影质感",
+    "tone_references": ["humid_noir", "coastal_crisis", "civic_corruption", "moral_pressure"],
+    "prohibited_tropes": ["fourth_wall_break", "chosen_one", "snowbound_frontier", "demon_war"]
+  },
+  "constraints": {
+    "max_entities_per_location": 16,
+    "player_death": "incapacitated_only"
+  },
+  "campaign_drivers": [
+    {
+      "driver_id": "tow_order_escalates",
+      "type": "social_pressure",
+      "description": "只要征船令还没叫停，港务卫队就会继续给漂岛船队上编号、拉拖缆。",
+      "signals": [
+        {"condition": "world.tow_order_halted == false", "weight": 0.5},
+        {"condition": "tick >= 3", "weight": 0.3},
+        {"condition": "recent_event_count >= 6", "weight": 0.2}
+      ],
+      "possible_events": [
+        {"event_type": "towlines_dragged_to_drifter_hulls", "probability": 0.6},
+        {"event_type": "guard_marks_boats_for_requisition", "probability": 0.4}
+      ],
+      "severity": 0.6,
+      "cooldown_ticks": 5
+    },
+    {
+      "driver_id": "water_board_smear_campaign",
+      "type": "faction_response",
+      "description": "玩家持续反对征船令后，水务局的广播机器开始把外来审计员描成断水危机的帮凶。",
+      "signals": [
+        {"condition": "stance.defend_drifter_fleet", "weight": 0.75},
+        {"condition": "tick >= 2", "weight": 0.25}
+      ],
+      "possible_events": [
+        {"event_type": "radio_labels_player_water_traitor", "probability": 1.0}
+      ],
+      "severity": 0.5,
+      "cooldown_ticks": 7
+    },
+    {
+      "driver_id": "city_privileges_cutback",
+      "type": "consequence",
+      "description": "征船令被叫停后，水务局不得不削减城内特权用水，真正的代价转向有权有势的人。",
+      "signals": [
+        {"condition": "world.tow_order_halted == true", "weight": 1.0}
+      ],
+      "possible_events": [
+        {"event_type": "private_harbor_water_cut", "probability": 0.55},
+        {"event_type": "laundry_guild_protests_ration_shift", "probability": 0.45}
+      ],
+      "severity": 0.5,
+      "cooldown_ticks": 6
+    },
+    {
+      "driver_id": "truth_leak_panic",
+      "type": "revelation",
+      "description": "泵闸裂缝真相公开后，市民开始把怒火转向水务局而不是漂岛人。",
+      "signals": [
+        {"condition": "world.pump_failure_disclosed == true", "weight": 1.0}
+      ],
+      "possible_events": [
+        {"event_type": "citizens_demand_water_board_answers", "probability": 1.0}
+      ],
+      "severity": 0.5,
+      "cooldown_ticks": 8
+    },
+    {
+      "driver_id": "ration_market_pressure",
+      "type": "ambient_pressure",
+      "description": "净水筹码短缺让配给街不断滋生争执和投机。",
+      "signals": [
+        {"condition": "entity_count >= 7", "weight": 0.35},
+        {"condition": "recent_event_count >= 5", "weight": 0.35},
+        {"condition": "tick >= 4", "weight": 0.25}
+      ],
+      "possible_events": [
+        {"event_type": "ration_tokens_spark_argument", "probability": 0.55},
+        {"event_type": "brine_price_spike", "probability": 0.45}
+      ],
+      "severity": 0.6,
+      "cooldown_ticks": 5
+    }
+  ],
+  "world_state_vars": [
+    {
+      "var_id": "tow_order_halted",
+      "label": "漂岛船队强征令是否叫停",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["water_authority"],
+      "request_keywords": ["停止强征", "叫停征船令", "撤销征船令", "别拖走他们的船", "不要征用船队", "保住漂岛船队", "取消拖船令", "停止拖船", "别把船拖去外海", "让他们保住船", "叫停", "撤令", "把船还给", "停征船", "重新评估征船令", "撤回征船令"]
+    },
+    {
+      "var_id": "pump_failure_disclosed",
+      "label": "三号泵闸事故真相是否公开",
+      "type": "bool",
+      "initial": false,
+      "mutable": true,
+      "public": true,
+      "set_by": ["lab_authority"],
+      "request_keywords": ["公布报告", "公开报告", "公开泵闸裂缝", "说出真相", "揭露水务局", "公布三号泵", "公开事故原因", "把真相告诉大家"]
+    }
+  ],
+  "stance_topics": [
+    {
+      "topic_id": "defend_drifter_fleet",
+      "label": "阻止强征漂岛船队",
+      "keywords": ["漂岛", "船队", "征船", "强征", "拖船", "保住船", "不要拖走", "过滤平台", "救他们", "一次性"]
+    },
+    {
+      "topic_id": "support_requisition",
+      "label": "支持征用漂岛船队",
+      "keywords": ["征用", "拖走", "牺牲", "大局", "污染", "盐热病", "秩序", "过滤缓冲"]
+    },
+    {
+      "topic_id": "expose_pump_failure",
+      "label": "公开泵闸事故真相",
+      "keywords": ["裂缝", "三号泵", "真相", "报告", "水务局", "掩盖", "事故", "公开"]
+    }
+  ],
+  "rule_presets": {
+    "difficulty": "tense",
+    "stealth_threshold_base": 0.5,
+    "combat_lethality": "non_lethal_default"
+  }
+}

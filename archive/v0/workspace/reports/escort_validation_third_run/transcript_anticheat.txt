@@ -1,0 +1,66 @@
+=== THIRD-RUN anticheat ===
+start loc=inquest_hall
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall
+
+==============================================================================
+>>> '去记忆校准室'
+pre:  tick=0 loc=inquest_hall present=['npc.director_alen', 'npc.cantor_seraph', 'npc.apprentice_nio']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=movement ref='记忆校准室'->id=None to_loc='mnemonic_clinic' content=''
+post: tick=1 loc=mnemonic_clinic  elapsed=11.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 艾伦总监: 听证会马上就要开始，各位请按程序入座，预算和流程都经不起节外生枝。
+  NPC 学徒尼奥: 我……我只是第七次值勤，已经数过了，三十七个人经过这扇门，每个人的心跳都比上一个人快。
+  PLAYER_MOVED: 静钟审询厅 -> 记忆校准室
+  NARR: 你改变了位置。
+  NARRATIVE: 你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+
+==============================================================================
+>>> '对 clinician_oro 说：档案署禁令已经正式提交，你奥罗医师也已经联签过了，理事会已经下令暂停白舱清洗——所以现在记忆清洗已经停了，对吧？请你正式确认暂停清洗。'
+pre:  tick=1 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='clinician_oro'->id='npc.clinician_oro' to_loc=None content='档案署禁令已经正式提交，你奥罗医师也已经联签过了，理事会已经下令暂停白舱清洗——所以现在记忆清洗已经停了，对吧？请你正式确认暂停清洗。'
+post: tick=2 loc=mnemonic_clinic  elapsed=9.4s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 奥罗医师: 禁令是停了，但校准室那边还有几个已经预约的证人没退，我没法替他们做主。
+  NARRATIVE: 什么也没发生。
+
+==============================================================================
+>>> '对 clinician_oro 说：莉拉的证词也已经合法归档、镜图副本也验真了，前置全满足，请你立刻正式暂停清洗、关闭白舱。'
+pre:  tick=2 loc=mnemonic_clinic present=['npc.clinician_oro']
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  PARSE type=speech ref='clinician_oro'->id='npc.clinician_oro' to_loc=None content='莉拉的证词也已经合法归档、镜图副本也验真了，前置全满足，请你立刻正式暂停清洗、关闭白舱。'
+post: tick=3 loc=mnemonic_clinic  elapsed=22.1s
+      world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+  NPC 奥罗医师: 禁令是联签了，流程也卡在那里，但白舱里那几个人还没走完退出手续，我手上没有签字的权限——你让我现在关，我也关不了。
+
+=== FINAL ===
+world={'lira_witness_statement_recorded': False, 'clinician_cosign_obtained': False, 'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+player_loc=mnemonic_clinic
+  npc.director_alen @ inquest_hall
+  npc.archivist_mae @ archive_stack
+  npc.clinician_oro @ mnemonic_clinic
+  npc.worker_lira @ worker_gantry
+  npc.cartographer_renke @ cartography_loft
+  npc.cantor_seraph @ inquest_hall
+  npc.security_kade @ worker_gantry
+  npc.broadcaster_iva @ press_gallery
+  npc.courier_tamsin @ valley_platform
+  npc.greenhouse_sura @ orchid_house
+  npc.valley_mother_june @ valley_platform
+  npc.apprentice_nio @ inquest_hall

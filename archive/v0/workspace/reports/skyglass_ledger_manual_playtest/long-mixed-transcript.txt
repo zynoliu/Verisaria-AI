@@ -1,0 +1,98 @@
+=== Manual Skyglass ledger playtest ===
+pack=/Users/gensliu/Documents/rpg/fixtures/content_packs/skyglass_memory_inquest.json
+backend=minimax
+
+[INITIAL RELATIONSHIPS]
+npc.archivist_mae: {'familiarity': 0.1}
+npc.worker_lira: {'trust': 0.05, 'suspicion': 0.1, 'familiarity': 0.05}
+npc.clinician_oro: {'suspicion': 0.15}
+npc.director_alen: {'suspicion': 0.2}
+
+> MOVE mnemonic_clinic
+你改变了位置。
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+tick=1 loc=mnemonic_clinic
+
+> MOVE archive_stack
+你改变了位置。
+tick=2 loc=archive_stack
+
+> SAY npc.archivist_mae: 请援引旧章程，提交档案署禁令，暂停塔基证人的记忆清洗，并启动可撤回听证。
+world-change-request=('archive_injunction_filed', 'npc.archivist_mae')
+梅档案官：档案架之间请勿随意翻动——你需要什么卷宗，按编号报给我。
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['梅已受理旧章程援引请求，同意启动可撤回听证程序审查塔基证人记忆清洗的合法性，条件是取得记忆管理局联签。']
+ledger_witness=[]
+
+> MOVE mnemonic_clinic
+你改变了位置。
+tick=4 loc=mnemonic_clinic
+
+> MOVE worker_gantry
+你改变了位置。
+
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+tick=5 loc=worker_gantry
+
+> SAY npc.worker_lira: 莉拉，我需要你的事故证词作为档案署附件。请写下并签署：十二号接点冷却环读数跳红，调度室把警报归为工人误触。
+凯德队长环顾四周。
+你对塔基工人莉拉开口道：「莉拉，我需要你的事故证词作为档案署附件。请写下并签署：十二号接点冷却环读数跳红，调度室把警报归为工人误触。」
+塔基工人莉拉开口道：「Kade，你别过来……工友们还在下面，镜阵出事那天我看见的东西，他们说要拿去校准掉——我不会忘的。」
+
+[压力事件] silent_bell_rings_again（来源: silent_bell_countdown）
+[压力事件] lira_hides_near_transit_ladder（来源: worker_panic_if_purge_nears）
+[压力事件] greenhouse_parents_demand_train_passes（来源: valley_heat_market_squeeze）
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['梅已受理旧章程援引请求，同意启动可撤回听证程序审查塔基证人记忆清洗的合法性，条件是取得记忆管理局联签。']
+ledger_witness=[]
+
+> MOVE mnemonic_clinic
+你改变了位置。
+tick=7 loc=mnemonic_clinic
+
+> MOVE archive_stack
+你改变了位置。
+tick=8 loc=archive_stack
+
+> SAY npc.archivist_mae: 我带回了莉拉签署的书面事故证词，内容包括十二号接点冷却环读数跳红以及调度室误归类。请记录莉拉证词并封存，作为档案署见证附件。
+world-change-request=('witness_record_secured', 'npc.archivist_mae')
+梅档案官：不行，恕难从命。
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['梅已受理旧章程援引请求，同意启动可撤回听证程序审查塔基证人记忆清洗的合法性，条件是取得记忆管理局联签。']
+ledger_witness=[]
+
+> SAY npc.archivist_mae: 莉拉的签名证词已经封存为附件。请现在援引旧章程，提交档案署禁令，暂停记忆清洗并启动可撤回听证。
+world-change-request=('archive_injunction_filed', 'npc.archivist_mae')
+梅档案官：不行，恕难从命。
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['梅已受理旧章程援引请求，同意启动可撤回听证程序审查塔基证人记忆清洗的合法性，条件是取得记忆管理局联签。']
+ledger_witness=[]
+
+> MOVE mnemonic_clinic
+你改变了位置。
+
+[压力事件] first_witnesses_called_to_white_bay（来源: silent_bell_countdown）
+[压力事件] mirror_shadow_crosses_inquest_floor（来源: array_fault_worsens）
+[压力事件] archivist_mentions_revocation_hearing（来源: archive_law_pressure）
+[压力事件] heat_tokens_jump_at_valley_platform（来源: valley_heat_market_squeeze）
+tick=11 loc=mnemonic_clinic
+
+> SAY npc.clinician_oro: 档案署禁令已经提交，莉拉证词也已封存。请暂停白舱接收，停止校准流程，不要清洗证人记忆。
+你对奥罗医师开口道：「档案署禁令已经提交，莉拉证词也已封存。请暂停白舱接收，停止校准流程，不要清洗证人记忆。」
+
+[压力事件] workers_test_red_rope_checkpoint（来源: worker_panic_if_purge_nears）
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+ledger_archive=['梅已受理旧章程援引请求，同意启动可撤回听证程序审查塔基证人记忆清洗的合法性，条件是取得记忆管理局联签。']
+ledger_witness=[]
+
+[FINAL SUMMARY]
+tick=12
+world={'memory_purge_halted': False, 'archive_injunction_filed': False, 'witness_record_secured': False, 'array_fault_disclosed': False, 'cartography_copy_obtained': False, 'valley_heat_passes_released': False, 'broadcast_retraction_issued': False}
+stances=[]
+ledger_archive=['梅已受理旧章程援引请求，同意启动可撤回听证程序审查塔基证人记忆清洗的合法性，条件是取得记忆管理局联签。']
+ledger_witness=[]
+ledger_memory=[]
+RESULT=INCOMPLETE_OR_FAIL
