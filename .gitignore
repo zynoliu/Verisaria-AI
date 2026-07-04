@@ -21,6 +21,10 @@ venv/
 .vscode/
 .claude/
 
+# Agent / orchestration local state (never tracked)
+.omo/
+.opencode/
+
 # Runtime / save artifacts (engine writes these on play/replay)
 saves/
 _replay_saves/

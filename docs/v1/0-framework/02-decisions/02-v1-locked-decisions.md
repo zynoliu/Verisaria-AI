@@ -37,7 +37,7 @@
 
 6. 与 LLM 内容生成形成**强绑定**（见下节）。
 
-**来源**：`docs/v1/10-l4/01-content-quality-indicators.md`
+**来源**：`docs/v1/1-discussion/l4/01-content-quality-indicators.md`
 
 ---
 
@@ -64,7 +64,7 @@
 
 7. 作者**不能关闭** Must 指标的自动修复，但可选择“仅报告模式”。
 
-**来源**：`docs/v1/10-l4/02-llm-content-orchestration-guidelines.md`
+**来源**：`docs/v1/1-discussion/l4/02-llm-content-orchestration-guidelines.md`
 
 ---
 
@@ -91,7 +91,7 @@
 
 4. 向后兼容策略：保留现有门面方法，外部调用方影响最小。
 
-**来源**：`docs/v1/20-l3/01-gamesession-seam-design.md`
+**来源**：`docs/v1/1-discussion/l3/01-gamesession-seam-design.md`
 
 ---
 
@@ -118,7 +118,7 @@
    - 新能力通过次版本或独立命名空间引入
    - 现有前端无需修改
 
-**来源**：`docs/v1/20-l3/02-protocol-evolution-guidelines.md`
+**来源**：`docs/v1/1-discussion/l3/02-protocol-evolution-guidelines.md`
 
 ---
 
